@@ -999,9 +999,15 @@ def cli():
     except ImportError:
         pass
 
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2 or sys.argv[1] in ("--help", "-h"):
         print("🦁 Samson Vision Pack CLI")
-        print("Uso: python3 samson_vision.py <imagen> [--json|--md] [--prompt <texto>]")
+        print("Uso: samson-vision <imagen> [--json|--md] [--prompt <texto>]")
+        print("")
+        print("Ejemplos:")
+        print("  samson-vision imagen.png --md        # SVP en Markdown")
+        print("  samson-vision imagen.png --json      # SVP en JSON")
+        print("  samson-vision imagen.png --md 2>/dev/null  # Sin versículo")
+        print("  samson-vision imagen.png --md > svp.md     # Guardar a archivo")
         return
 
     path = sys.argv[1]

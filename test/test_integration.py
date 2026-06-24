@@ -223,17 +223,25 @@ def test_cli():
     print("\n💻 4. CLI")
     ok = True
 
-    # samson-vision command
+    # samson-vision --help
     try:
         r = subprocess.run(
-            ["samson-vision", "--help"] if False else ["samson-vision"],
+            ["samson-vision", "--help"],
             capture_output=True, text=True, timeout=10,
             env={**os.environ, "PYTHONPATH": str(PROJECT / "src")},
         )
-        ok &= test("samson-vision --help", True, r.stdout[:80].strip())
+        has_help = "Uso:" in r.stdout and "Ejemplos" in r.stdout
+        ok &= test("samson-vision --help",
+                   has_help and r.returncode == 0, r.stdout[:80].strip())
     except FileNotFoundError:
-        ok &= test("samson-vision command not found",
-                   False, "pip install -e . no ejecutado")
+        # Fallback si el comando global no existe
+        r = subprocess.run(
+            [sys.executable, str(PROJECT / "src/samson_vision.py"), "--help"],
+            capture_output=True, text=True, timeout=10,
+            env={**os.environ, "PYTHONPATH": str(PROJECT / "src")},
+        )
+        has_help = "Uso:" in r.stdout
+        ok &= test("samson-vision --help (python)", has_help and r.returncode == 0, "")
 
     # python3 src/samson_vision.py sin args
     try:
