@@ -1,6 +1,6 @@
 # 🦁 Samson Vision — Public Documentation
 
-> [README.md](../README.md) | [ARCHITECTURE.md](ARCHITECTURE.md) | [SAMSON_VISION_PACK.md](SAMSON_VISION_PACK.md) | [BENCHMARK.md](BENCHMARK.md) | [SETUP.md](SETUP.md) | [COSTS.md](COSTS.md)
+> [README.md](../README.md) | [ARCHITECTURE.md](docs/ARCHITECTURE.md) | [SAMSON_VISION_PACK.md](docs/SAMSON_VISION_PACK.md) | [BENCHMARK.md](docs/BENCHMARK.md) | [SETUP.md](docs/SETUP.md) | [COSTS.md](docs/COSTS.md)
 
 ## What's here
 
