@@ -1,6 +1,6 @@
 # 🦁 Samson Vision — Public Documentation
 
-> [README.md](../README.md) | [ARCHITECTURE.md](docs/ARCHITECTURE.md) | [SAMSON_VISION_PACK.md](docs/SAMSON_VISION_PACK.md) | [BENCHMARK.md](docs/BENCHMARK.md) | [SETUP.md](docs/SETUP.md) | [COSTS.md](docs/COSTS.md)
+| [README.md](README.md) | [ARCHITECTURE.md](docs/ARCHITECTURE.md) | [SAMSON_VISION_PACK.md](docs/SAMSON_VISION_PACK.md) | [BENCHMARK.md](docs/BENCHMARK.md) | [SETUP.md](docs/SETUP.md) | [COSTS.md](docs/COSTS.md) |
 
 ## What's here
 
@@ -8,7 +8,7 @@ This directory contains the public-facing documentation for Samson Vision.
 All sensitive or personal information has been removed.
 
 - **README.md** — Project overview, quick start, feature highlights
-- **ARCHITECTURE.md** — Technical architecture and data flow
+- **ARCHITECTURE.md** — Technical architecture and data flow (regenerated 24-Jun-2026)
 - **SAMSON_VISION_PACK.md** — Complete SVP format specification
 - **BENCHMARK.md** — Model comparison with 24+ models
 - **SETUP.md** — Installation guide for all platforms

@@ -21,6 +21,11 @@ import numpy as np
 import io
 import base64
 
+# ─── Version ──────────────────────────────────────────────
+
+__version__ = "2.0"
+
+
 # ─── Paletas ASCII ──────────────────────────────────────────────
 
 # Standard: 10 niveles de densidad
