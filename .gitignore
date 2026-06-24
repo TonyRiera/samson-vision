@@ -1,23 +1,27 @@
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-*.bak
-*.swp
-.env
-.venv/
-venv/
-env/
+# Samson Vision — proyecto
 
-# OS
-.DS_Store
-Thumbs.db
+# Entorno
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Input/output del usuario
+input/*
+output/*
+!input/.gitkeep
+!output/.gitkeep
 
 # IDE
 .vscode/
 .idea/
-*.sublime-*
+*.swp
+*.swo
 
-# Runtime generated
-*.jsonl
-*.log
+# Material adicional (no código fuente)
+Material_Adicional_entonces-no-entrenar-como-le-ense/
+
+# OS
+.DS_Store
+Thumbs.db

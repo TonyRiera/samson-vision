@@ -23,47 +23,32 @@ cd samson-vision
 cd ~/proyectos/samson-vision   # ← ruta típica
 ```
 
-### 2. Crear entorno virtual (recomendado)
+### 2. Setup automático (recomendado)
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate      # Linux/macOS
-# .venv\Scripts\activate       # Windows
+bash setup.sh
 ```
 
-### 3. Instalar dependencias
+Esto hace todo en un paso: crea venv, instala deps, instala el paquete, copia assets, ejecuta tests.
+
+### 3. Setup manual (si prefieres paso a paso)
 
 ```bash
-# Mínimas:
+# Crear venv
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Instalar dependencias
 pip install pillow numpy
 
-# Opcionales (mejoran detección):
-pip install opencv-python-headless pytesseract
-```
+# Instalar el paquete en modo editable
+pip install -e .
 
-> **Nota:** El pipeline funciona 100% sin Tesseract y sin OpenCV. Sin Tesseract, el campo OCR_TEXT muestra `[text_zone]` placeholders. Sin OpenCV, la detección de objetos usa métodos básicos de PIL.
+# Crear directorios de trabajo
+mkdir -p assets input output
 
-### 4. Verificar instalación
-
-Asegúrate de que `PYTHONPATH` incluya el directorio `src/`:
-
-```bash
-export PYTHONPATH=src:$PYTHONPATH
-```
-
-```bash
-# Verificar que el módulo importa correctamente:
-python3 -c "from samson_core import __version__; print(f'Samson Vision v{__version__}')"
-```
-
-Deberías ver: `Samson Vision v2.0`.
-
-### 5. Ejecutar tests
-
-```bash
-cd ~/proyectos/samson-vision
-export PYTHONPATH=src:$PYTHONPATH
-python3 test/run_tests.py
+# Copiar imágenes de ejemplo
+cp -r PUBLIC/assets/* assets/
 ```
 
 ✅ **29/29 tests pasando**
@@ -99,13 +84,15 @@ El proyecto incluye imágenes de ejemplo en `PUBLIC/assets/`:
 ```bash
 # Activar venv (si no lo está)
 source .venv/bin/activate
-export PYTHONPATH=src:$PYTHONPATH
 
-# Generar SVP en Markdown
+# Generar SVP en Markdown desde assets/
+samson-vision assets/samson_pillars_crumbling.png --md
+
+# O directamente con python (sin PYTHONPATH necesario)
 python3 src/samson_vision.py PUBLIC/assets/samson_pillars_crumbling.png --md
 
 # Generar SVP en JSON
-python3 src/samson_vision.py PUBLIC/assets/samson_pillars_crumbling.png --json
+samson-vision assets/samson_pillars_crumbling.png --json
 ```
 
 Cada ejecución imprime:
@@ -115,10 +102,10 @@ Cada ejecución imprime:
 ### Redirigir a archivo
 
 ```bash
-python3 src/samson_vision.py PUBLIC/assets/samson_pillars_crumbling.png --json > sample.svp.json
-python3 src/samson_vision.py PUBLIC/assets/samson_pillars_crumbling.png --md > sample.svp.md
+samson-vision PUBLIC/assets/samson_pillars_crumbling.png --json > sample.svp.json
+samson-vision PUBLIC/assets/samson_pillars_crumbling.png --md > sample.svp.md
 
-# Ver el SVP sin versículo:
+# O con python directo:
 python3 src/samson_vision.py imagen.png --md 2>/dev/null
 ```
 
@@ -191,15 +178,16 @@ samson-vision/
 │   └── vmk/                     → Vision Multimodal Kernel
 ├── test/run_tests.py            → 29 tests
 ├── runtime/                     → RAG + validación + subagentes
+├── assets/                      → 20 imágenes de ejemplo
+├── input/                       → Tus imágenes para analizar
+├── output/                      → SVP generados
+├── setup.sh                     → Instalación automática
+├── pyproject.toml               → Paquete Python instalable
+├── requirements.txt             → Dependencias
 ├── PUBLIC/                      → Documentación pública
 │   ├── README.md
-│   ├── docs/
-│   │   ├── ARCHITECTURE.md      → Arquitectura técnica
-│   │   ├── SAMSON_VISION_PACK.md → Especificación SVP
-│   │   ├── BENCHMARK.md         → Comparativa 24 modelos
-│   │   ├── SETUP.md             → Esta guía
-│   │   └── COSTS.md             → Costes por modelo
-│   └── assets/                  → 20 imágenes de ejemplo
+│   ├── docs/                    → ARCHITECTURE, BENCHMARK, COSTS, SETUP, SAMSON_VISION_PACK
+│   └── assets/                  → Original de las imágenes ejemplo
 └── README.md                    → Proyecto completo
 ```
 
@@ -210,7 +198,8 @@ samson-vision/
 | `ModuleNotFoundError: PIL` | `pip install pillow` |
 | `ModuleNotFoundError: numpy` | `pip install numpy` |
 | `ModuleNotFoundError: cv2` | `pip install opencv-python-headless` (opcional) |
-| `from samson_core import __version__` falla | Ejecuta desde la raíz del proyecto con venv activo |
+| `from samson_core import __version__` falla | ¿Ejecutaste `pip install -e .`? El paquete debe estar instalado |
+| `samson-vision: command not found` | Activa el venv: `source .venv/bin/activate` |
 | OCR muestra `[text_zone]` | Sin Tesseract — instálalo o ignóralo |
 | `hermes -s samson-vision` no funciona | El skill debe estar instalado en Hermes |
 | El SVP tiene header pero campos vacíos | La imagen no tiene contenido procesable — prueba con una imagen más rica |
