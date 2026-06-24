@@ -4,9 +4,9 @@
 
 ## What is a SAMSON_VISION_PACK?
 
-A SAMSON_VISION_PACK (VBP) is a **structured text representation of an image** designed for consumption by text-only LLMs. It transforms visual information into 13 complementary textual fields that together allow a model to reconstruct a mental image with high fidelity.
+A SAMSON_VISION_PACK (SVP) is a **structured text representation of an image** designed for consumption by text-only LLMs. It transforms visual information into 13 complementary textual fields that together allow a model to reconstruct a mental image with high fidelity.
 
-Unlike ASCII art alone (which loses color, small text, and spatial relationships), the VBP combines multiple representation layers that compensate for each other's weaknesses.
+Unlike ASCII art alone (which loses color, small text, and spatial relationships), the SVP combines multiple representation layers that compensate for each other's weaknesses.
 
 ## The 13 Fields
 
@@ -163,7 +163,7 @@ FINAL_INTERPRETATION_FOR_TEXT_ONLY_AI:
 
 ## Output Formats
 
-The VBP can be generated in two formats:
+The SVP can be generated in two formats:
 
 ### Markdown (--md)
 Human-readable, structured with headers and sections. Best for feeding to LLMs as context.
@@ -191,10 +191,10 @@ This allows comparison across images of different sizes.
 
 ## Anti-Hallucination Design
 
-The VBP includes **three specific anti-hallucination mechanisms**:
+The SVP includes **three specific anti-hallucination mechanisms**:
 
 1. **UNCERTAINTIES** — explicit limits of detection quality
 2. **DO_NOT_ASSUME** — hard rules against common hallucination patterns
 3. **Confidence labels** — per-element confidence on OCR and object detection
 
-These are not optional. A valid VBP MUST include all three.
+These are not optional. A valid SVP MUST include all three.

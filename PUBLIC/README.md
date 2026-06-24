@@ -3,7 +3,7 @@
 > **A text-based visual language that lets any LLM "see" images.**
 > No vision model required — just structured text.
 
-Samson Vision translates images into a **SAMSON_VISION_PACK (VBP)** — a 13-field structured text format that any text-only LLM can interpret. This allows models without native vision capabilities (DeepSeek, GPT-4o-mini, Llama, etc.) to understand visual content with high fidelity.
+Samson Vision translates images into a **SAMSON_VISION_PACK (SVP)** — a 13-field structured text format that any text-only LLM can interpret. This allows models without native vision capabilities (DeepSeek, GPT-4o-mini, Llama, etc.) to understand visual content with high fidelity.
 
 The name comes from the biblical story of Samson (Judges 16:28-30). When the Philistines gouged out his eyes, Samson did not lose his vision — he lost only his **physical** sight. His true vision was the **divine plan** God revealed to him: bring down the temple of Dagon upon his enemies. In his greatest weakness, he saw the strategy that would destroy more Philistines than in his entire life.
 
@@ -18,9 +18,9 @@ Image → [Samson Core] → SAMSON_VISION_PACK (text) → [Any LLM] → Understa
       numpy/OpenCV      structured text                through the text
 ```
 
-## The SAMSON_VISION_PACK (VBP)
+## The SAMSON_VISION_PACK (SVP)
 
-The VBP is the core of Samson Vision — a multi-layer textual representation with 13 mandatory fields:
+The SVP is the core of Samson Vision — a multi-layer textual representation with 13 mandatory fields:
 
 ```
 [SAMSON_VISION_PACK v1]
@@ -45,7 +45,7 @@ Each field serves a specific purpose: spatial awareness (LAYOUT_MAP, VISUAL_HIER
 ## Quick start
 
 ```bash
-# 1. Generate a VBP from any image
+# 1. Generate an SVP from any image
 python3 src/samson_vision.py image.png --md > pack.md
 
 # 2. Feed it to any text-only model
@@ -65,7 +65,7 @@ python3 src/samson_vision.py image.png --md > pack.md
 
 ## Model compatibility
 
-Samson VBP has been tested with **24+ models** across multiple providers. Most text-only LLMs can interpret the VBP effectively. See [BENCHMARK.md](docs/BENCHMARK.md) for detailed comparison.
+Samson SVP has been tested with **24+ models** across multiple providers. Most text-only LLMs can interpret the SVP effectively. See [BENCHMARK.md](docs/BENCHMARK.md) for detailed comparison.
 
 ## Benchmark summary
 
@@ -92,7 +92,7 @@ samson-vision/
 ├── test/run_tests.py           ← 29 tests — 100% pass rate
 └── docs/
     ├── ARCHITECTURE.md         ← Detailed architecture
-    ├── SAMSON_VISION_PACK.md   ← Complete VBP specification
+    ├── SAMSON_VISION_PACK.md   ← Complete SVP specification
     ├── BENCHMARK.md            ← Model comparison
     ├── COSTS.md                ← Usage costs
     └── SETUP.md                ← Installation guide
@@ -102,10 +102,10 @@ samson-vision/
 
 | Scenario | Use | Why |
 |----------|-----|-----|
-| Target model has **no vision** | **Samson VBP** | Only way for text-only models to "see" |
-| **Cost-sensitive** at scale | **Samson VBP** | 50-100x cheaper than vision API calls |
+| Target model has **no vision** | **Samson SVP** | Only way for text-only models to "see" |
+| **Cost-sensitive** at scale | **Samson SVP** | 50-100x cheaper than vision API calls |
 | Need **maximum fidelity** (photos, logos) | **Direct vision model** | Native vision sees non-textual elements |
-| **Text-heavy** content (docs, web, dashboards) | **Samson VBP** | Near-indistinguishable from direct vision |
+| **Text-heavy** content (docs, web, dashboards) | **Samson SVP** | Near-indistinguishable from direct vision |
 
 ## License
 

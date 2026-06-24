@@ -99,7 +99,7 @@ def get_example(domain: str = "web") -> Optional[str]:
 # ─── Validation ───────────────────────────────────────────────
 
 def field_body(text: str, field: str) -> str:
-    """Extract the body of a VBP field."""
+    """Extract the body of an SVP field."""
     pattern = rf"(?ms)^{re.escape(field)}:\s*(.*?)(?=^[A-Z_]+:|\Z)"
     m = re.search(pattern, text)
     return m.group(1).strip() if m else ""
@@ -189,7 +189,7 @@ def cli():
         print("\nComandos:")
         print("  knowledge <domain>       — Mostrar conocimiento para dominio")
         print("  search <query> [domain]  — Buscar en RAG")
-        print("  validate <archivo>        — Validar un VBP")
+        print("  validate <archivo>        — Validar un SVP")
         print("  example <domain>         — Mostrar ejemplo del dominio")
         return
     

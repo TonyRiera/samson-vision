@@ -54,7 +54,7 @@ python3 test/run_tests.py
 ## Quick test
 
 ```bash
-# Generate a VBP from any image
+# Generate an SVP from any image
 python3 src/samson_vision.py path/to/image.png --md
 
 # Or with a specific domain hint
@@ -63,7 +63,7 @@ python3 src/samson_vision.py path/to/screenshot.png --md --prompt "Describe this
 
 ## Using with LLM providers
 
-The VBP is pure text — you can feed it to any LLM API. Here are examples:
+The SVP is pure text — you can feed it to any LLM API. Here are examples:
 
 ### OpenAI (GPT-4o-mini, etc.)
 
@@ -99,7 +99,7 @@ curl -s https://opencode.ai/zen/go/v1/chat/completions \
   -d '{
     "model": "minimax-m2.5",
     "messages": [
-      {"role": "system", "content": "You are Samson Vision. Interpret this VBP."},
+      {"role": "system", "content": "You are Samson Vision. Interpret this SVP."},
       {"role": "user", "content": "'$(cat pack.md)'"}
     ]
   }'

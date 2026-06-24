@@ -9,7 +9,7 @@ All sensitive or personal information has been removed.
 
 - **README.md** — Project overview, quick start, feature highlights
 - **ARCHITECTURE.md** — Technical architecture and data flow
-- **SAMSON_VISION_PACK.md** — Complete VBP format specification
+- **SAMSON_VISION_PACK.md** — Complete SVP format specification
 - **BENCHMARK.md** — Model comparison with 24+ models
 - **SETUP.md** — Installation guide for all platforms
 - **COSTS.md** — Usage costs by provider and model

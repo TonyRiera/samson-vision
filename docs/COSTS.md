@@ -47,7 +47,7 @@ OpenCode Go tiene un límite de **$60/mes en crédito interno**. Eso significa q
 
 Sin coste por token. Sin coste por llamada. Límites de tasa (rate limits) de OpenAI a cuentas Plus.
 
-## Coste por consulta Samson VBP
+## Coste por consulta Samson SVP
 
 Una consulta típica: **1.700 tokens input + 400 tokens output** = 2.100 tokens.
 
@@ -88,7 +88,7 @@ Una consulta típica: **1.700 tokens input + 400 tokens output** = 2.100 tokens.
 - minimax-m2.5: 100 queries × $0.0009 = **$0.09** (OpenCode)
 - **Total: ~$0.41/mes**
 
-## Modelos que NO funcionan con Samson VBP
+## Modelos que NO funcionan con Samson SVP
 
 | Modelo | Coste/query | Problema |
 |--------|:----------:|----------|

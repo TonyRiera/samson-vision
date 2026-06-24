@@ -11,9 +11,9 @@ Samson Vision funciona igual: **revela lo que el ojo natural no ve** — la estr
 ## Stack 80/20 — Modelo más rápido + fallback
 
 ```
-VBP → MiniMax-M2.1 (mmx CLI)  → 5s, $0.0008/query, 100% calidad  ← 🏆 PRIMARIO
-VBP → minimax-m2.5 (OpenCode) → 11s, $0.0009/query, 83% calidad   ← 🔄 FALLBACK
-VBP → kimi-k2.7-code (OpenCode) → 8s, $0.003/query, 100% calidad   ← 🎯 PRECISIÓN
+SVP → MiniMax-M2.1 (mmx CLI)  → 5s, $0.0008/query, 100% calidad  ← 🏆 PRIMARIO
+SVP → minimax-m2.5 (OpenCode) → 11s, $0.0009/query, 83% calidad   ← 🔄 FALLBACK
+SVP → kimi-k2.7-code (OpenCode) → 8s, $0.003/query, 100% calidad   ← 🎯 PRECISIÓN
 ```
 
 El flujo es automático: primero intenta M2.1 (5s). Si falla, cae a M2.5. Si necesitas máxima precisión, usa Kimi K2.7.
@@ -35,9 +35,9 @@ Ver [`docs/COSTS.md`](docs/COSTS.md) para costes detallados.
 | ❌ | deepseek-v4-flash | OpenCode | 0% | — | devuelve vacío |
 | ❌ | glm-5.2/5.1/5 | OpenCode | 0% | — | devuelve vacío |
 
-## El Lenguaje: SAMSON_VISION_PACK (VBP)
+## El Lenguaje: SAMSON_VISION_PACK (SVP)
 
-El VBP es un formato de 13 campos que traduce cualquier imagen a texto estructurado:
+El SVP es un formato de 13 campos que traduce cualquier imagen a texto estructurado:
 
 ```
 [SAMSON_VISION_PACK v1]
@@ -82,7 +82,7 @@ Skills: samson-vision (3 modos de uso documentados)
 ## Uso rápido
 
 ```bash
-# Generar VBP de una imagen
+# Generar SVP de una imagen
 cd ~/proyectos/samson-vision/src
 python3 samson_vision.py imagen.png --md > vbp.md
 
@@ -116,7 +116,7 @@ python3 ~/proyectos/samson-vision/test/run_tests.py
 | Modo | Cuándo | Coste |
 |------|--------|-------|
 | **Sistema puro** | Datos técnicos (color, brillo, bordes) | $0 |
-| **VBP + modelo texto** | Cuando el modelo no ve imágenes | $0.0008-$0.003/query |
+| **SVP + modelo texto** | Cuando el modelo no ve imágenes | $0.0008-$0.003/query |
 | **M3 directo (visión)** | Máxima fidelidad (ve fotos) | ~$0.003 |
 
 ## Costes mensuales estimados
@@ -139,7 +139,7 @@ PUBLIC/
 ├── INDEX.md               ← Navigation hub
 ├── docs/
 │   ├── ARCHITECTURE.md    ← Technical architecture
-│   ├── SAMSON_VISION_PACK.md ← VBP spec (13 fields)
+│   ├── SAMSON_VISION_PACK.md ← SVP spec (13 fields)
 │   ├── BENCHMARK.md       ← Model comparison
 │   ├── SETUP.md           ← Installation guide
 │   └── COSTS.md           ← Usage costs

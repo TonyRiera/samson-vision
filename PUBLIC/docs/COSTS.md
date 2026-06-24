@@ -1,7 +1,7 @@
 # Usage Costs
 
 > Estimated costs for using Samson Vision with various LLM providers.
-> Prices are per query (1,700 input + 400 output tokens ≈ one VBP interpretation).
+> Prices are per query (1,700 input + 400 output tokens ≈ one SVP interpretation).
 
 ## Per-query costs by model
 
@@ -30,26 +30,26 @@
 
 ## Direct vision comparison
 
-For context, here's how Samson VBP costs compare to using native vision models directly:
+For context, here's how Samson SVP costs compare to using native vision models directly:
 
 | Approach | Example | Cost/query | Quality for text |
 |----------|---------|:----------:|:----------------:|
-| **Samson VBP + MiniMax-M2.1** | Our stack | **$0.0008** | 90% |
+| **Samson SVP + MiniMax-M2.1** | Our stack | **$0.0008** | 90% |
 | Direct vision (MiniMax-M3) | mmx vision describe | ~$0.003 | 100% (sees photos) |
 | Direct vision (GPT-4o) | OpenAI vision | ~$0.008 | 100% |
 
-**Samson VBP is 4-10x cheaper** than direct vision calls while achieving ~90% of the quality for text-heavy content.
+**Samson SVP is 4-10x cheaper** than direct vision calls while achieving ~90% of the quality for text-heavy content.
 
 ## Saving strategies
 
-1. **Batch processing**: Generate VBP once, interpret with multiple models
-2. **Cache VBP files**: The VBP generation is deterministic (no AI cost)
+1. **Batch processing**: Generate SVP once, interpret with multiple models
+2. **Cache SVP files**: The SVP generation is deterministic (no AI cost)
 3. **Tiered model selection**: Use cheaper models for simple images, premium for complex ones
 4. **OpenCode Go subscription**: If you use OpenCode Go models, the $10/month subscription includes $60 in credits
 
 ## Models to avoid
 
-These models return empty content when interpreting VBP:
+These models return empty content when interpreting SVP:
 
 | Model | Cost/query | Issue |
 |-------|:----------:|-------|
