@@ -18,6 +18,14 @@ cd samson-vision
 
 ### 2. Install Python dependencies
 
+It's recommended to use a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate  # Linux/macOS
+# or: .venv\Scripts\activate  # Windows
+```
+
 ```bash
 pip install pillow numpy
 ```
@@ -112,15 +120,15 @@ curl -s https://opencode.ai/zen/go/v1/chat/completions \
 # Just change base_url and api_key
 ```
 
-## Server mode (optional)
+## Using with Hermes Agent
 
-Samson Vision can run as an HTTP server with OpenAI-compatible endpoints:
+Samson Vision integrates with [Hermes Agent](https://hermes-agent.nousresearch.com) as a skill:
 
 ```bash
-python3 samson_vision_server.py
-# Server starts on :8770
-# Endpoints: /v1/chat/completions, /v1/vision/ascii, /v1/bridge, /health
+hermes -s samson-vision chat -q "Describe this image"
 ```
+
+The skill provides three modes: fast (MiniMax-M2.1), balanced (minimax-m2.5), and precise (kimi-k2.7-code). See [`src/harnesses.py`](../../src/harnesses.py) for the integration layer.
 
 ## OCR troubleshooting
 
