@@ -5,8 +5,9 @@
 <h1 align="center">Samson Vision</h1>
 
 <p align="center">
-  <em>Revelar el plan oculto bajo los píxeles.</em><br>
-  <sub><em>Reveal the hidden plan beneath the pixels.</em></sub>
+  <em>Tus limitaciones no son un límite imposible de superar.</em> <sub>*Filipenses 4:13*</sub><br>
+  <sub><em>Your limitations are not an impossible limit to overcome.</em> *Philippians 4:13*</sub><br>
+  <sub>Tu agente sigue sin ojos — el mismo modelo, sin visión — pero recibe visión a través del SVP. · Your agent still has no eyes — same model, no vision — but receives sight through SVP.</sub>
 </p>
 
 <p align="center">
@@ -39,6 +40,39 @@ Sansón perdió la **vista física**, pero recuperó la **visión del plan de Di
 **Samson Vision** revela el plan oculto bajo los píxeles. Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
 
 *Samson lost his physical sight but regained the vision of God's plan (Judges 16:28-30). He did not need to see the temple — he needed to know when and how to act. Samson Vision gives blind agents sight through SVP: structural truth that pixels hide and a sightless LLM cannot capture alone.*
+
+## Flujo con subagentes / Subagent workflow
+
+Un **agente principal** recibe tareas con imágenes o capturas de pantalla. Antes de delegar, el pipeline (o el agente principal) genera un **SAMSON_VISION_PACK (SVP)** con Samson Vision. El **subagente** — normalmente un modelo **solo texto**, sin visión — recibe el prompt de la tarea **más el SVP embebido** en su contexto.
+
+Así se preserva la transferencia de contexto visual **sin** usar modelos de visión costosos en el subagente ni cambiar de modelo.
+
+```mermaid
+sequenceDiagram
+    participant U as Usuario / Tarea
+    participant M as Agente principal
+    participant SV as Samson Vision
+    participant S as Subagente (texto)
+
+    U->>M: Tarea + imagen/screenshot
+    M->>SV: imagen.png --md
+    SV-->>M: SVP (13 campos)
+    M->>S: prompt + SVP embebido
+    Note over S: Sin modelo de visión
+    S-->>M: Resultado (con "visión" en texto)
+    M-->>U: Respuesta integrada
+```
+
+**Pasos:**
+
+1. El **agente principal** recibe una tarea con imagen o screenshot.
+2. **Samson Vision** genera el SVP (`python3 src/samson_vision.py imagen.png --md`).
+3. El agente principal **delega al subagente**: prompt de la tarea + SVP embebido en el contexto.
+4. El **subagente** (sin visión nativa) trabaja con la "visión" estructurada en texto.
+5. El **resultado vuelve al agente principal** para síntesis, validación o entrega al usuario.
+
+*The main agent receives image tasks, Samson Vision produces SVP text, and the text-only subagent works with embedded structured vision — preserving context without expensive vision models on the subagent.*
+
 
 ## Stack 80/20 — Modelo más rápido + fallback
 

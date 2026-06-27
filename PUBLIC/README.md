@@ -5,7 +5,8 @@
 <h1 align="center">Samson Vision</h1>
 
 <p align="center">
-  <em>Reveal the hidden plan beneath the pixels.</em>
+  <em>Your limitations are not an impossible limit to overcome.</em> <sub>*Philippians 4:13*</sub><br>
+  <sub>Your agent still has no eyes — same model, no vision — but receives sight through SVP. · Tu agente sigue sin ojos — el mismo modelo, sin visión — pero recibe visión a través del SVP.</sub>
 </p>
 
 <p align="center">
@@ -24,6 +25,39 @@ Samson lost his **physical sight** but regained the **vision of God's plan** (Ju
 **Samson Vision** reveals the hidden plan beneath the pixels. Your agent **still has no eyes** — the same model, no vision — but receives **sight** through SVP: the structural truth pixels hide and a blind LLM cannot capture alone.
 
 *Sansón perdió la vista física, pero recuperó la visión del plan de Dios. Samson Vision da visión a agentes ciegos a través del SVP — la verdad estructural que los píxeles esconden.*
+
+## Subagent workflow
+
+A **main agent** receives tasks that include images or screenshots. Before delegating, the pipeline (or main agent) generates a **SAMSON_VISION_PACK (SVP)** with Samson Vision. The **subagent** — typically a **text-only** model with no native vision — receives the task prompt **plus the embedded SVP** in its context.
+
+This preserves visual context transfer **without** expensive vision models on the subagent or switching models.
+
+```mermaid
+sequenceDiagram
+    participant U as User / Task
+    participant M as Main agent
+    participant SV as Samson Vision
+    participant S as Subagent (text-only)
+
+    U->>M: Task + image/screenshot
+    M->>SV: image.png --md
+    SV-->>M: SVP (13 fields)
+    M->>S: prompt + embedded SVP
+    Note over S: No vision model
+    S-->>M: Result (with text "sight")
+    M-->>U: Integrated response
+```
+
+**Steps:**
+
+1. The **main agent** receives a task with an image or screenshot.
+2. **Samson Vision** generates the SVP (`python3 src/samson_vision.py image.png --md`).
+3. The main agent **delegates to the subagent**: task prompt + SVP embedded in context.
+4. The **subagent** (no native vision) works with structured text "sight".
+5. The **result returns to the main agent** for synthesis, validation, or delivery.
+
+*El agente principal genera SVP y delega al subagente solo-texto — visión estructurada sin modelos de visión costosos.*
+
 
 ## How it works
 

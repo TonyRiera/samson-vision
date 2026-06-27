@@ -15,6 +15,13 @@ Sansón perdió la **vista física**, pero recuperó la **visión del plan de Di
 *Samson lost physical sight but gained vision of God's plan. The AI still has no eyes — Samson Vision gives it sight through SVP text anyway.*
 
 
+## Subagent consumption pattern
+
+When a **main agent** delegates to a **text-only subagent**, embed the full SVP in the subagent's context alongside the task prompt. The subagent interprets the 13 fields as structured vision — no native vision model required. Results flow back to the main agent for synthesis.
+
+*Patrón: agente principal → SVP → subagente solo-texto → resultado al principal.*
+
+
 ## The 13 Fields
 
 ### 1. IMAGE_TYPE

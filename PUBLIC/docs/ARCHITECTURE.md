@@ -43,6 +43,49 @@ Imagen (PNG/JPG/WEBP)
          └─────────────────────┘
 ```
 
+## Flujo con subagentes (orquestación multi-agente)
+
+Samson Vision encaja en arquitecturas donde un **agente principal** delega trabajo a **subagentes** especializados. Los subagentes suelen ser modelos **solo texto** (más baratos, más capaces en código) pero **sin visión nativa**.
+
+```
+┌─────────────────┐     imagen/screenshot
+│  Agente         │──────────────────────────────┐
+│  principal      │                              │
+└────────┬────────┘                              ▼
+         │                          ┌────────────────────────┐
+         │                          │  samson_vision.py      │
+         │                          │  --md → SVP (13 campos)│
+         │                          └───────────┬────────────┘
+         │                                      │ texto estructurado
+         │  prompt + SVP embebido               │
+         ▼                                      ▼
+┌─────────────────┐                    ┌─────────────────┐
+│  Subagente      │◄───────────────────│  Contexto:      │
+│  (texto, sin    │   "visión" en SVP  │  tarea + SVP    │
+│   visión)       │                    └─────────────────┘
+└────────┬────────┘
+         │ resultado
+         ▼
+┌─────────────────┐
+│  Agente         │ → síntesis / entrega al usuario
+│  principal      │
+└─────────────────┘
+```
+
+**Ventajas del patrón:**
+
+| Aspecto | Sin SVP | Con SVP + subagente |
+|---------|---------|---------------------|
+| Modelo del subagente | Requiere visión nativa (caro) | Solo texto (barato) |
+| Contexto visual | Se pierde al cambiar modelo | SVP portable en texto |
+| Coste por delegación | API de visión por imagen | ~$0 generación + interpretación texto |
+| Habilidades del subagente | Se degradan con modelos multimodales | Se mantienen intactas |
+
+Los contratos de subagente en `runtime/subagents/` pueden incluir el SVP como bloque obligatorio cuando la tarea incluye input visual.
+
+*Main agent generates SVP; text-only subagent receives embedded structured vision — no vision API on the subagent.*
+
+
 ## Componentes
 
 ### 1. samson_core.py — Motor de conversión ASCII
