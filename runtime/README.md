@@ -1,6 +1,6 @@
 # Samson Vision Runtime
 
-Sistema para que un modelo con visión actúe como lazarillo de DeepSeek v4 Flash, Nous Agent o cualquier modelo sin visión, sin entrenar pesos.
+Sistema para que un modelo con visión actúe como lazarillo de DeepSeek Flash v4, Nous Agent o cualquier modelo sin visión, sin entrenar pesos.
 
 La idea es envolver al modelo con:
 
