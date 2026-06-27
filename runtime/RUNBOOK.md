@@ -5,7 +5,7 @@
 Preparar Python:
 
 ```powershell
-$PY="C:\Users\antonio\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$PY=python3
 ```
 
 ```powershell

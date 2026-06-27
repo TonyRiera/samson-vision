@@ -34,7 +34,7 @@ DeepSeek / Nous / modelo texto razona con el pack
 Si `python` no está en `PATH` en esta máquina, usa el Python embebido de Codex:
 
 ```powershell
-$PY="C:\Users\antonio\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$PY=python3
 ```
 
 Generar un prompt listo para un modelo con visión:

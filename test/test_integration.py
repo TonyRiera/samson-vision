@@ -52,7 +52,6 @@ REQUIRED_DOCS_PUBLIC = [
 
 REQUIRED_DIRS = [
     "src", "test", "runtime", "assets", "input", "output",
-    "PUBLIC/assets", "PUBLIC/docs", "runtime/knowledge",
 ]
 
 REQUIRED_SRC_FILES = [

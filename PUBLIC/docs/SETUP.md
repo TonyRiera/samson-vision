@@ -45,10 +45,9 @@ pip install pillow numpy
 pip install -e .
 
 # Crear directorios de trabajo
-mkdir -p assets input output
+mkdir -p input output
 
-# Copiar imágenes de ejemplo
-cp -r PUBLIC/assets/* assets/
+# Las imágenes de ejemplo están en assets/ (ya incluidas en el repo)
 ```
 
 ✅ **29/29 tests pasando**
@@ -79,7 +78,7 @@ Descargar desde [GitHub tesseract-ocr/tesseract](https://github.com/tesseract-oc
 
 ### Generar un SVP desde una imagen
 
-El proyecto incluye imágenes de ejemplo en `PUBLIC/assets/`:
+El proyecto incluye imágenes de ejemplo en `assets/`:
 
 ```bash
 # Activar venv (si no lo está)
@@ -88,8 +87,8 @@ source .venv/bin/activate
 # Generar SVP en Markdown desde assets/
 samson-vision assets/samson_pillars_crumbling.png --md
 
-# O directamente con python (sin PYTHONPATH necesario)
-python3 src/samson_vision.py PUBLIC/assets/samson_pillars_crumbling.png --md
+# O directamente con python
+python3 src/samson_vision.py assets/samson_pillars_crumbling.png --md
 
 # Generar SVP en JSON
 samson-vision assets/samson_pillars_crumbling.png --json
@@ -102,8 +101,8 @@ Cada ejecución imprime:
 ### Redirigir a archivo
 
 ```bash
-samson-vision PUBLIC/assets/samson_pillars_crumbling.png --json > sample.svp.json
-samson-vision PUBLIC/assets/samson_pillars_crumbling.png --md > sample.svp.md
+samson-vision assets/samson_pillars_crumbling.png --json > sample.svp.json
+samson-vision assets/samson_pillars_crumbling.png --md > sample.svp.md
 
 # O con python directo:
 python3 src/samson_vision.py imagen.png --md 2>/dev/null
@@ -186,8 +185,7 @@ samson-vision/
 ├── requirements.txt             → Dependencias
 ├── PUBLIC/                      → Documentación pública
 │   ├── README.md
-│   ├── docs/                    → ARCHITECTURE, BENCHMARK, COSTS, SETUP, SAMSON_VISION_PACK
-│   └── assets/                  → Original de las imágenes ejemplo
+│   └── docs/                    → ARCHITECTURE, BENCHMARK, COSTS, SETUP, SAMSON_VISION_PACK
 └── README.md                    → Proyecto completo
 ```
 

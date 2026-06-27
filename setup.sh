@@ -14,15 +14,10 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "📁 Creando directorios..."
 mkdir -p input output
 
-# 2. Enlazar assets desde PUBLIC/ (o copiar si no hay symlink)
+# 2. Directorio assets/ (en raiz del repo)
 if [ ! -d assets ]; then
-    if [ -d PUBLIC/assets ]; then
-        cp -r PUBLIC/assets assets
-        echo "   assets/ → copiado desde PUBLIC/assets/"
-    else
-        mkdir -p assets
-        echo "   assets/ → creado vacío"
-    fi
+    mkdir -p assets
+    echo "   assets/ -> creado vacio"
 fi
 
 # 3. Venv

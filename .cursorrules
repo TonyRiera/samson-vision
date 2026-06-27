@@ -1,0 +1,19 @@
+# 🦁 Samson Vision — Cursor Context
+
+## Identity
+Samson Vision is a text-based visual language that lets any text-only LLM "see" images. It translates pixels into a SAMSON_VISION_PACK (SVP) — 13 fields of structured text.
+
+## Quick commands
+- Generate SVP: `python3 src/samson_vision.py assets/samson_pillars_crumbling.png --md`
+- Run tests: `python3 test/run_tests.py && python3 test/test_integration.py`
+- Core module: `src/samson_core.py` (8 ASCII styles)
+- SVP generator: `src/samson_vision.py` (13-field output)
+
+## Key constraints
+- Pipeline is 0% AI — only numpy + OpenCV + Tesseract
+- Coordinates always normalized 0-100, never raw pixels
+- All user-facing output on stdout; stderr for decoration only
+- PUBLIC/ is for GitHub; source code is in src/
+
+## Tech stack
+Python 3.10+, pillow, numpy, opencv-python-headless (optional), pytesseract (optional)
