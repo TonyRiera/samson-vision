@@ -15,8 +15,10 @@
 | **mimo-v2.5-pro** | OpenCode Go | $1.74 | $3.48 | **$0.0040** |
 | **GPT-4o-mini** | OpenAI API | $0.15 | $0.60 | **$0.0005** |
 | **GPT-4o** | OpenAI API | $2.50 | $10.00 | **$0.008** |
+| **GPT-5.4-mini** | Codex CLI / OpenAI API | $0.15 | $0.60 | **~$0.0005** |
+| **GPT-5.5** | Codex CLI / OpenAI API | $2.50 | $10.00 | **~$0.002** |
 
-*Prices as of June 2026. Subject to change.*
+*Prices as of June 2026. Subject to change. Codex CLI may bill via subscription on some accounts; benchmark tables show **API per-token** equivalents (~1,700 in + 400 out tokens per query), not $20/mes plans.*
 
 ## Monthly estimates
 
