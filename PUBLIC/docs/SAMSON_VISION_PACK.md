@@ -8,6 +8,11 @@ A SAMSON_VISION_PACK (SVP) is a **structured text representation of an image** d
 
 Unlike ASCII art alone (which loses color, small text, and spatial relationships), the SVP combines multiple representation layers that compensate for each other's weaknesses.
 
+## Why Samson Vision?
+
+Samson could see even without eyes — not by regaining physical sight, but by perceiving the plan beneath the surface. Samson Vision applies the same idea to AI agents: **recover project vision even when the model stays the same**. Vision-capable models are expensive, often weaker at code and reasoning, and switching agents drops context. SVP encodes what matters from an image into 13 text fields any text-only LLM can read — so your agent keeps its skills, your costs stay low, and visual understanding persists across model changes. Shared as a personal blessing so teams are not forced into costly vision APIs when structured text sees just as clearly.
+
+
 ## The 13 Fields
 
 ### 1. IMAGE_TYPE

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "samson-vision"
 version = "2.0"
-description = "Lenguaje visual textual que permite a IAs sin vision 'ver' imagenes"
+description = "Samson Vision — revelar el plan oculto bajo los pixeles. SVP: 13 campos de texto para que IAs sin vision vean imagenes sin modelos costosos."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"

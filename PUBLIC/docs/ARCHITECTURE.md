@@ -5,6 +5,11 @@
 
 ## Visión general
 
+## Why Samson Vision?
+
+Samson could see even without eyes — not by regaining physical sight, but by perceiving the plan beneath the surface. Samson Vision applies the same idea to AI agents: **recover project vision even when the model stays the same**. Vision-capable models are expensive, often weaker at code and reasoning, and switching agents drops context. SVP encodes what matters from an image into 13 text fields any text-only LLM can read — so your agent keeps its skills, your costs stay low, and visual understanding persists across model changes. Shared as a personal blessing so teams are not forced into costly vision APIs when structured text sees just as clearly.
+
+
 Samson Vision es un **pipeline algorítmico** que transforma cualquier imagen en un **SAMSON_VISION_PACK (SVP)**: 13 campos de texto estructurado que cualquier modelo de lenguaje puede interpretar como si estuviera viendo la imagen.
 
 ```

@@ -1,4 +1,17 @@
-# 🦁 Samson Vision — Lenguaje Visual entre IAs
+# 🦁 Samson Vision
+
+> **Revelar el plan oculto bajo los píxeles.**  
+> *Reveal the hidden plan beneath the pixels.*
+
+Sansón pudo ver aun sin ojos. Tu agente recuperará la **visión del proyecto** aunque su modelo siga siendo el mismo — sin modelos con visión que encarecen y pierden habilidades.
+
+**El problema:** Los agentes limitados por APIs de visión pierden errores estructurales, cambiar de modelo borra el contexto, y los modelos multimodales cuestan más mientras sacrifican profundidad en código y razonamiento.
+
+**La respuesta:** El **SAMSON_VISION_PACK (SVP)** — 13 campos de texto estructurado que reemplazan la necesidad de enviar imágenes a LLMs costosos. Mismo modelo. Mismas habilidades. Comprensión visual completa a través de texto.
+
+*This project is shared as a personal blessing — so teams are not forced into expensive vision models when text-only agents can see just as clearly through SVP.*
+
+---
 
 ## ¿Qué es?
 
@@ -6,7 +19,7 @@ Samson Vision es un **lenguaje visual basado en texto** que permite a una IA sin
 
 El nombre viene de Sansón (Jueces 16:28-30). Cuando los filisteos le sacaron los ojos, Sansón perdió la **vista física**, pero ganó la **visión del plan de Dios**: derribar el templo de Dagón sobre sus enemigos. En su mayor debilidad, vio la estrategia que destruiría a más filisteos que en toda su vida.
 
-Samson Vision funciona igual: **revela lo que el ojo natural no ve** — la estructura, la estrategia, la verdad oculta bajo los píxeles. No es "dar vista al ciego", es descubrir el plan que ya está ahí.
+Samson Vision funciona igual: **revela lo que el ojo natural no ve** — la estructura, la estrategia, la verdad oculta bajo los píxeles. No es "dar vista al ciego"; es descubrir el plan que ya está ahí.
 
 ## Stack 80/20 — Modelo más rápido + fallback
 

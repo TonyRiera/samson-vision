@@ -1,13 +1,23 @@
 # 🦁 Samson Vision
 
-> **A text-based visual language that lets any LLM "see" images.**
-> No vision model required — just structured text.
+> **Reveal the hidden plan beneath the pixels.**  
+> *Revelar el plan oculto bajo los píxeles.*
+
+Samson could see even without eyes. Your agent can recover the **vision of your project** even when its model stays the same — no expensive vision models that cost more and strip away other skills.
+
+**The problem:** Agents locked to vision APIs miss structural errors, lose context when you switch models, and get pushed into pricier multimodal endpoints that trade coding depth for pixels.
+
+**The answer:** The **SAMSON_VISION_PACK (SVP)** — 13 fields of structured text that replace the need to send images to costly LLMs. Same model. Same skills. Full visual understanding through text.
+
+*Shared as a personal blessing — so projects are not forced into expensive vision models when text-only agents can see just as clearly through SVP.*
+
+---
 
 Samson Vision translates images into a **SAMSON_VISION_PACK (SVP)** — a 13-field structured text format that any text-only LLM can interpret. This allows models without native vision capabilities (DeepSeek, GPT-4o-mini, Llama, etc.) to understand visual content with high fidelity.
 
 The name comes from the biblical story of Samson (Judges 16:28-30). When the Philistines gouged out his eyes, Samson did not lose his vision — he lost only his **physical** sight. His true vision was the **divine plan** God revealed to him: bring down the temple of Dagon upon his enemies. In his greatest weakness, he saw the strategy that would destroy more Philistines than in his entire life.
 
-Samson Vision is that same principle: it **reveals what the naked eye cannot see** — the structure, strategy, and truth hidden beneath the surface of pixels. Not giving "sight to the blind," but uncovering the plan that's already there.
+Samson Vision is that same principle: it **reveals what the naked eye cannot see** — the structure, strategy, and truth hidden beneath the surface of pixels. Not giving "sight to the blind," but uncovering the plan that is already there.
 
 ## How it works
 
@@ -61,7 +71,7 @@ python3 src/samson_vision.py image.png --md > pack.md
 - **Scene graph**: Object detection + spatial relationships via OpenCV
 - **Device simulation**: 13 device profiles for responsive design testing
 - **Audio visualization**: Convert audio to ASCII waveforms, spectrums, and beat patterns
-- **Zero vision API calls**: The system itself uses no AI — it's purely algorithmic (numpy + OpenCV + Tesseract)
+- **Zero vision API calls**: The system itself uses no AI — it is purely algorithmic (numpy + OpenCV + Tesseract)
 
 ## Model compatibility
 
@@ -106,6 +116,7 @@ samson-vision/
 | **Cost-sensitive** at scale | **Samson SVP** | 50-100x cheaper than vision API calls |
 | Need **maximum fidelity** (photos, logos) | **Direct vision model** | Native vision sees non-textual elements |
 | **Text-heavy** content (docs, web, dashboards) | **Samson SVP** | Near-indistinguishable from direct vision |
+| **Agent continuity** — keep same model/skills | **Samson SVP** | Project vision survives model switches |
 
 ## License
 
