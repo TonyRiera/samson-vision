@@ -5,18 +5,13 @@
 <h1 align="center">Samson Vision</h1>
 
 <p align="center">
-  <em>ES:</em> Tus limitaciones no son un límite imposible de superar. <em>Filipenses 4:13</em>
-</p>
-<p align="center">
-  <em>EN:</em> Your limitations are not an impossible limit to overcome. <em>Philippians 4:13</em>
-</p>
-<p align="center">
-  Tu agente sigue sin ojos — el mismo modelo, sin visión — pero recibe visión a través del SVP.
-</p>
-<p align="center">
-  <em>Your agent still has no eyes — same model, no vision — but receives sight through SVP.</em>
+  Turns images into structured text so text-only models can reason over screenshots, documents, and screens.<br>
+  Does not fully replace a vision model. A cheap, auditable, versionable bridge.
 </p>
 
+<p align="center">
+  <em>Your limitations are not an impossible limit to overcome.</em> <em>Philippians 4:13</em>
+</p>
 
 <p align="center">
   <a href="docs/SETUP.md"><strong>Install</strong></a>
@@ -26,159 +21,110 @@
   <a href="docs/SAMSON_VISION_PACK.md"><strong>SVP Spec</strong></a>
 </p>
 
+## When to use
 
-Samson Vision translates images into a **SAMSON_VISION_PACK (SVP)** — a 13-field structured text format that any text-only LLM can interpret. This allows models without native vision capabilities (DeepSeek, GPT-4o-mini, Llama, etc.) to understand visual content with high fidelity.
+| ✅ Use SVP | ❌ Do not rely on SVP alone |
+|------------|----------------------------|
+| Screenshots, dashboards, forms | Fine photo detail |
+| OCR + layout, scanned documents | Facial recognition |
+| Cheap text-only agents | Critical medical/legal decisions |
+| CI/QA with versionable capture diffs | Pixel-perfect logos/icons |
+| Orchestrators delegating to vision subagents | When fidelity > cost |
 
-## Subagent workflow
+> Samson Vision is a visual-text bridge: it does not give an AI real eyes, but delivers structured, auditable, cheap description so an LLM can reason over the textual translation — not "see" like a native multimodal model.
 
-Real orchestration flow (see `runtime/NOUS_AGENT_BLUEPRINT.md` and `runtime/subagents/` contracts). Jordan operational details pending confirmation on claw.
+---
+
+## Metaphor
+
+Samson could see even without eyes — his vision was God's plan, not his retina. Samson Vision offers **operational sight for eyeless AI**: the agent stays the same text model, but receives visual context through SVP before acting or delegating.
+
+---
+
+## How it really works (technical)
+
+Samson Vision **does not turn a text AI into a vision model**. It delivers a **structured translation** — the **SAMSON_VISION_PACK (SVP)** — with 13 layers: OCR, coordinates, ASCII (8 styles), colors, density, hierarchy, visual region detection (OpenCV, not ML object detection), and anti-hallucination guardrails.
+
+Generation pipeline is **0% AI**: numpy + OpenCV + Tesseract. A **compatible LLM can reason over the textual translation** — not all models interpret SVP well (see benchmark).
+
+---
+
+## Usage modes A / B / C
+
+| Mode | Description | When |
+|------|-------------|------|
+| **A — SVP + text LLM** | SVP pipeline + text-only model | Cheap agent, OCR/layout, CI diff |
+| **B — SVP orients + subagent validates** | Visionless orchestrator reads SVP → delegates to vision subagent (Jordan/Hermes flow) | UI review, accessibility, regressions |
+| **C — Direct vision** | Native multimodal on the image | Fidelity > cost: photos, logos, fine detail |
+
+---
+
+## Subagent workflow (Mode B)
 
 | Role | Typical model | Native vision | Function |
 |------|---------------|:-------------:|----------|
-| **Main agent** (orchestrator) | **DeepSeek Flash v4** | ❌ No | Coordinates, reads SVP, delegates, synthesizes |
-| **Vision subagent** | vision_scout / multimodal | ✅ Yes | Analyzes image, refines or validates pack |
-| **Samson Vision CLI** | Algorithmic pipeline | — | Generates SVP (0% AI, numpy+OpenCV+Tesseract) |
+| **Main agent** | DeepSeek Flash v4 | ❌ No | Coordinates, reads SVP, delegates |
+| **Vision subagent** | vision_scout / multimodal | ✅ Yes | Analyzes image, validates pack |
+| **Samson Vision CLI** | Algorithmic pipeline | — | Generates SVP (0% AI) |
 
-**Who runs the CLI and when:** the **main agent or its harness** (Jordan/Hermes, Cursor orchestrator) runs `samson-vision image.png --md` **before delegating** whenever the task includes an image or screenshot. The vision subagent does **not** replace the CLI — it also receives the native image.
+The main agent runs `samson-vision image.png --md` **before delegating**. The vision subagent receives image + embedded SVP.
 
-**SVP role in delegation:**
-1. The **visionless orchestrator** reads SVP as structured text (13 fields) to understand the scene.
-2. Embeds SVP in the delegation prompt together with the image path/file.
-3. The **vision subagent** works with image + SVP context (layout, OCR, coordinates).
-4. Result returns to DeepSeek Flash v4 orchestrator for synthesis or delivery.
+> **Benchmark note:** DeepSeek Flash v4 reads SVP as orchestrator but returns empty as SVP interpreter via API — use MiniMax/kimi for LLM pack interpretation.
 
-> **Benchmark note:** DeepSeek Flash v4 as **orchestrator** reads SVP in context. As **SVP interpreter via API** (text_reasoner mode) returns empty — use MiniMax/kimi for LLM pack interpretation.
+---
 
-```mermaid
-sequenceDiagram
-    participant U as User / Task
-    participant M as Main agent<br/>(DeepSeek Flash v4, no vision)
-    participant SV as Samson Vision CLI
-    participant V as Vision subagent<br/>(vision_scout)
+## Honest limitations
 
-    U->>M: Task + image/screenshot
-    M->>SV: samson-vision image.png --md
-    Note over SV: 0% AI pipeline<br/>numpy + OpenCV + Tesseract
-    SV-->>M: SVP (13 fields)
-    M->>M: Read SVP → plan delegation
-    M->>V: prompt + image + embedded SVP
-    Note over V: Native vision enabled
-    V-->>M: Analysis / draft pack / actions
-    M-->>U: Integrated response
-```
+### Works well
+- UI screenshots, dashboards, web forms
+- Documents with readable text (OCR + layout)
+- CI/QA with versionable SVP diffs
 
-**Steps:**
+### Works adequately
+- Low-contrast images or small fonts
+- Complex diagrams without embedded text
 
-1. **Main agent** (DeepSeek Flash v4, no vision) receives task with image.
-2. **Before delegating**, runs Samson Vision CLI → SVP.
-3. Reads SVP to orient (layout, OCR, hierarchy) without vision API.
-4. **Delegates to vision subagent**: prompt + image + SVP in context.
-5. Subagent (`vision_scout` in `runtime/subagents/`) analyzes with native vision.
-6. **Result returns to orchestrator** for validation or delivery.
+### Do not rely on SVP alone
+- Artistic photography or fine texture detail
+- Facial recognition or visual identity
+- Critical medical, legal, or safety decisions
+- Pixel-perfect logos → **Mode C**
 
-*Main agent runs Samson CLI first, reads SVP, delegates to vision-capable subagent with image + embedded SVP.*
-
-
-
-
-## How it works
-
-```
-Image → [Samson Core] → SAMSON_VISION_PACK (text) → [Any LLM] → Understanding
-           ↑                    ↑                            ↑
-      0% AI, all        13 fields of                   The model "sees"
-      numpy/OpenCV      structured text                through the text
-```
-
-## The SAMSON_VISION_PACK (SVP)
-
-The SVP is the core of Samson Vision — a multi-layer textual representation with 13 mandatory fields:
-
-```
-[SAMSON_VISION_PACK v1]
-
-IMAGE_TYPE:           Type, domain, dimensions, aspect ratio
-GLOBAL_SUMMARY:       One-line visual summary
-VISUAL_HIERARCHY:     Elements ordered by importance with coordinates
-LAYOUT_MAP:           Spatial zones with normalized coordinates (0-100)
-OCR_TEXT:             Detected text with confidence scores
-OBJECTS_AND_COMPONENTS: Detected objects/components
-COLOR_MAP:            Color palette with human-readable names
-DENSITY_MAP:          Content density by horizontal bands
-ASCII_REPRESENTATION: Multi-style ASCII art (8 styles available)
-USER_ACTIONS:         Interactive element coordinates
-UNCERTAINTIES:        Explicit limitations of the detection
-DO_NOT_ASSUME:        Anti-hallucination guardrails
-FINAL_INTERPRETATION: Synthesis for text-only AI consumption
-```
-
-Each field serves a specific purpose: spatial awareness (LAYOUT_MAP, VISUAL_HIERARCHY), text extraction (OCR_TEXT), visual texture (ASCII_REPRESENTATION), color understanding (COLOR_MAP), and anti-hallucination (UNCERTAINTIES, DO_NOT_ASSUME).
+---
 
 ## Quick start
 
 ```bash
-# 1. Generate an SVP from any image
-python3 src/samson_vision.py image.png --md > pack.md
+samson-vision image.png --md > pack.md
 
-# 2. Feed it to any text-only model
-# (examples depend on your provider — see docs/SETUP.md)
-
-# 3. The model interprets it as if it were seeing the image
+python3 -c "from samson_vision import generate_svp; print(generate_svp('image.png', fmt='md'))"
 ```
 
 ## Key features
 
-- **8 ASCII styles**: standard, detail, block, edge, color, dither, fanart, braille
-- **Real OCR**: Tesseract with image preprocessing (2x upscale, OTSU binarization, line grouping)
-- **Scene graph**: Object detection + spatial relationships via OpenCV
-- **Device simulation**: 13 device profiles for responsive design testing
-- **Audio visualization**: Convert audio to ASCII waveforms, spectrums, and beat patterns
-- **Zero vision API calls**: The system itself uses no AI — it is purely algorithmic (numpy + OpenCV + Tesseract)
-
-## Model compatibility
-
-Samson SVP has been tested with **24+ models** across multiple providers. Most text-only LLMs can interpret the SVP effectively. See [BENCHMARK.md](docs/BENCHMARK.md) for detailed comparison.
+- **8 ASCII styles**, real OCR (Tesseract), visual region detection via OpenCV
+- **29 basic unit tests** — not "complete visual comprehension"
+- **Zero vision API calls** in the generation pipeline
 
 ## Benchmark summary
 
-| Tier | Models | Quality | Speed |
+Metric: **6/6 signals** on El Mundo test screenshot — not "100% visual quality". See [BENCHMARK.md](docs/BENCHMARK.md).
+
+| Tier | Models | Signals | Speed |
 |------|--------|:-------:|:-----:|
-| 🥇 Best | MiniMax-M2.1, kimi-k2.7-code | 100% | 5-8s |
-| 🥈 Great value | minimax-m2.5, qwen3.5-plus | 67-83% | 11-43s |
-| 🥉 Solid | GPT-5.4-mini, MiniMax-M3 | 67-100% | 8-27s |
-| ❌ Incompatible | deepseek flash v4, glm-5.x | 0% | — |
+| 🥇 Best | MiniMax-M2.1, kimi-k2.7-code | 6/6 | 5-8s |
+| 🥈 Great value | minimax-m2.5 | 5/6 | 11s |
+| 🥉 Solid | GPT-5.4-mini, MiniMax-M3 | 4-6/6 | 8-27s |
+| ❌ Incompatible | deepseek flash v4, glm-5.x | 0/6 | — |
 
 ## Architecture
 
 ```
 samson-vision/
-├── src/
-│   ├── samson_core.py          ← ASCII conversion engine (8 styles)
-│   ├── vmk/                    ← Vision Multimodal Kernel
-│   │   ├── scene_graph.py      ← Bounding boxes, spatial relations
-│   │   └── kernel.py           ← Color, edges, saliency, object detection
-│   ├── samson_vision.py        ← SAMSON_VISION_PACK generator (the language)
-│   ├── device_db.py            ← Device profiles for responsive testing
-│   ├── synesthesia.py          ← Audio → ASCII visualization
-│   └── harnesses.py            ← Model integration connectors
-├── test/run_tests.py           ← 29 tests — 100% pass rate
-└── docs/
-    ├── ARCHITECTURE.md         ← Detailed architecture
-    ├── SAMSON_VISION_PACK.md   ← Complete SVP specification
-    ├── BENCHMARK.md            ← Model comparison
-    ├── COSTS.md                ← Usage costs
-    └── SETUP.md                ← Installation guide
+├── src/samson_vision.py    ← SVP generator + generate_svp() API
+├── test/run_tests.py       ← 29 basic unit tests
+└── examples/             ← planned examples (stub)
 ```
-
-## When to use Samson Vision vs direct vision models
-
-| Scenario | Use | Why |
-|----------|-----|-----|
-| Target model has **no vision** | **Samson SVP** | Only way for text-only models to "see" |
-| **Cost-sensitive** at scale | **Samson SVP** | 50-100x cheaper than vision API calls |
-| Need **maximum fidelity** (photos, logos) | **Direct vision model** | Native vision sees non-textual elements |
-| **Text-heavy** content (docs, web, dashboards) | **Samson SVP** | Near-indistinguishable from direct vision |
-| **Agent continuity** — keep same model/skills | **Samson SVP** | Project vision survives model switches |
 
 ## License
 

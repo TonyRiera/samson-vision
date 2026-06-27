@@ -984,6 +984,24 @@ class SamsonVisionBuilder:
         return None
 
 
+
+
+def generate_svp(image_path, fmt="md", prompt=""):
+    """Public API: generate SVP from an image path.
+
+    Args:
+        image_path: Path to image file
+        fmt: Output format — "md" (markdown) or "json"
+        prompt: Optional context prompt for the builder
+
+    Returns:
+        SVP as markdown or JSON string
+    """
+    builder = SamsonVisionBuilder()
+    pack = builder.build(image_path, prompt)
+    return pack.to_markdown() if fmt == "md" else pack.to_json()
+
+
 # ═══════════════════════════════════════════════════════════════
 #  CLI
 # ═══════════════════════════════════════════════════════════════

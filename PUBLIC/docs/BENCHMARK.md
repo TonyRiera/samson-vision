@@ -2,55 +2,48 @@
 
 > Test date: June 24, 2026
 > Target: El Mundo homepage screenshot (1280×800)
-> Metric: Content coverage across 6 dimensions (web identification, date, navigation, sports, headline, subscription)
+> Metric: **6 binary signals** (web identification, date, navigation, sports, headline, subscription) — **not** "complete visual quality" or "100% comprehension"
 
 ## Results
 
-| # | Model | Provider | Quality | Time | Cost/query (API tokens, not subscription) | Coverage (6 dims) |
-|---|-------|----------|:-------:|:----:|:----------:|:--------:|
-| 1 | **MiniMax-M2.1** 🏆 | MiniMax API | **100%** | **5s** | $0.0008 | ✅✅✅✅✅✅ |
-| 2 | **kimi-k2.7-code** | OpenCode | **100%** | 8s | $0.0030 | ✅✅✅✅✅✅ |
-| 3 | GPT-5.5 | Codex | 100% | 27s | subscription | ✅✅✅✅✅✅ |
-| 4 | GPT-5.4-mini | Codex | 100% | 8s | ~$0.0005/q ($0.15/$0.60 per 1M in/out est.) | ✅✅✅✅✅✅ |
-| 5 | MiMo V2.5 Pro | OpenCode | 100% | 18s | $0.0040 | ✅✅✅✅✅✅ |
-| 6 | **minimax-m2.5** 🥈 | OpenCode | **83%** | **11s** | **$0.0009** | ✅✅✅✅✅❌ |
-| 7 | MiniMax-M2.7-highspeed | MiniMax API | 83% | 11s | $0.0016 | ✅✅✅✅✅❌ |
-| 8 | MiniMax-M3 | OpenCode | 67% | 10s | $0.0009 | ✅✅✅❌❌✅ |
-| 9 | MiniMax-M2.7 | OpenCode | 67% | 18s | $0.0009 | ✅✅✅❌❌✅ |
-| 10 | MiMo V2 Omni | OpenCode | 67% | 9s | $0.0029 | ✅✅✅❌❌✅ |
-| 11 | Qwen3.5 Plus | OpenCode | 67% | 43s | $0.0012 | ✅✅✅❌❌❌ |
-| 12 | Qwen3.7 Plus | OpenCode | 33% | 40s | $0.0012 | ✅✅❌❌❌❌ |
-| ❌ | DeepSeek Flash v4 | OpenCode | 0% | — | $0.0003 | Empty response |
-| ❌ | GLM-5.2 / 5.1 / 5 | OpenCode | 0% | — | $0.0039 | Empty response |
-| ❌ | Qwen3.7 Max | OpenCode | 0% | — | — | Format not supported |
-| ❌ | Kimi K2.6 / K2.5 | OpenCode | 0% | — | — | API error |
+| # | Model | Provider | Signals | Time | Cost/query | Coverage (6 dims) |
+|---|-------|----------|:-------:|:----:|:----------:|:-----------------:|
+| 1 | **MiniMax-M2.1** 🏆 | MiniMax API | **6/6** | **5s** | $0.0008 | ✅✅✅✅✅✅ |
+| 2 | **kimi-k2.7-code** | OpenCode | **6/6** | 8s | $0.0030 | ✅✅✅✅✅✅ |
+| 3 | GPT-5.5 | Codex | 6/6 | 27s | subscription | ✅✅✅✅✅✅ |
+| 4 | GPT-5.4-mini | Codex | 6/6 | 8s | ~$0.0005/q | ✅✅✅✅✅✅ |
+| 5 | MiMo V2.5 Pro | OpenCode | 6/6 | 18s | $0.0040 | ✅✅✅✅✅✅ |
+| 6 | **minimax-m2.5** 🥈 | OpenCode | **5/6** | **11s** | **$0.0009** | ✅✅✅✅✅❌ |
+| 7 | MiniMax-M2.7-highspeed | MiniMax API | 5/6 | 11s | $0.0016 | ✅✅✅✅✅❌ |
+| 8 | MiniMax-M3 | OpenCode | 4/6 | 10s | $0.0009 | ✅✅✅❌❌✅ |
+| 9 | MiniMax-M2.7 | OpenCode | 4/6 | 18s | $0.0009 | ✅✅✅❌❌✅ |
+| 10 | MiMo V2 Omni | OpenCode | 4/6 | 9s | $0.0029 | ✅✅✅❌❌✅ |
+| 11 | Qwen3.5 Plus | OpenCode | 4/6 | 43s | $0.0012 | ✅✅✅❌❌❌ |
+| 12 | Qwen3.7 Plus | OpenCode | 2/6 | 40s | $0.0012 | ✅✅❌❌❌❌ |
+| ❌ | DeepSeek Flash v4 | OpenCode | 0/6 | — | $0.0003 | Empty response |
+| ❌ | GLM-5.2 / 5.1 / 5 | OpenCode | 0/6 | — | $0.0039 | Empty response |
+| ❌ | Qwen3.7 Max | OpenCode | 0/6 | — | — | Format not supported |
+| ❌ | Kimi K2.6 / K2.5 | OpenCode | 0/6 | — | — | API error |
 
-## Detailed coverage (top 10)
+## What we measure (and what we don't)
 
-| Model | Web | Date | Nav | Sports | Headline | Subscribe |
-|-------|:---:|:----:|:---:|:------:|:--------:|:---------:|
-| MiniMax-M2.1 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| kimi-k2.7-code | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| MiMo V2.5 Pro | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| minimax-m2.5 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
-| MiniMax-M3 | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
-| Qwen3.5 Plus | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
+- **We measure:** whether a compatible LLM can **reason over the SVP textual translation** and recover 6 known signals from the El Mundo test page.
+- **We do not claim:** complete visual comprehension, object detection accuracy, or parity with native multimodal vision.
 
 ## Key findings
 
-1. **Quality/price leaders**: MiniMax-M2.1 (fastest, cheapest, 100%) and minimax-m2.5 (83%, $0.0009)
-2. **DeepSeek and GLM do NOT work**: They return empty content with the SVP format
+1. **Best signal recovery:** MiniMax-M2.1 (6/6, 5s, $0.0008) and kimi-k2.7-code (6/6, 8s)
+2. **DeepSeek and GLM do NOT work** as SVP interpreters via API — empty responses
 3. **Kimi needs higher max_tokens**: kimi-k2.7-code requires ≥1500 tokens and temperature=1.0
-4. **Speed range**: 5s (MiniMax-M2.1) to 43s (Qwen3.5 Plus)
-5. **Cost range**: $0.0008/query (M2.1) to $0.004/query (MiMo V2.5 Pro)
+4. Top models recover **6/6 signals** on the El Mundo test — not universal "100% quality"
 
 ## Recommended stack
 
 ```
-Primary:   MiniMax-M2.1  → 5s,  $0.0008/q, 100%  ← fastest
-Fallback:  minimax-m2.5  → 11s, $0.0009/q, 83%   ← cheapest viable
-Precision: kimi-k2.7-code → 8s,  $0.003/q,  100%  ← best quality
-Backup:    GPT-5.4-mini  → 8s,  ~$0.0005/q ($0.15/$0.60 per 1M in/out est.), 100% ← always available
+Primary:   MiniMax-M2.1  → 5s,  $0.0008/q, 6/6 signals  ← fastest
+Fallback:  minimax-m2.5  → 11s, $0.0009/q, 5/6 signals  ← cheapest viable
+Precision: kimi-k2.7-code → 8s,  $0.003/q,  6/6 signals  ← best signal recovery
+Backup:    GPT-5.4-mini  → 8s,  ~$0.0005/q, 6/6 signals
 ```
 
 ## Test methodology
@@ -58,7 +51,5 @@ Backup:    GPT-5.4-mini  → 8s,  ~$0.0005/q ($0.15/$0.60 per 1M in/out est.), 1
 - **Image**: Full-page screenshot of elmundo.es (1280×800, Chrome headless)
 - **SVP**: Generated by `src/samson_vision.py` with Tesseract OCR (Spanish + English)
 - **Models**: Tested via OpenCode Go API, MiniMax API, and Codex CLI
-- **Prompt**: Same system prompt for all models (interpret SVP as if seeing the image)
-- **Temperature**: 0.3-0.5 (1.0 for Kimi models)
-- **Max tokens**: 800-1500 depending on model
+- **Prompt**: Same system prompt for all models (interpret SVP as structured visual translation)
 - **Scoring**: 6 binary signals checked via regex on model output

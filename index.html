@@ -148,11 +148,14 @@
 
 
     <p class="lead">
-      Sansón pudo ver aun sin ojos. Tu agente recuperará la <strong>visión del proyecto</strong>
-      aunque su modelo siga siendo el mismo — sin modelos con visión que encarecen y pierden habilidades.
+      Convierte imágenes en texto estructurado para que modelos sin visión razonen sobre capturas, documentos y pantallas.
+      No reemplaza un modelo de visión — puente barato, auditable y versionable.
+    </p>
+    <p class="lead" style="font-size:0.82rem;margin-top:-1rem">
+      <em>Turns images into structured text for text-only models. Not a full vision replacement — a cheap, auditable bridge.</em>
     </p>
 
-    <div class="cta">
+<div class="cta">
       <a class="cta-primary" href="PUBLIC/docs/SETUP.md">Instalar</a>
       <a class="cta-secondary" href="README.md">README</a>
       <a class="cta-secondary" href="https://github.com/TonyRiera/samson-vision">GitHub</a>
@@ -165,8 +168,8 @@
 
     <section>
       <h2>La respuesta — SAMSON_VISION_PACK</h2>
-      <p>13 campos de texto estructurado que reemplazan la necesidad de enviar imágenes a LLMs costosos. Mismo modelo. Mismas habilidades. Comprensión visual completa a través de texto.</p>
-      <p><code>python3 src/samson_vision.py imagen.png --md &gt; pack.md</code></p>
+      <p>13 capas de texto estructurado (OCR, coords, ASCII, colores, jerarquía, anti-alucinación). Un LLM compatible puede razonar sobre la traducción textual — no sustituye visión nativa.</p>
+      <p><code>samson-vision imagen.png --md &gt; pack.md</code> · <code>from samson_vision import generate_svp</code></p>
     </section>
 
 
@@ -176,6 +179,21 @@
       <p><em>DeepSeek Flash v4 orchestrator → Samson CLI → SVP → vision subagent → back. CLI run by main agent before delegation.</em></p>
     </section>
 
+
+
+    <section>
+      <h2>Cuándo usarlo / When to use</h2>
+      <p><strong>✅</strong> Screenshots, dashboards, formularios, OCR+layout, agentes baratos, CI QA.<br>
+      <strong>❌</strong> Detalle fino en fotos, reconocimiento facial, decisiones médicas/legales, pixel-perfect.</p>
+      <p style="margin-top:0.75rem;font-size:0.78rem;font-style:italic;color:var(--gold-dim)">
+        Samson Vision es un puente visual-textual: no le da ojos reales a una IA, pero entrega descripción estructurada, auditable y barata.
+      </p>
+    </section>
+
+    <section>
+      <h2>Modos A / B / C</h2>
+      <p><strong>A:</strong> solo SVP + LLM texto · <strong>B:</strong> SVP orienta orquestador + subagente con visión valida (flujo actual) · <strong>C:</strong> visión directa cuando fidelidad &gt; coste.</p>
+    </section>
 
     <section id="use-cases">
       <h2>Casos de uso / Use cases</h2>

@@ -18,7 +18,8 @@ from typing import Optional
 
 # ─── Paths ─────────────────────────────────────────────────────
 
-PROJECT_DIR = os.path.expanduser("~/proyectos/samson-vision")
+_PKG_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_DIR = os.environ.get("SAMSON_VISION_HOME", str(_PKG_ROOT))
 SRC_DIR = os.path.join(PROJECT_DIR, "src")
 SAMSON_DIR = os.path.expanduser("~/.hermes/samson-vision")
 LOG_DIR = os.path.expanduser("~/.hermes/logs")
