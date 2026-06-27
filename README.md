@@ -5,16 +5,18 @@
 <h1 align="center">Samson Vision</h1>
 
 <p align="center">
-  <strong>Tus limitaciones no son un límite imposible de superar.</strong><br>
-  <em>Filipenses 4:13</em><br>
-  <sub><strong>Your limitations are not an impossible limit to overcome.</strong><br>
-  <em>Philippians 4:13</em></sub>
+  <em>ES:</em> Tus limitaciones no son un límite imposible de superar. <em>Filipenses 4:13</em>
+</p>
+<p align="center">
+  <em>EN:</em> Your limitations are not an impossible limit to overcome. <em>Philippians 4:13</em>
+</p>
+<p align="center">
+  Tu agente sigue sin ojos — el mismo modelo, sin visión — pero recibe visión a través del SVP.
+</p>
+<p align="center">
+  <em>Your agent still has no eyes — same model, no vision — but receives sight through SVP.</em>
 </p>
 
-<p align="center">
-  <em>Samson Vision da visión a tu agente aunque el modelo siga sin ojos — SVP extrae la verdad estructural bajo los píxeles.</em><br>
-  <sub><em>Samson Vision gives your agent sight even when the model still has no eyes — SVP extracts structural truth beneath the pixels.</em></sub>
-</p>
 
 <p align="center">
   <a href="PUBLIC/docs/SETUP.md"><strong>Instalar</strong></a>
@@ -41,52 +43,37 @@ Sansón pudo ver aun sin ojos. Tu agente recuperará la **visión del proyecto**
 
 Samson Vision es un **lenguaje visual basado en texto** que permite a una IA sin visión "ver" imágenes. Traduce píxeles al **SAMSON_VISION_PACK (SVP)** — un formato estructurado con 13 campos — que cualquier modelo de texto puede interpretar como si estuviera viendo la imagen.
 
-Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30). En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30).
-
-**Samson Vision** complementa al **agente principal sin visión**: el mismo modelo de texto obtiene **visión** a través del SVP — la verdad estructural que los píxeles esconden.
-
-*Samson lost his physical sight but regained the vision of God's plan (Judges 16:28-30). He did not need to see the temple — he needed to know when and how to act. Samson Vision gives the text-only main agent sight through SVP — then delegates precision work to a vision subagent.*
-
 ## Flujo con subagentes / Subagent workflow
 
-Un **agente principal sin visión** (p. ej. **DeepSeek Flash v4 Pro** — modelo texto-only, barato) orquesta la tarea. **Samson Vision** complementa al principal: convierte la imagen en **SAMSON_VISION_PACK (SVP)** (`--md`) para que el principal obtenga "visión" en texto sin ser multimodal. Luego delega al **subagente con visión incorporada** (modelo vision nativo) con prompt + contexto + SVP embebido.
+Un **agente principal** recibe tareas con imágenes o capturas de pantalla. Antes de delegar, el pipeline (o el agente principal) genera un **SAMSON_VISION_PACK (SVP)** con Samson Vision. El **subagente** — normalmente un modelo **solo texto**, sin visión — recibe el prompt de la tarea **más el SVP embebido** en su contexto.
 
-**Pasos:**
-
-1. El **agente principal** (sin visión, ej. DeepSeek Flash v4) recibe una tarea con imagen o screenshot.
-2. **Samson Vision** genera el SVP (`python3 src/samson_vision.py imagen.png --md`) — el principal obtiene "visión" en texto.
-3. El agente principal **delega al subagente** (CON visión incorporada): prompt + contexto + SVP.
-4. El **subagente** usa su visión nativa **más** el SVP para ejecutar con precisión.
-5. El **resultado vuelve al agente principal** — orquestación barata, sin modelo vision caro en el loop principal.
+Así se preserva la transferencia de contexto visual **sin** usar modelos de visión costosos en el subagente ni cambiar de modelo.
 
 ```mermaid
 sequenceDiagram
     participant U as Usuario / Tarea
-    participant M as Agente principal (texto)
+    participant M as Agente principal
     participant SV as Samson Vision
-    participant S as Subagente (visión)
+    participant S as Subagente (texto)
 
     U->>M: Tarea + imagen/screenshot
     M->>SV: imagen.png --md
     SV-->>M: SVP (13 campos)
-    Note over M: "Ve" vía SVP, sin modelo multimodal
-    M->>S: prompt + contexto + SVP + imagen
-    Note over S: Visión nativa + SVP
-    S-->>M: Resultado preciso
+    M->>S: prompt + SVP embebido
+    Note over S: Sin modelo de visión
+    S-->>M: Resultado (con "visión" en texto)
     M-->>U: Respuesta integrada
 ```
 
----
+**Pasos:**
 
-A **vision-less main agent** (e.g. **DeepSeek Flash v4 Pro** — text-only, cheap) orchestrates the task. **Samson Vision** complements the main agent: it converts the image into a **SAMSON_VISION_PACK (SVP)** (`--md`) so the main agent gains textual "sight" without being multimodal. Then it delegates to a **subagent with built-in vision** (native vision model) with prompt + context + embedded SVP.
+1. El **agente principal** recibe una tarea con imagen o screenshot.
+2. **Samson Vision** genera el SVP (`python3 src/samson_vision.py imagen.png --md`).
+3. El agente principal **delega al subagente**: prompt de la tarea + SVP embebido en el contexto.
+4. El **subagente** (sin visión nativa) trabaja con la "visión" estructurada en texto.
+5. El **resultado vuelve al agente principal** para síntesis, validación o entrega al usuario.
 
-**Steps:**
-
-1. The **main agent** (no vision, e.g. DeepSeek Flash v4) receives a task with an image or screenshot.
-2. **Samson Vision** generates the SVP (`python3 src/samson_vision.py image.png --md`) — the main agent gains textual "sight".
-3. The main agent **delegates to the subagent** (WITH built-in vision): prompt + context + SVP.
-4. The **subagent** uses its native vision **plus** the SVP for precise execution.
-5. The **result returns to the main agent** — cheap orchestration, no expensive vision model in the main loop.
+*The main agent receives image tasks, Samson Vision produces SVP text, and the text-only subagent works with embedded structured vision — preserving context without expensive vision models on the subagent.*
 
 
 ## Stack 80/20 — Modelo más rápido + fallback
@@ -103,12 +90,18 @@ El flujo es automático: primero intenta M2.1 (5s). Si falla, cae a M2.5. Si nec
 
 Ver [`docs/COSTS.md`](docs/COSTS.md) para costes detallados.
 
-| # | Modelo | Via | Calidad | Tiempo | Coste/query (API, no suscripción) | Cobertura |
+| # | Modelo | Via | Calidad | Tiempo | Coste/query | Cobertura |
+|---|--------|-----|:-----:|:------:|:----------:|:---------:|
+| 1 | **MiniMax-M2.1** 🏆 | mmx CLI | 100% | **5s** | $0.0008 | ✅✅✅✅✅✅ |
+| 2 | **kimi-k2.7-code** | OpenCode | 100% | 8s | $0.0030 | ✅✅✅✅✅✅ |
+| 3 | gpt-5.4-mini | Codex | 100% | 8s | subscription (per-token) | ✅✅✅✅✅✅ |
 | 4 | **minimax-m2.5** 🥈 | OpenCode | 83% | 11s | **$0.0009** | ✅✅✅✅✅❌ |
 | 5 | MiniMax-M2.7-highspeed | mmx | 83% | 11s | $0.0016 | ✅✅✅✅✅❌ |
 | 6 | minimax-m3 | OpenCode | 67% | 10s | $0.0009 | ✅✅✅❌❌✅ |
 | 7 | mimo-v2-omni | OpenCode | 67% | 9s | $0.0029 | ✅✅✅❌❌✅ |
 | 8 | qwen3.5-plus | OpenCode | 67% | 43s | $0.0012 | ✅✅✅❌❌❌ |
+| ❌ | deepseek flash v4 | OpenCode | 0% | — | $0.0003 | vacío (0%) |
+| ❌ | glm-5.2/5.1/5 | OpenCode | 0% | — | $0.0039 | vacío (0%) |
 
 ## El Lenguaje: SAMSON_VISION_PACK (SVP)
 
@@ -222,13 +215,3 @@ PUBLIC/
 
 Contenido sanitizado: sin rutas personales (~/), sin API keys, sin detalles de cuentas,
 sin nombres de usuario, sin configuraciones internas. Listo para copiar a un repo público.
-
-## La metáfora de Sansón
-
-> Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30).
->
-> En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30).
->
-> **Samson Vision** — el agente principal **sigue sin ojos** (sin modelo de visión), pero recibe **visión** a través del SVP; el subagente con visión nativa ejecuta con precisión usando SVP + imagen.
->
-> *The AI still has no eyes — no vision model — but Samson Vision gives it sight anyway through SVP text. It does not need to "see" pixels; SVP extracts structural truth the natural eye (or blind model) cannot capture.*
