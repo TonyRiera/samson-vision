@@ -64,3 +64,12 @@ The core format: 13 fields → IMAGE_TYPE, GLOBAL_SUMMARY, VISUAL_HIERARCHY, LAY
 - Private repo. PUBLIC/ is the sanitized public subset for future public release.
 - assets/ are the canonical images (PUBLIC/assets/ was removed to avoid duplication).
 Curated SVP demo images: see assets/README.md (2026-06-27: genesis_tablet_golden, lion_of_judah_revelation, +4 epic scenes).
+
+## Agent workflow (real)
+
+- **Main agent:** DeepSeek Flash v4 — no native vision. Orchestrates only.
+- **Samson CLI:** Run by main agent/harness **before delegation** when task has image: `samson-vision img.png --md`
+- **Vision subagent:** `vision_scout` — has native vision. Receives image + SVP + task prompt.
+- **SVP role:** Lets blind orchestrator understand scene; embedded in delegation to vision subagent.
+- **text_reasoner:** DeepSeek consumes validated SVP pack post-analysis (see `runtime/subagents/text_reasoner.md`).
+- Jordan confirmation pending: `/tmp/jordan_samson_answers.txt` (not yet written).

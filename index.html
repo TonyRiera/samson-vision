@@ -172,24 +172,25 @@
 
     <section>
       <h2>Flujo con subagentes</h2>
-      <p>El <strong>agente principal</strong> recibe la tarea con imagen. <strong>Samson Vision</strong> genera el SVP (<code>--md</code>). Delega al <strong>subagente</strong> (solo texto, sin visión) con el prompt + SVP embebido. El subagente trabaja con visión estructurada; el resultado vuelve al agente principal.</p>
-      <p><em>Main agent → SVP → text-only subagent → result back. Context preserved, no vision model on subagent.</em></p>
+      <p>El <strong>agente principal</strong> (<strong>DeepSeek Flash v4</strong>, sin visión) recibe la tarea con imagen. <strong>Antes de delegar</strong>, ejecuta <strong>Samson Vision CLI</strong> (<code>samson-vision imagen.png --md</code>) — pipeline 0% IA. Lee el SVP, luego delega al <strong>subagente con visión incorporada</strong> (<code>vision_scout</code>) con imagen + SVP embebido. El resultado vuelve al orquestador.</p>
+      <p><em>DeepSeek Flash v4 orchestrator → Samson CLI → SVP → vision subagent → back. CLI run by main agent before delegation.</em></p>
     </section>
 
 
     <section id="use-cases">
       <h2>Casos de uso / Use cases</h2>
-      <p><strong>Patrón:</strong> agente principal sin visión + Samson SVP + subagente con visión en texto — sin multimodal caro.</p>
-      <p><em>Pattern: visionless main agent + Samson SVP + text-structured subagent — no expensive multimodal.</em></p>
+      <p><strong>Patrón:</strong> orquestador DeepSeek Flash v4 sin visión + Samson CLI + subagente con visión nativa.</p>
+      <p><em>Pattern: visionless DeepSeek orchestrator + Samson CLI + vision-capable subagent.</em></p>
       <ul style="font-size:0.82rem;color:var(--muted);margin:1rem 0 0 1.1rem;line-height:1.7">
-        <li style="margin-bottom:0.85rem"><strong>Orquestador barato revisa screenshot de UI</strong> · <em>Cheap orchestrator reviews UI screenshot</em><br>SVP del screenshot → delegación → subagente solo texto propone fix CSS sin API de visión.</li>
-        <li style="margin-bottom:0.85rem"><strong>CI/CD sin modelo de visión</strong> · <em>CI/CD without vision model</em><br>Pipeline corre Samson CLI; agente texto-only diffs SVPs para regresión visual.</li>
-        <li style="margin-bottom:0.85rem"><strong>Subagente Cursor sin imagen</strong> · <em>Cursor subagent without image</em><br>Orquestador embebe SVP en prompt de delegación; subagente opera con layout y OCR.</li>
-        <li style="margin-bottom:0.85rem"><strong>Auditoría de accesibilidad</strong> · <em>Accessibility audit</em><br>OCR + layout + colores en SVP → contraste, targets, jerarquía rota.</li>
-        <li style="margin-bottom:0.85rem"><strong>Portfolio y evidencia</strong> · <em>Portfolio / evidence</em><br>Captura prod → SVP → case study versionable sin GPT-4V.</li>
-        <li><strong>Multimodal caro evitado</strong> · <em>Expensive multimodal avoided</em><br>Mismo modelo barato + SVP vs vision API: contexto visual, coste ~100× menor.</li>
+        <li style="margin-bottom:0.85rem"><strong>Orquestador barato revisa screenshot de UI</strong> · <em>Cheap orchestrator reviews UI screenshot</em><br>Principal genera SVP → delega a subagente con visión → fix CSS sin multimodal caro en el orquestador.</li>
+        <li style="margin-bottom:0.85rem"><strong>CI/CD sin modelo de visión en orquestador</strong> · <em>CI/CD without vision on orchestrator</em><br>Pipeline corre Samson CLI; orquestador texto-only diffs SVPs; subagente con visión valida regresiones.</li>
+        <li style="margin-bottom:0.85rem"><strong>Subagente Cursor con visión</strong> · <em>Cursor vision subagent</em><br>Orquestador embebe SVP + pasa imagen; subagente multimodal opera con ambos.</li>
+        <li style="margin-bottom:0.85rem"><strong>Auditoría de accesibilidad</strong> · <em>Accessibility audit</em><br>SVP (OCR + layout + colores) orienta al orquestador; subagente con visión confirma contraste y targets.</li>
+        <li style="margin-bottom:0.85rem"><strong>Portfolio y evidencia</strong> · <em>Portfolio / evidence</em><br>Captura prod → SVP → case study versionable; subagente con visión para detalle fino.</li>
+        <li><strong>Multimodal caro evitado en orquestador</strong> · <em>Expensive multimodal avoided on orchestrator</em><br>DeepSeek Flash v4 barato + SVP; visión solo donde hace falta (subagente).</li>
       </ul>
     </section>
+
 
 
     <footer>
