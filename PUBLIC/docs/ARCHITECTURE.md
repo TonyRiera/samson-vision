@@ -191,7 +191,7 @@ Solo la **interpretación** del SVP (pasarlo a un LLM) tiene coste de API.
 🏆 Primario:   MiniMax-M2.1 (mmx CLI)    → 5s,   $0.0008/q, 100%
 🔄 Fallback:   minimax-m2.5 (OpenCode)    → 11s,  $0.0009/q, 83%
 🎯 Precisión:  kimi-k2.7-code (OpenCode)  → 8s,   $0.003/q,  100%
-🎫 Backup:     GPT-5.4-mini (Codex CLI)   → 8s,   $20/mes
+🎫 Backup:     GPT-5.4-mini (Codex CLI)   → 8s,   ~$0.0005/q (API per-token est.)
 ```
 
 **Modelos que NO funcionan:** deepseek-v4-flash/pro, GLM-5.x, kimi-k2.6/k2.5, qwen3.7-max

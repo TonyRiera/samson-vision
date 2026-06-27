@@ -52,18 +52,18 @@ El flujo es automático: primero intenta M2.1 (5s). Si falla, cae a M2.5. Si nec
 
 Ver [`docs/COSTS.md`](docs/COSTS.md) para costes detallados.
 
-| # | Modelo | Via | Score | Tiempo | Coste/query |
-|---|--------|-----|:-----:|:------:|:----------:|
+| # | Modelo | Via | Score | Tiempo | Coste/query (API, no suscripción) |
+|---|--------|-----|:-----:|:------:|:------------------------------:|
 | 1 | **MiniMax-M2.1** 🏆 | mmx CLI | 100% | **5s** | $0.0008 |
 | 2 | **kimi-k2.7-code** | OpenCode | 100% | 8s | $0.0030 |
-| 3 | gpt-5.4-mini | Codex | 100% | 8s | $20/mes |
+| 3 | gpt-5.4-mini | Codex | 100% | 8s | ~$0.0005/q ($0.15/$0.60 por 1M in/out) |
 | 4 | **minimax-m2.5** 🥈 | OpenCode | 83% | 11s | **$0.0009** |
 | 5 | MiniMax-M2.7-highspeed | mmx | 83% | 11s | $0.0016 |
 | 6 | minimax-m3 | OpenCode | 67% | 10s | $0.0009 |
 | 7 | mimo-v2-omni | OpenCode | 67% | 9s | $0.0029 |
 | 8 | qwen3.5-plus | OpenCode | 67% | 43s | $0.0012 |
-| ❌ | deepseek-v4-flash | OpenCode | 0% | — | devuelve vacío |
-| ❌ | glm-5.2/5.1/5 | OpenCode | 0% | — | devuelve vacío |
+| ❌ | deepseek-v4-flash | OpenCode | 0% | — | ❌ respuesta vacía (falló) |
+| ❌ | glm-5.2/5.1/5 | OpenCode | 0% | — | ❌ respuesta vacía (falló) |
 
 ## El Lenguaje: SAMSON_VISION_PACK (SVP)
 
