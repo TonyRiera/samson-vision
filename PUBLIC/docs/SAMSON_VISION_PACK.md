@@ -17,9 +17,9 @@ Sansón perdió la **vista física**, pero recuperó la **visión del plan de Di
 
 ## Subagent consumption pattern
 
-When a **main agent** delegates to a **text-only subagent**, embed the full SVP in the subagent's context alongside the task prompt. The subagent interprets the 13 fields as structured vision — no native vision model required. Results flow back to the main agent for synthesis.
+**ES:** El **agente principal sin visión** genera SVP (`--md`) y obtiene "visión" en texto. Delega al **subagente con visión incorporada** con prompt + contexto + SVP + imagen. El subagente combina visión nativa + SVP para ejecución precisa. El resultado vuelve al principal (orquestación barata).
 
-*Patrón: agente principal → SVP → subagente solo-texto → resultado al principal.*
+**EN:** The **vision-less main agent** generates SVP (`--md`) and gains textual sight. It delegates to a **subagent with built-in vision** with prompt + context + SVP + image. The subagent combines native vision + SVP for precise execution. Results return to the cheap text-only orchestrator.
 
 
 ## The 13 Fields

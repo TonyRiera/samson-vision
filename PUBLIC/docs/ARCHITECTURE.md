@@ -7,9 +7,7 @@
 
 ## Why Samson Vision?
 
-Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30). En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30). Samson Vision aplica la misma idea a agentes de IA: tu modelo **sigue sin ojos** (sin modelo de visión), pero recibe **visión** a través del SVP — 13 campos de texto que codifican la verdad estructural que los píxeles esconden. Los modelos con visión nativa son caros, a menudo más débiles en código y razonamiento, y cambiar de agente borra el contexto. SVP permite que cualquier LLM de texto "vea" sin cambiar de modelo ni pagar APIs de visión.
-
-*Samson lost physical sight but gained vision of God's plan. The AI still has no eyes — Samson Vision gives it sight through SVP text anyway.*
+Samson could see even without eyes — not by regaining physical sight, but by perceiving the plan beneath the surface. Samson Vision applies the same idea to AI agents: **recover project vision even when the model stays the same**. Vision-capable models are expensive, often weaker at code and reasoning, and switching agents drops context. SVP encodes what matters from an image into 13 text fields any text-only LLM can read — so your agent keeps its skills, your costs stay low, and visual understanding persists across model changes. Shared as a personal blessing so teams are not forced into costly vision APIs when structured text sees just as clearly.
 
 
 Samson Vision es un **pipeline algorítmico** que transforma cualquier imagen en un **SAMSON_VISION_PACK (SVP)**: 13 campos de texto estructurado que cualquier modelo de lenguaje puede interpretar como si estuviera viendo la imagen.
@@ -42,58 +40,6 @@ Imagen (PNG/JPG/WEBP)
          │  como si "viera"    │
          └─────────────────────┘
 ```
-
-## Flujo con subagentes (orquestación multi-agente)
-
-Samson Vision encaja en arquitecturas donde un **agente principal sin visión** (p. ej. DeepSeek Flash v4 Pro — texto-only, barato) orquesta y delega a **subagentes con visión incorporada**. El SVP da al principal "visión" en texto; el subagente combina visión nativa + SVP para ejecución precisa.
-
-```
-┌─────────────────────────┐     imagen/screenshot
-│  Agente principal       │──────────────────────────────┐
-│  (texto, SIN visión)    │                              │
-└───────────┬─────────────┘                              ▼
-            │                              ┌────────────────────────┐
-            │                              │  samson_vision.py      │
-            │                              │  --md → SVP (13 campos)│
-            │                              └───────────┬────────────┘
-            │◄─────────────────────────────────────┘ SVP → principal "ve" en texto
-            │
-            │  prompt + contexto + SVP + imagen
-            ▼
-┌─────────────────────────┐
-│  Subagente              │
-│  (CON visión nativa)    │ → visión nativa + SVP
-└───────────┬─────────────┘
-            │ resultado
-            ▼
-┌─────────────────────────┐
-│  Agente principal       │ → síntesis / entrega (sin modelo vision caro)
-└─────────────────────────┘
-```
-
-**Pasos:**
-
-1. Agente principal (sin visión, ej. DeepSeek Flash v4) recibe tarea con imagen.
-2. Samson Vision genera SVP (`--md`) — el principal obtiene "visión" en texto.
-3. Agente principal delega al subagente (CON visión incorporada): prompt + contexto + SVP.
-4. Subagente usa su visión nativa + SVP para ejecutar con precisión.
-5. Resultado vuelve al agente principal (barato, sin modelo vision caro en orquestación).
-
-**Ventajas del patrón:**
-
-| Aspecto | Sin SVP | Con SVP + subagente con visión |
-|---------|---------|--------------------------------|
-| Agente principal | Necesita modelo multimodal (caro) | Texto-only barato; "ve" vía SVP |
-| Subagente | Solo imagen, sin contexto estructurado | Visión nativa + SVP = mayor precisión |
-| Contexto visual | Se pierde entre modelos | SVP portable en texto |
-| Coste de orquestación | API de visión en cada turno | ~$0 generación SVP + principal texto-only |
-
-Los contratos de subagente en `runtime/subagents/` pueden incluir el SVP como bloque obligatorio cuando la tarea incluye input visual.
-
----
-
-A **vision-less main agent** (e.g. DeepSeek Flash v4 Pro) orchestrates; **Samson Vision** produces SVP so the main agent gains textual sight. The **vision subagent** receives prompt + context + SVP + image and executes with native vision plus structured SVP. Results return to the cheap text-only main agent.
-
 
 ## Componentes
 
@@ -245,7 +191,7 @@ Solo la **interpretación** del SVP (pasarlo a un LLM) tiene coste de API.
 🏆 Primario:   MiniMax-M2.1 (mmx CLI)    → 5s,   $0.0008/q, 100%
 🔄 Fallback:   minimax-m2.5 (OpenCode)    → 11s,  $0.0009/q, 83%
 🎯 Precisión:  kimi-k2.7-code (OpenCode)  → 8s,   $0.003/q,  100%
-🎫 Backup:     GPT-5.4-mini (Codex CLI)   → 8s,   ~$0.0005/q ($0.15/$0.60 per 1M in/out est.)
+🎫 Backup:     GPT-5.4-mini (Codex CLI)   → 8s,   ~$0.0005/q (API per-token est.)
 ```
 
 **Modelos que NO funcionan:** deepseek-v4-flash/pro, GLM-5.x, kimi-k2.6/k2.5, qwen3.7-max
@@ -282,10 +228,11 @@ Solo la **interpretación** del SVP (pasarlo a un LLM) tiene coste de API.
 
 ## La metáfora de Sansón
 
-> Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30).
+> Sansón perdió la **vista física**, pero ganó la **visión del plan de Dios**.
+> (Jueces 16:28-30)
 >
-> En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30).
+> No necesitaba ver el templo — necesitaba saber **cuándo y cómo derribarlo**.
 >
-> **Samson Vision** — el agente principal **sigue sin ojos** (sin modelo de visión), pero recibe **visión** a través del SVP; el subagente con visión nativa ejecuta con precisión usando SVP + imagen.
->
-> *The AI still has no eyes — no vision model — but Samson Vision gives it sight anyway through SVP text.*
+> Samson Vision = revelar el plan oculto bajo los píxeles.
+> La IA no necesita "ver" imágenes —
+> necesita que alguien extraiga la verdad estructural que el ojo natural no capta.
