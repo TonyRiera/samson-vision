@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "samson-vision"
-version = "0.3.1"
+version = "0.3.2"
 description = "Visual-to-text bridge for AI agents: structured SVP packs for screenshots, documents, UI images and text-only LLM workflows."
 readme = "README.md"
 license = { text = "MIT" }
@@ -23,4 +23,5 @@ scripts = { "samson-vision" = "samson_vision:cli" }
 where = ["src"]
 
 [tool.setuptools]
+package-dir = {"" = "src"}
 py-modules = ["samson_vision", "samson_core", "harnesses", "device_db", "runtime_integration", "synesthesia", "versiculos"]

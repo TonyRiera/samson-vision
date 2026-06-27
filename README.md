@@ -172,8 +172,8 @@ samson-vision/
 
 ## Roadmap
 
-### v0.3.0 (this release)
-- Public README positioning, CI, `generate_svp()` API, 5 examples, credibility fixes (6/6 signals, region detection)
+### v0.3.1 (this release)
+- Packaging cleanup (`package-dir`), docs alignment (6/6 binary signals), SETUP harness honesty
 
 ### v0.4 (planned)
 - Monorepo split: `core/`, `agent/`, `bench/`

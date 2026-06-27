@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.2] — 2026-06-27
+
+**Packaging fix** — explicit `package-dir` for setuptools src layout.
+
+### Changed
+- Added `[tool.setuptools] package-dir = {"" = "src"}` for reliable editable/install imports
+- SETUP.md harness table: 6/6 binary signals (not "% calidad" claims)
+- README roadmap: v0.3.1 release notes + packaging cleanup
+
+### Verified
+- Test suite 29/29
+
+
 All notable changes to Samson Vision are documented here.
 
 ## [0.3.1] — 2026-06-27

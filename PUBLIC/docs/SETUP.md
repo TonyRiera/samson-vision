@@ -154,10 +154,10 @@ codex -z "Eres Samson Vision. Interpreta este SAMSON_VISION_PACK: $SVP"
 El orden recomendado para interpretar SVP:
 
 ```
-PASO 1: MiniMax-M2.1 (mmx CLI)       → 5s   → $0.0008/query → 100% calidad
-PASO 2: minimax-m2.5 (OpenCode Go)    → 11s  → $0.0009/query → 83% calidad
-PASO 3: kimi-k2.7-code (OpenCode Go)  → 8s   → $0.003/query  → 100% calidad
-PASO 4: gpt-5.4-mini (Codex CLI)      → 8s   → ~$0.0005/q ($0.15/$0.60 per 1M in/out est.) → 100% calidad
+PASO 1: MiniMax-M2.1 (mmx CLI)       → 5s   → $0.0008/query → 6/6 binary signals
+PASO 2: minimax-m2.5 (OpenCode Go)    → 11s  → $0.0009/query → 5/6 binary signals
+PASO 3: kimi-k2.7-code (OpenCode Go)  → 8s   → $0.003/query  → 6/6 binary signals
+PASO 4: gpt-5.4-mini (Codex CLI)      → 8s   → ~$0.0005/q ($0.15/$0.60 per 1M in/out est.) → 6/6 binary signals
 ```
 
 **Modelos que NO funcionan con SVP:** deepseek flash v4, GLM-5.x, qwen3.7-max, kimi-k2.6/k2.5
