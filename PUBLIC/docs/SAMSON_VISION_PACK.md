@@ -10,7 +10,9 @@ Unlike ASCII art alone (which loses color, small text, and spatial relationships
 
 ## Why Samson Vision?
 
-Samson could see even without eyes — not by regaining physical sight, but by perceiving the plan beneath the surface. Samson Vision applies the same idea to AI agents: **recover project vision even when the model stays the same**. Vision-capable models are expensive, often weaker at code and reasoning, and switching agents drops context. SVP encodes what matters from an image into 13 text fields any text-only LLM can read — so your agent keeps its skills, your costs stay low, and visual understanding persists across model changes. Shared as a personal blessing so teams are not forced into costly vision APIs when structured text sees just as clearly.
+Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30). No necesitaba ver el templo — necesitaba saber **cuándo y cómo actuar**. Samson Vision aplica la misma idea a agentes de IA: tu modelo **sigue sin ojos** (sin modelo de visión), pero recibe **visión** a través del SVP — 13 campos de texto que codifican la verdad estructural que los píxeles esconden. Los modelos con visión nativa son caros, a menudo más débiles en código y razonamiento, y cambiar de agente borra el contexto. SVP permite que cualquier LLM de texto "vea" sin cambiar de modelo ni pagar APIs de visión.
+
+*Samson lost physical sight but gained vision of God's plan. The AI still has no eyes — Samson Vision gives it sight through SVP text anyway.*
 
 
 ## The 13 Fields

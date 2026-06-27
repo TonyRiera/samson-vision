@@ -6,12 +6,12 @@
 
 ## Results
 
-| # | Model | Provider | Quality (success) | Latency | Cost/query (API tokens, not subscription) | Coverage |
+| # | Model | Provider | Quality | Time | Cost/query | Coverage (6 dims) |
 |---|-------|----------|:-------:|:----:|:----------:|:--------:|
 | 1 | **MiniMax-M2.1** 🏆 | MiniMax API | **100%** | **5s** | $0.0008 | ✅✅✅✅✅✅ |
 | 2 | **kimi-k2.7-code** | OpenCode | **100%** | 8s | $0.0030 | ✅✅✅✅✅✅ |
-| 3 | GPT-5.5 | Codex | 100% | 27s | ~$0.002/q ($2.50/$10 per 1M in/out est.) | ✅✅✅✅✅✅ |
-| 4 | GPT-5.4-mini | Codex | 100% | 8s | ~$0.0005/q ($0.15/$0.60 per 1M in/out est.) | ✅✅✅✅✅✅ |
+| 3 | GPT-5.5 | Codex | 100% | 27s | subscription | ✅✅✅✅✅✅ |
+| 4 | GPT-5.4-mini | Codex | 100% | 8s | subscription (per-token) | ✅✅✅✅✅✅ |
 | 5 | MiMo V2.5 Pro | OpenCode | 100% | 18s | $0.0040 | ✅✅✅✅✅✅ |
 | 6 | **minimax-m2.5** 🥈 | OpenCode | **83%** | **11s** | **$0.0009** | ✅✅✅✅✅❌ |
 | 7 | MiniMax-M2.7-highspeed | MiniMax API | 83% | 11s | $0.0016 | ✅✅✅✅✅❌ |
@@ -20,9 +20,9 @@
 | 10 | MiMo V2 Omni | OpenCode | 67% | 9s | $0.0029 | ✅✅✅❌❌✅ |
 | 11 | Qwen3.5 Plus | OpenCode | 67% | 43s | $0.0012 | ✅✅✅❌❌❌ |
 | 12 | Qwen3.7 Plus | OpenCode | 33% | 40s | $0.0012 | ✅✅❌❌❌❌ |
-| ❌ | DeepSeek V4 Flash | OpenCode | 0% | — | $0.0003 (si respondiera) | ❌ empty response |
+| ❌ | DeepSeek V4 Flash | OpenCode | 0% | — | $0.0003 | Empty response |
 | ❌ | DeepSeek V4 Pro | OpenCode | 0% | — | $0.0035 | Empty response |
-| ❌ | GLM-5.2 / 5.1 / 5 | OpenCode | 0% | — | $0.0039 (si respondiera) | ❌ empty response |
+| ❌ | GLM-5.2 / 5.1 / 5 | OpenCode | 0% | — | $0.0039 | Empty response |
 | ❌ | Qwen3.7 Max | OpenCode | 0% | — | — | Format not supported |
 | ❌ | Kimi K2.6 / K2.5 | OpenCode | 0% | — | — | API error |
 
@@ -51,10 +51,8 @@
 Primary:   MiniMax-M2.1  → 5s,  $0.0008/q, 100%  ← fastest
 Fallback:  minimax-m2.5  → 11s, $0.0009/q, 83%   ← cheapest viable
 Precision: kimi-k2.7-code → 8s,  $0.003/q,  100%  ← best quality
-Backup:    GPT-5.4-mini  → 8s,  ~$0.0005/q (API per-token est.), 100% ← always available
+Backup:    GPT-5.4-mini  → 8s,  subscription (per-token), 100% ← always available
 ```
-
-> **Cost column:** per-query estimate from input/output **$/1M tokens** (see [COSTS.md](COSTS.md)); not ChatGPT Plus / OpenCode monthly plans.
 
 ## Test methodology
 

@@ -5,15 +5,7 @@
 <h1 align="center">Samson Vision</h1>
 
 <p align="center">
-  <strong>Tus limitaciones no son un límite imposible de superar.</strong><br>
-  <em>Filipenses 4:13</em><br>
-  <sub><strong>Your limitations are not an impossible limit to overcome.</strong><br>
-  <em>Philippians 4:13</em></sub>
-</p>
-
-<p align="center">
-  <em>Samson Vision da visión a tu agente aunque el modelo siga sin ojos — SVP extrae la verdad estructural bajo los píxeles.</em><br>
-  <sub><em>Samson Vision gives your agent sight even when the model still has no eyes — SVP extracts structural truth beneath the pixels.</em></sub>
+  <em>Reveal the hidden plan beneath the pixels.</em>
 </p>
 
 <p align="center">
@@ -27,9 +19,11 @@
 
 Samson Vision translates images into a **SAMSON_VISION_PACK (SVP)** — a 13-field structured text format that any text-only LLM can interpret. This allows models without native vision capabilities (DeepSeek, GPT-4o-mini, Llama, etc.) to understand visual content with high fidelity.
 
-The name comes from the biblical story of Samson (Judges 16:28-30). When the Philistines gouged out his eyes, Samson did not lose his vision — he lost only his **physical** sight. His true vision was the **divine plan** God revealed to him: to collapse the Philistine temple pillars in faithful obedience, fulfilling God's judgment—not trusting in his own strength alone. In his greatest weakness, he saw the strategy that would destroy more Philistines than in his entire life.
+Samson lost his **physical sight** but regained the **vision of God's plan** (Judges 16:28-30). He did not need to see the temple — he needed to know **when and how to act**.
 
-Samson Vision is that same principle: it **reveals what the naked eye cannot see** — the structure, strategy, and truth hidden beneath the surface of pixels. Not giving "sight to the blind," but uncovering the plan that is already there.
+**Samson Vision** reveals the hidden plan beneath the pixels. Your agent **still has no eyes** — the same model, no vision — but receives **sight** through SVP: the structural truth pixels hide and a blind LLM cannot capture alone.
+
+*Sansón perdió la vista física, pero recuperó la visión del plan de Dios. Samson Vision da visión a agentes ciegos a través del SVP — la verdad estructural que los píxeles esconden.*
 
 ## How it works
 
