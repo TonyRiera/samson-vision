@@ -1,8 +1,8 @@
-<p align="center">
-  <img src="../assets/final_moment_pillars.png" width="560" alt="Samson Vision">
-</p>
-
 <h1 align="center">Samson Vision</h1>
+
+<p align="center">
+  <img src="../assets/samson_vision_github_infographic.png" width="960" alt="Samson Vision — visual-to-text bridge for AI agents">
+</p>
 
 <p align="center">
   Turns images into structured text so text-only models can reason over screenshots, documents, and screens.<br>
@@ -69,6 +69,10 @@ Details: [SETUP.md](docs/SETUP.md) · Optional integrations: [INTEGRATIONS.md](d
 ---
 
 ## Metaphor
+
+<p align="center">
+  <img src="../assets/final_moment_pillars.png" width="560" alt="Samson Vision — el momento final entre los pilares">
+</p>
 
 Samson could see even without eyes — his vision was God's plan, not his retina. Samson Vision offers **operational sight for eyeless AI**: the agent stays the same text model, but receives visual context through SVP before acting or delegating.
 

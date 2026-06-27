@@ -1,10 +1,10 @@
 ![CI](https://github.com/TonyRiera/samson-vision/actions/workflows/ci.yml/badge.svg)
 
-<p align="center">
-  <img src="assets/final_moment_pillars.png" width="720" alt="Samson Vision — el momento final entre los pilares">
-</p>
-
 # Samson Vision
+
+<p align="center">
+  <img src="assets/samson_vision_github_infographic.png" width="960" alt="Samson Vision — visual-to-text bridge for AI agents">
+</p>
 
 > **Early release:** useful for visual-to-text agent workflows; not a replacement for native vision.
 
@@ -107,6 +107,10 @@ Samson Vision **does not** turn a text AI into a vision model. It delivers an au
 ---
 
 ## Metáfora / Metaphor
+
+<p align="center">
+  <img src="assets/final_moment_pillars.png" width="640" alt="Samson Vision — el momento final entre los pilares">
+</p>
 
 Sansón pudo ver aun sin ojos — su visión era el plan de Dios, no la retina. Samson Vision ofrece **visión operativa para IA sin ojos**: el agente sigue siendo el mismo modelo de texto, pero recibe contexto visual a través del SVP antes de actuar o delegar.
 

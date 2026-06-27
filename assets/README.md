@@ -2,6 +2,12 @@
 
 Curated images for SVP CLI demos, README heroes, and PUBLIC docs.
 
+## GitHub README banner
+
+| File | Use |
+|------|-----|
+| `samson_vision_github_infographic.png` | Main README / PUBLIC README hero — pipeline, SVP JSON, features (~185 KB) |
+
 ## Primary demo set (2026-06-27)
 
 | File | Use |
@@ -15,6 +21,7 @@ Curated images for SVP CLI demos, README heroes, and PUBLIC docs.
 
 ## Canonical heroes (existing)
 
+- `final_moment_pillars.png` — metaphor section art (Samson blindfold, pillars; relocated from README hero)
 - `samson_pillars_crumbling.png` — default README/CLAUDE example (keep; higher-res than new batch)
 - `temple_collapse_wide.png` — full-res temple collapse (prefer over epic_wide for print-quality)
 
