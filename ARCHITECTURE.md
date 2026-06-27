@@ -45,45 +45,47 @@ Imagen (PNG/JPG/WEBP)
 
 ## Flujo con subagentes (orquestación multi-agente)
 
-Samson Vision encaja en arquitecturas donde un **agente principal** delega trabajo a **subagentes** especializados. Los subagentes suelen ser modelos **solo texto** (más baratos, más capaces en código) pero **sin visión nativa**.
+Patrón real alineado con `runtime/NOUS_AGENT_BLUEPRINT.md`:
 
 ```
-┌─────────────────┐     imagen/screenshot
-│  Agente         │──────────────────────────────┐
-│  principal      │                              │
-└────────┬────────┘                              ▼
-         │                          ┌────────────────────────┐
-         │                          │  samson_vision.py      │
-         │                          │  --md → SVP (13 campos)│
-         │                          └───────────┬────────────┘
-         │                                      │ texto estructurado
-         │  prompt + SVP embebido               │
-         ▼                                      ▼
-┌─────────────────┐                    ┌─────────────────┐
-│  Subagente      │◄───────────────────│  Contexto:      │
-│  (texto, sin    │   "visión" en SVP  │  tarea + SVP    │
-│   visión)       │                    └─────────────────┘
-└────────┬────────┘
-         │ resultado
-         ▼
-┌─────────────────┐
-│  Agente         │ → síntesis / entrega al usuario
-│  principal      │
-└─────────────────┘
+┌─────────────────────────┐     imagen/screenshot
+│  Agente principal       │──────────────────────────────┐
+│  DeepSeek Flash v4      │                              │
+│  (sin visión nativa)    │                              ▼
+└───────────┬─────────────┘              ┌────────────────────────────┐
+            │                            │  samson-vision CLI (--md)  │
+            │  ANTES de delegar          │  Pipeline 0% IA → SVP      │
+            │───────────────────────────►└─────────────┬──────────────┘
+            │  lee SVP en contexto                     │ 13 campos
+            │                                          │
+            │  prompt + imagen + SVP                   │
+            ▼                                          ▼
+┌─────────────────────────┐              ┌─────────────────────────┐
+│  Subagente con visión   │◄─────────────│  vision_scout           │
+│  (visión incorporada)   │   imagen +   │  runtime/subagents/     │
+└───────────┬─────────────┘   SVP        └─────────────────────────┘
+            │ resultado
+            ▼
+┌─────────────────────────┐
+│  Agente principal       │ → síntesis / entrega al usuario
+│  DeepSeek Flash v4      │
+└─────────────────────────┘
 ```
 
 **Ventajas del patrón:**
 
-| Aspecto | Sin SVP | Con SVP + subagente |
-|---------|---------|---------------------|
-| Modelo del subagente | Requiere visión nativa (caro) | Solo texto (barato) |
-| Contexto visual | Se pierde al cambiar modelo | SVP portable en texto |
-| Coste por delegación | API de visión por imagen | ~$0 generación + interpretación texto |
-| Habilidades del subagente | Se degradan con modelos multimodales | Se mantienen intactas |
+| Aspecto | Orquestador sin SVP | Con SVP + subagente con visión |
+|---------|---------------------|--------------------------------|
+| Agente principal | Ciego — no puede orientar delegación | Lee SVP — entiende escena sin API visión |
+| Subagente | Necesitaría adivinar contexto | Recibe imagen + SVP estructurado |
+| Coste generación SVP | — | $0 (pipeline algorítmico) |
+| Modelo principal | DeepSeek Flash v4 (barato, sin visión) | Se mantiene — no cambia a multimodal caro |
 
-Los contratos de subagente en `runtime/subagents/` pueden incluir el SVP como bloque obligatorio cuando la tarea incluye input visual.
+Los contratos en `runtime/subagents/` definen `vision_scout` (ojos, con visión) y `text_reasoner` (DeepSeek, solo pack validado). El orquestador no envía pack inválido a DeepSeek — pide corrección al subagente con visión (`prompts/correction_prompt.md`).
 
-*Main agent generates SVP; text-only subagent receives embedded structured vision — no vision API on the subagent.*
+*Main agent (DeepSeek Flash v4) runs CLI, reads SVP, delegates to vision subagent — not the reverse.*
+
+
 
 
 ## Componentes

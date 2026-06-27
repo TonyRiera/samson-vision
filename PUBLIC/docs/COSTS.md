@@ -55,6 +55,5 @@ These models return empty content when interpreting SVP:
 
 | Model | Cost/query | Issue |
 |-------|:----------:|-------|
-| DeepSeek V4 Flash | $0.0003 | Empty response |
-| DeepSeek V4 Pro | $0.0035 | Empty response |
+| DeepSeek Flash v4 | $0.0003 | Empty response |
 | GLM-5.2 | $0.0039 | Empty response |

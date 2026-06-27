@@ -7,7 +7,9 @@
 
 ## Why Samson Vision?
 
-Samson could see even without eyes — not by regaining physical sight, but by perceiving the plan beneath the surface. Samson Vision applies the same idea to AI agents: **recover project vision even when the model stays the same**. Vision-capable models are expensive, often weaker at code and reasoning, and switching agents drops context. SVP encodes what matters from an image into 13 text fields any text-only LLM can read — so your agent keeps its skills, your costs stay low, and visual understanding persists across model changes. Shared as a personal blessing so teams are not forced into costly vision APIs when structured text sees just as clearly.
+Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30). En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30). Samson Vision aplica la misma idea a agentes de IA: tu modelo **sigue sin ojos** (sin modelo de visión), pero recibe **visión** a través del SVP — 13 campos de texto que codifican la verdad estructural que los píxeles esconden. Los modelos con visión nativa son caros, a menudo más débiles en código y razonamiento, y cambiar de agente borra el contexto. SVP permite que cualquier LLM de texto "vea" sin cambiar de modelo ni pagar APIs de visión.
+
+*Samson lost physical sight but gained vision of God's plan. The AI still has no eyes — Samson Vision gives it sight through SVP text anyway.*
 
 
 Samson Vision es un **pipeline algorítmico** que transforma cualquier imagen en un **SAMSON_VISION_PACK (SVP)**: 13 campos de texto estructurado que cualquier modelo de lenguaje puede interpretar como si estuviera viendo la imagen.
@@ -40,6 +42,51 @@ Imagen (PNG/JPG/WEBP)
          │  como si "viera"    │
          └─────────────────────┘
 ```
+
+## Flujo con subagentes (orquestación multi-agente)
+
+Patrón real alineado con `runtime/NOUS_AGENT_BLUEPRINT.md`:
+
+```
+┌─────────────────────────┐     imagen/screenshot
+│  Agente principal       │──────────────────────────────┐
+│  DeepSeek Flash v4      │                              │
+│  (sin visión nativa)    │                              ▼
+└───────────┬─────────────┘              ┌────────────────────────────┐
+            │                            │  samson-vision CLI (--md)  │
+            │  ANTES de delegar          │  Pipeline 0% IA → SVP      │
+            │───────────────────────────►└─────────────┬──────────────┘
+            │  lee SVP en contexto                     │ 13 campos
+            │                                          │
+            │  prompt + imagen + SVP                   │
+            ▼                                          ▼
+┌─────────────────────────┐              ┌─────────────────────────┐
+│  Subagente con visión   │◄─────────────│  vision_scout           │
+│  (visión incorporada)   │   imagen +   │  runtime/subagents/     │
+└───────────┬─────────────┘   SVP        └─────────────────────────┘
+            │ resultado
+            ▼
+┌─────────────────────────┐
+│  Agente principal       │ → síntesis / entrega al usuario
+│  DeepSeek Flash v4      │
+└─────────────────────────┘
+```
+
+**Ventajas del patrón:**
+
+| Aspecto | Orquestador sin SVP | Con SVP + subagente con visión |
+|---------|---------------------|--------------------------------|
+| Agente principal | Ciego — no puede orientar delegación | Lee SVP — entiende escena sin API visión |
+| Subagente | Necesitaría adivinar contexto | Recibe imagen + SVP estructurado |
+| Coste generación SVP | — | $0 (pipeline algorítmico) |
+| Modelo principal | DeepSeek Flash v4 (barato, sin visión) | Se mantiene — no cambia a multimodal caro |
+
+Los contratos en `runtime/subagents/` definen `vision_scout` (ojos, con visión) y `text_reasoner` (DeepSeek, solo pack validado). El orquestador no envía pack inválido a DeepSeek — pide corrección al subagente con visión (`prompts/correction_prompt.md`).
+
+*Main agent (DeepSeek Flash v4) runs CLI, reads SVP, delegates to vision subagent — not the reverse.*
+
+
+
 
 ## Componentes
 
@@ -191,10 +238,10 @@ Solo la **interpretación** del SVP (pasarlo a un LLM) tiene coste de API.
 🏆 Primario:   MiniMax-M2.1 (mmx CLI)    → 5s,   $0.0008/q, 100%
 🔄 Fallback:   minimax-m2.5 (OpenCode)    → 11s,  $0.0009/q, 83%
 🎯 Precisión:  kimi-k2.7-code (OpenCode)  → 8s,   $0.003/q,  100%
-🎫 Backup:     GPT-5.4-mini (Codex CLI)   → 8s,   ~$0.0005/q (API per-token est.)
+🎫 Backup:     GPT-5.4-mini (Codex CLI)   → 8s,   ~$0.0005/q ($0.15/$0.60 per 1M in/out est.)
 ```
 
-**Modelos que NO funcionan:** deepseek-v4-flash/pro, GLM-5.x, kimi-k2.6/k2.5, qwen3.7-max
+**Modelos que NO funcionan:** deepseek flash v4, GLM-5.x, kimi-k2.6/k2.5, qwen3.7-max
 
 ## Almacenamiento del proyecto
 
@@ -228,11 +275,10 @@ Solo la **interpretación** del SVP (pasarlo a un LLM) tiene coste de API.
 
 ## La metáfora de Sansón
 
-> Sansón perdió la **vista física**, pero ganó la **visión del plan de Dios**.
-> (Jueces 16:28-30)
+> Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30).
 >
-> No necesitaba ver el templo — necesitaba saber **cuándo y cómo derribarlo**.
+> En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30).
 >
-> Samson Vision = revelar el plan oculto bajo los píxeles.
-> La IA no necesita "ver" imágenes —
-> necesita que alguien extraiga la verdad estructural que el ojo natural no capta.
+> **Samson Vision** — *tus limitaciones no son un límite imposible de superar* (Filipenses 4:13). Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
+>
+> *The AI still has no eyes — no vision model — but Samson Vision gives it sight anyway through SVP text.*

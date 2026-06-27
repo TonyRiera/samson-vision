@@ -31,35 +31,54 @@ Samson Vision translates images into a **SAMSON_VISION_PACK (SVP)** — a 13-fie
 
 ## Subagent workflow
 
-A **main agent** receives tasks that include images or screenshots. Before delegating, the pipeline (or main agent) generates a **SAMSON_VISION_PACK (SVP)** with Samson Vision. The **subagent** — typically a **text-only** model with no native vision — receives the task prompt **plus the embedded SVP** in its context.
+Real orchestration flow (see `runtime/NOUS_AGENT_BLUEPRINT.md` and `runtime/subagents/` contracts). Jordan operational details pending confirmation on claw.
 
-This preserves visual context transfer **without** expensive vision models on the subagent or switching models.
+| Role | Typical model | Native vision | Function |
+|------|---------------|:-------------:|----------|
+| **Main agent** (orchestrator) | **DeepSeek Flash v4** | ❌ No | Coordinates, reads SVP, delegates, synthesizes |
+| **Vision subagent** | vision_scout / multimodal | ✅ Yes | Analyzes image, refines or validates pack |
+| **Samson Vision CLI** | Algorithmic pipeline | — | Generates SVP (0% AI, numpy+OpenCV+Tesseract) |
+
+**Who runs the CLI and when:** the **main agent or its harness** (Jordan/Hermes, Cursor orchestrator) runs `samson-vision image.png --md` **before delegating** whenever the task includes an image or screenshot. The vision subagent does **not** replace the CLI — it also receives the native image.
+
+**SVP role in delegation:**
+1. The **visionless orchestrator** reads SVP as structured text (13 fields) to understand the scene.
+2. Embeds SVP in the delegation prompt together with the image path/file.
+3. The **vision subagent** works with image + SVP context (layout, OCR, coordinates).
+4. Result returns to DeepSeek Flash v4 orchestrator for synthesis or delivery.
+
+> **Benchmark note:** DeepSeek Flash v4 as **orchestrator** reads SVP in context. As **SVP interpreter via API** (text_reasoner mode) returns empty — use MiniMax/kimi for LLM pack interpretation.
 
 ```mermaid
 sequenceDiagram
     participant U as User / Task
-    participant M as Main agent
-    participant SV as Samson Vision
-    participant S as Subagent (text-only)
+    participant M as Main agent<br/>(DeepSeek Flash v4, no vision)
+    participant SV as Samson Vision CLI
+    participant V as Vision subagent<br/>(vision_scout)
 
     U->>M: Task + image/screenshot
-    M->>SV: image.png --md
+    M->>SV: samson-vision image.png --md
+    Note over SV: 0% AI pipeline<br/>numpy + OpenCV + Tesseract
     SV-->>M: SVP (13 fields)
-    M->>S: prompt + embedded SVP
-    Note over S: No vision model
-    S-->>M: Result (with text "sight")
+    M->>M: Read SVP → plan delegation
+    M->>V: prompt + image + embedded SVP
+    Note over V: Native vision enabled
+    V-->>M: Analysis / draft pack / actions
     M-->>U: Integrated response
 ```
 
 **Steps:**
 
-1. The **main agent** receives a task with an image or screenshot.
-2. **Samson Vision** generates the SVP (`python3 src/samson_vision.py image.png --md`).
-3. The main agent **delegates to the subagent**: task prompt + SVP embedded in context.
-4. The **subagent** (no native vision) works with structured text "sight".
-5. The **result returns to the main agent** for synthesis, validation, or delivery.
+1. **Main agent** (DeepSeek Flash v4, no vision) receives task with image.
+2. **Before delegating**, runs Samson Vision CLI → SVP.
+3. Reads SVP to orient (layout, OCR, hierarchy) without vision API.
+4. **Delegates to vision subagent**: prompt + image + SVP in context.
+5. Subagent (`vision_scout` in `runtime/subagents/`) analyzes with native vision.
+6. **Result returns to orchestrator** for validation or delivery.
 
-*El agente principal genera SVP y delega al subagente solo-texto — visión estructurada sin modelos de visión costosos.*
+*Main agent runs Samson CLI first, reads SVP, delegates to vision-capable subagent with image + embedded SVP.*
+
+
 
 
 ## How it works

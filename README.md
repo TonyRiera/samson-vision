@@ -45,67 +45,54 @@ Samson Vision es un **lenguaje visual basado en texto** que permite a una IA sin
 
 ## Flujo con subagentes / Subagent workflow
 
-Un **agente principal** recibe tareas con imágenes o capturas de pantalla. Antes de delegar, el pipeline (o el agente principal) genera un **SAMSON_VISION_PACK (SVP)** con Samson Vision. El **subagente** — normalmente un modelo **solo texto**, sin visión — recibe el prompt de la tarea **más el SVP embebido** en su contexto.
+Flujo real de orquestación (validado en `runtime/NOUS_AGENT_BLUEPRINT.md` y contratos en `runtime/subagents/`). Jordan pendiente de confirmar detalles operativos en claw.
 
-Así se preserva la transferencia de contexto visual **sin** usar modelos de visión costosos en el subagente ni cambiar de modelo.
+| Rol | Modelo típico | Visión nativa | Función |
+|-----|---------------|:-------------:|---------|
+| **Agente principal** (orquestador) | **DeepSeek Flash v4** | ❌ No | Coordina, lee SVP, delega, sintetiza |
+| **Subagente de visión** | vision_scout / multimodal | ✅ Sí | Analiza la imagen, refina o valida el pack |
+| **Samson Vision CLI** | Pipeline algorítmico | — | Genera SVP (0% IA, numpy+OpenCV+Tesseract) |
+
+**Quién ejecuta el CLI y cuándo:** el **agente principal o su harness** (Jordan/Hermes, Cursor orchestrator) invoca `samson-vision imagen.png --md` **antes de delegar**, en cuanto la tarea incluye imagen o screenshot. El subagente con visión **no** sustituye al CLI — recibe además la imagen nativa.
+
+**Rol del SVP en la delegación:**
+1. El orquestador **sin visión** lee el SVP como texto estructurado (13 campos) para entender la escena.
+2. Embebe el SVP en el prompt de delegación junto con la ruta/archivo de imagen.
+3. El **subagente con visión** trabaja con imagen + contexto SVP (layout, OCR, coordenadas).
+4. El resultado vuelve al orquestador DeepSeek Flash v4 para síntesis o entrega.
+
+> **Nota benchmark:** DeepSeek Flash v4 como **orquestador** lee SVP en contexto. Como **intérprete SVP vía API** (modo text_reasoner) devuelve vacío — usar MiniMax/kimi para interpretación LLM del pack.
 
 ```mermaid
 sequenceDiagram
     participant U as Usuario / Tarea
-    participant M as Agente principal
-    participant SV as Samson Vision
-    participant S as Subagente (texto)
+    participant M as Agente principal<br/>(DeepSeek Flash v4, sin visión)
+    participant SV as Samson Vision CLI
+    participant V as Subagente con visión<br/>(vision_scout)
 
     U->>M: Tarea + imagen/screenshot
-    M->>SV: imagen.png --md
+    M->>SV: samson-vision imagen.png --md
+    Note over SV: Pipeline 0% IA<br/>numpy + OpenCV + Tesseract
     SV-->>M: SVP (13 campos)
-    M->>S: prompt + SVP embebido
-    Note over S: Sin modelo de visión
-    S-->>M: Resultado (con "visión" en texto)
+    M->>M: Lee SVP → planifica delegación
+    M->>V: prompt + imagen + SVP embebido
+    Note over V: Visión nativa incorporada
+    V-->>M: Análisis / borrador pack / acciones
     M-->>U: Respuesta integrada
 ```
 
 **Pasos:**
 
-1. El **agente principal** recibe una tarea con imagen o screenshot.
-2. **Samson Vision** genera el SVP (`python3 src/samson_vision.py imagen.png --md`).
-3. El agente principal **delega al subagente**: prompt de la tarea + SVP embebido en el contexto.
-4. El **subagente** (sin visión nativa) trabaja con la "visión" estructurada en texto.
-5. El **resultado vuelve al agente principal** para síntesis, validación o entrega al usuario.
+1. El **agente principal** (DeepSeek Flash v4, sin visión) recibe tarea con imagen.
+2. **Antes de delegar**, ejecuta Samson Vision CLI → SVP (`samson-vision imagen.png --md` o `python3 src/samson_vision.py …`).
+3. Lee el SVP para orientarse (layout, OCR, jerarquía) sin API de visión.
+4. **Delega al subagente con visión**: prompt + imagen + SVP en contexto.
+5. El subagente (`vision_scout` en `runtime/subagents/`) analiza con visión nativa.
+6. El **resultado vuelve al orquestador** para validación, corrección o entrega.
 
-*The main agent receives image tasks, Samson Vision produces SVP text, and the text-only subagent works with embedded structured vision — preserving context without expensive vision models on the subagent.*
+*Main agent (DeepSeek Flash v4, no vision) runs Samson CLI first, reads SVP, then delegates to a vision-capable subagent with image + embedded SVP.*
 
 
-
-## Casos de uso / Use cases
-
-Patrón común: **agente principal sin visión** (p. ej. DeepSeek Flash v4) + **Samson SVP** + **subagente con visión estructurada en texto** — sin modelos multimodales caros ni pérdida de habilidades de código.
-
-*Common pattern: **visionless main agent** (e.g. DeepSeek Flash v4) + **Samson SVP** + **subagent with text-structured sight** — no expensive multimodal models, no loss of coding depth.*
-
-- **Orquestador barato revisa screenshot de UI** · *Cheap orchestrator reviews UI screenshot*
-  - **ES:** El agente principal recibe un screenshot de regresión. Ejecuta `samson_vision.py imagen.png --md`, embebe el SVP en la delegación y el subagente (solo texto) propone el fix CSS/layout sin cambiar a API de visión.
-  - **EN:** Main agent runs SVP on the screenshot, embeds it in delegation; text-only subagent proposes CSS/layout fix — no vision API switch.
-
-- **CI/CD sin modelo de visión** · *CI/CD without a vision model*
-  - **ES:** El pipeline corre Samson CLI tras cada build/deploy. Un agente texto-only en CI compara SVPs (layout, OCR, colores) y detecta regresión visual sin GPT-4V ni modelos multimodales en el runner.
-  - **EN:** Pipeline runs Samson CLI post-build; text-only CI agent diffs SVPs (layout, OCR, colors) for visual regression — no GPT-4V on the runner.
-
-- **Subagente Cursor sin acceso a la imagen** · *Cursor subagent without image access*
-  - **ES:** El orquestador adjunta el SVP completo en el prompt de delegación (Hermes, subagente Cursor, worker remoto). El subagente no recibe bytes de imagen pero opera con jerarquía visual, OCR y mapa de layout.
-  - **EN:** Orchestrator attaches full SVP to delegation prompt; subagent gets no image bytes but works from hierarchy, OCR, and layout map.
-
-- **Auditoría de accesibilidad** · *Accessibility audit*
-  - **ES:** `OCR_TEXT`, `LAYOUT_MAP`, `COLOR_MAP` y `USER_ACTIONS` del SVP alimentan un agente texto-only que marca contraste insuficiente, targets táctiles pequeños, texto truncado o jerarquía rota — sin modelo de visión.
-  - **EN:** SVP OCR, layout, color, and action fields feed a text-only agent flagging low contrast, small tap targets, truncated text, or broken hierarchy.
-
-- **Portfolio y evidencia de producción** · *Portfolio / production evidence*
-  - **ES:** Captura de prod → SVP → case study o informe de QA en texto versionable. Evidencia reproducible para clientes o portfolio sin depender de APIs de visión ni screenshots opacos para el LLM.
-  - **EN:** Prod capture → SVP → versionable case study or QA report. Reproducible evidence for clients/portfolio without vision APIs or opaque screenshots for the LLM.
-
-- **Multimodal caro evitado** · *Expensive multimodal avoided*
-  - **ES:** Mismo modelo barato (DeepSeek Flash v4, MiniMax-M2.1) + SVP frente a cambiar a modelo con visión: contexto visual equivalente, coste por query ~100× menor, razonamiento y código del agente intactos.
-  - **EN:** Same cheap model + SVP vs switching to a vision model: equivalent visual context, ~100× lower cost per query, agent reasoning and coding skills preserved.
 
 
 ## Stack 80/20 — Modelo más rápido + fallback
