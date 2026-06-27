@@ -92,6 +92,35 @@ sequenceDiagram
 
 *Main agent (DeepSeek Flash v4, no vision) runs Samson CLI first, reads SVP, then delegates to a vision-capable subagent with image + embedded SVP.*
 
+## Casos de uso / Use cases
+
+Patrón común: **agente principal sin visión** (p. ej. DeepSeek Flash v4) + **Samson SVP** (el principal **ve en texto antes de delegar**) + **subagente con visión incorporada** — sin multimodal caro en el orquestador ni pérdida de habilidades de código.
+
+*Common pattern: **visionless main agent** (e.g. DeepSeek Flash v4) + **Samson SVP** (sight for the principal before delegation) + **subagent with built-in vision** — no expensive vision on the orchestrator, no loss of coding depth.*
+
+- **Orquestador barato revisa screenshot de UI** · *Cheap orchestrator reviews UI screenshot*
+  - **ES:** El agente principal (sin visión) genera el SVP del screenshot de regresión, **lee el pack en texto**, entiende el fallo y delega al subagente (con visión incorporada) el fix CSS/layout — el orquestador no usa API multimodal.
+  - **EN:** Visionless main agent builds SVP from the regression screenshot, **reads the pack as text**, understands the issue, and delegates CSS/layout fix to a vision-capable subagent — no multimodal API on the orchestrator.
+
+- **CI/CD sin modelo de visión en orquestador** · *CI/CD without vision on orchestrator*
+  - **ES:** El pipeline corre Samson CLI tras cada build. El orquestador (sin visión) compara SVPs (layout, OCR, colores) y detecta regresión en texto; los subagentes con visión validan casos dudosos sobre capturas reales — sin GPT-4V en el agente principal.
+  - **EN:** Pipeline runs Samson CLI post-build; visionless orchestrator diffs SVPs; vision-enabled subagents confirm edge cases on real captures — no vision model on the main pipeline agent.
+
+- **Subagente Cursor con visión** · *Cursor vision subagent*
+  - **ES:** El orquestador (sin visión) **lee el SVP** para redactar una delegación precisa (Hermes, Cursor) y pasa la imagen. El subagente, con visión incorporada, ejecuta en el repo y valida UI con sus propios ojos.
+  - **EN:** Visionless orchestrator **reads SVP** to craft precise delegation and passes the image; vision-capable subagent executes in-repo and validates UI natively.
+
+- **Auditoría de accesibilidad** · *Accessibility audit*
+  - **ES:** El agente principal (sin visión) prioriza hallazgos desde `OCR_TEXT`, `LAYOUT_MAP`, `COLOR_MAP` y `USER_ACTIONS` del SVP; delega al subagente con visión la remediación y comprobación visual — sin multimodal en el orquestador.
+  - **EN:** Visionless main triages issues from SVP OCR, layout, color, and actions; vision-enabled subagent remediates and visually verifies — no vision model on the orchestrator.
+
+- **Portfolio y evidencia de producción** · *Portfolio / production evidence*
+  - **ES:** El principal (sin visión) lee SVP de capturas de prod para redactar case study o informe QA versionable; el subagente con visión valida fidelidad y detalle fino — sin API de visión en el orquestador.
+  - **EN:** Visionless main reads prod SVPs for versionable case studies or QA reports; vision subagent validates fidelity and fine detail — no vision API on the orchestrator.
+
+- **Multimodal caro evitado en orquestador** · *Expensive multimodal avoided on orchestrator*
+  - **ES:** Orquestador barato (DeepSeek Flash v4) + SVP para **ver antes de delegar**; subagente con visión nativa para ejecución — frente a visión cara en todo el stack: ~100× menor coste en el principal, razonamiento intacto.
+  - **EN:** Cheap visionless orchestrator + SVP for sight before delegation; native vision on subagent for execution — vs expensive vision everywhere: ~100× lower cost on the principal, reasoning preserved.
 
 
 
