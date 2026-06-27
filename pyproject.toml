@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "samson-vision"
-version = "0.3.2"
+version = "0.3.3"
 description = "Visual-to-text bridge for AI agents: structured SVP packs for screenshots, documents, UI images and text-only LLM workflows."
 readme = "README.md"
 license = { text = "MIT" }

@@ -32,6 +32,64 @@ Samson Vision is a **visual-to-text bridge for AI agents**. It converts screensh
 
 ---
 
+## Install
+
+Everything you need is on GitHub — no private repos or author tooling required.
+
+### Option A — pip one-liner
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install "samson-vision[dev] @ git+https://github.com/TonyRiera/samson-vision.git@v0.3.3"
+```
+
+### Option B — clone + setup script
+
+```bash
+git clone https://github.com/TonyRiera/samson-vision.git
+cd samson-vision
+bash setup.sh --dev
+```
+
+### Dependencies
+
+| Profile | Python packages | System |
+|---------|-----------------|--------|
+| **Minimum** | `pillow`, `numpy` | — |
+| **Recommended** | `[dev]`: OpenCV headless + pytesseract | **Tesseract 5+** |
+
+**Tesseract (copy-paste):**
+
+```bash
+# Ubuntu / Debian
+sudo apt install tesseract-ocr tesseract-ocr-spa tesseract-ocr-eng
+
+# macOS
+brew install tesseract
+
+# Windows — installer: https://github.com/tesseract-ocr/tesseract
+```
+
+### Quick test after install
+
+```bash
+# Verify CLI
+samson-vision --help
+
+# Pip-only users (no clone) — fetch a sample image
+curl -sL -o /tmp/sv-test.png \
+  "https://raw.githubusercontent.com/TonyRiera/samson-vision/v0.3.3/assets/samson_pillars_crumbling.png"
+samson-vision /tmp/sv-test.png --md | head -20
+
+# Python API
+python3 -c "from samson_vision import generate_svp; print(generate_svp('/tmp/sv-test.png', fmt='md')[:300])"
+```
+
+Full setup guide: [`PUBLIC/docs/SETUP.md`](PUBLIC/docs/SETUP.md). Optional author integrations: [`PUBLIC/docs/INTEGRATIONS.md`](PUBLIC/docs/INTEGRATIONS.md).
+
+---
+
 ## When to use Samson Vision / Cuándo usarlo
 
 | Usar Samson Vision para / Use SVP for | Mejor visión nativa para / Native vision for |
@@ -172,7 +230,14 @@ samson-vision/
 
 ## Roadmap
 
-### v0.3.2 (this release)
+### v0.3.3 (this release) — external user onboarding
+- MIT `LICENSE` at repo root
+- Install section in README + `PUBLIC/README.md` (pip one-liner, clone, Tesseract, quick test)
+- `PUBLIC/docs/SETUP.md` focused on GitHub-only self-service
+- `PUBLIC/docs/INTEGRATIONS.md` — Hermes/MiniMax/Codex moved out of SETUP (optional)
+- `requirements.txt` comment + minimum-deps fix for `pip -r`
+
+### v0.3.2
 - Packaging cleanup (`package-dir`), docs alignment (6/6 binary signals), SETUP harness honesty
 
 ### v0.4 (planned)

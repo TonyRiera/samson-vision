@@ -1,5 +1,5 @@
 """
-🦁 SAMSON VISION — Test Suite v0.3.2
+🦁 SAMSON VISION — Test Suite v0.3.3
 Tests para: Core + VMK + Device DB + Synesthesia + Harnesses
 """
 import sys, os, json, base64, io, time, unittest
@@ -333,7 +333,7 @@ class TestHarnesses(unittest.TestCase):
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("  🦁 SAMSON VISION v0.3.2 — TEST SUITE COMPLETA")
+    print("  🦁 SAMSON VISION v0.3.3 — TEST SUITE COMPLETA")
     print("  Core + VMK + Device DB + Synesthesia + Harnesses")
     print("=" * 60)
 
@@ -354,7 +354,7 @@ if __name__ == "__main__":
     total = result.testsRun
     failures = len(result.failures) + len(result.errors)
     print(f"  RESULTADO: {total - failures}/{total} tests pasados")
-    print(f"  {'🦁 SAMSON VISION v0.3.2: COMPLETO' if failures == 0 else f'⚠️  {failures} fallos'}")
+    print(f"  {'🦁 SAMSON VISION v0.3.3: COMPLETO' if failures == 0 else f'⚠️  {failures} fallos'}")
     print("=" * 60)
 
     sys.exit(0 if failures == 0 else 1)

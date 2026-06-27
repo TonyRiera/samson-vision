@@ -1,211 +1,166 @@
-# 📖 SETUP — Instalación de Samson Vision
+# SETUP — Samson Vision installation
 
-> Actualizado: 27-Jun-2026 | Verificado: 29/29 tests + SVP funcional
+> Updated: 27-Jun-2026 | Verified: 29/29 tests + SVP functional
 
-## Requisitos
+Public setup guide for external users installing from GitHub only. For optional author integrations (Hermes, MiniMax, Codex), see [INTEGRATIONS.md](INTEGRATIONS.md).
 
-- **Sistema:** Linux (probado Ubuntu 24.04), macOS o Windows
+---
+
+## Requirements
+
+- **OS:** Linux, macOS, or Windows
 - **Python:** 3.10+
-- **Dependencias:** pillow, numpy
-- **Tesseract 5+** (opcional — OCR mejora extracción de texto)
-- **OpenCV** (opcional — mejora detección de bordes y objetos)
+- **Git:** only if cloning (Option B)
 
-## Instalación
+| Profile | Python packages | System binary |
+|---------|-----------------|---------------|
+| **Minimum** | `pillow`, `numpy` | — |
+| **Recommended** | `[dev]` extras: `opencv-python-headless`, `pytesseract` | **Tesseract 5+** |
 
-### 1. Clonar o copiar el proyecto
+---
+
+## Install
+
+### Option A — pip one-liner (no clone)
 
 ```bash
-# Si tienes acceso al repo:
-git clone <repo-url> samson-vision
+python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install "samson-vision[dev] @ git+https://github.com/TonyRiera/samson-vision.git@v0.3.3"
+```
+
+### Option B — clone + setup script
+
+```bash
+git clone https://github.com/TonyRiera/samson-vision.git
 cd samson-vision
-
-# Si ya tienes el proyecto local:
-cd ~/proyectos/samson-vision   # ← ruta típica
+bash setup.sh --dev
 ```
 
-### 2. Setup automático (recomendado)
+`setup.sh` creates a venv, installs dependencies, installs the package editable, and runs the test suite.
+
+### Option C — clone + manual venv
 
 ```bash
-bash setup.sh
-```
-
-Esto hace todo en un paso: crea venv, instala deps, instala el paquete, copia assets, ejecuta tests.
-
-### 3. Setup manual (si prefieres paso a paso)
-
-```bash
-# Crear venv
+git clone https://github.com/TonyRiera/samson-vision.git
+cd samson-vision
 python3 -m venv .venv
 source .venv/bin/activate
-
-# Instalar dependencias
-pip install pillow numpy
-
-# Instalar el paquete en modo editable
-pip install -e .
-
-# Crear directorios de trabajo
+pip install -e ".[dev]"
 mkdir -p input output
-
-# Las imágenes de ejemplo están en assets/ (ya incluidas en el repo)
 ```
 
-✅ **29/29 tests pasando**
+---
 
-## Tesseract OCR (opcional)
+## Tesseract (recommended)
 
-Tesseract mejora la precisión del campo OCR_TEXT en el SVP. Sin él, el pipeline funciona pero no extrae texto real.
+Tesseract improves the `OCR_TEXT` field. Without it, the pipeline still runs but OCR zones stay generic.
 
-**Linux (apt, requiere sudo):**
+**Ubuntu / Debian:**
+
 ```bash
 sudo apt install tesseract-ocr tesseract-ocr-spa tesseract-ocr-eng
 ```
 
-**macOS (brew):**
+**macOS:**
+
 ```bash
 brew install tesseract
 ```
 
-**Windows:**
-Descargar desde [GitHub tesseract-ocr/tesseract](https://github.com/tesseract-ocr/tesseract)
+**Windows:** download the installer from [tesseract-ocr/tesseract](https://github.com/tesseract-ocr/tesseract).
 
-> **Sin sudo disponible:** Si no tienes permisos sudo, puedes:
-> 1. Instalar Tesseract desde fuente en tu home: `./configure --prefix=$HOME/local && make && make install`
-> 2. Usar conda: `conda install -c conda-forge tesseract`
-> 3. O simplemente omitirlo — el pipeline sigue funcionando sin OCR
+> **No sudo:** build from source with `--prefix=$HOME/local`, use `conda install -c conda-forge tesseract`, or skip Tesseract — the pipeline works without OCR text extraction.
 
-## Uso básico
+---
 
-### Generar un SVP desde una imagen
-
-El proyecto incluye imágenes de ejemplo en `assets/`:
+## Verify install
 
 ```bash
-# Activar venv (si no lo está)
+# CLI entry point
+samson-vision --help
+
+# Python API
+python3 -c "from samson_vision import generate_svp; print('samson-vision', generate_svp.__name__)"
+
+# Run tests (requires clone or git checkout)
+python3 test/run_tests.py
+```
+
+Expected: **29/29** tests passing.
+
+---
+
+## Quick test — generate an SVP
+
+### If you cloned the repo
+
+```bash
 source .venv/bin/activate
-
-# Generar SVP en Markdown desde assets/
 samson-vision assets/samson_pillars_crumbling.png --md
-
-# O directamente con python
-python3 src/samson_vision.py assets/samson_pillars_crumbling.png --md
-
-# Generar SVP en JSON
-samson-vision assets/samson_pillars_crumbling.png --json
 ```
 
-Cada ejecución imprime:
-- **Stderr:** Un versículo decorativo (marca espiritual, no interfiere con la salida)
-- **Stdout:** El SAMSON_VISION_PACK completo
-
-### Redirigir a archivo
+### Pip-only (no clone) — download a sample image
 
 ```bash
-samson-vision assets/samson_pillars_crumbling.png --json > sample.svp.json
-samson-vision assets/samson_pillars_crumbling.png --md > sample.svp.md
-
-# O con python directo:
-python3 src/samson_vision.py imagen.png --md 2>/dev/null
+curl -sL -o /tmp/sv-test.png \
+  "https://raw.githubusercontent.com/TonyRiera/samson-vision/v0.3.3/assets/samson_pillars_crumbling.png"
+samson-vision /tmp/sv-test.png --md | head -30
 ```
 
-## Integración con Hermes Agent
-
-Samson Vision está disponible como skill de Hermes:
+### Python API
 
 ```bash
-# Cargar el skill y analizar una imagen
-hermes -s samson-vision chat -q "Analiza esta imagen: /ruta/imagen.jpg"
+python3 -c "
+from samson_vision import generate_svp
+print(generate_svp('/tmp/sv-test.png', fmt='md')[:500])
+"
 ```
 
-El skill proporciona 3 modos de interpretación:
-- **Fast** → MiniMax-M2.1 (mmx CLI) — 5s, más rápido
-- **Balanced** → minimax-m2.5 (OpenCode) — 11s, más barato
-- **Precise** → kimi-k2.7-code (OpenCode) — 8s, máxima precisión
+Each run prints a decorative verse on **stderr** (does not affect stdout SVP). Use `2>/dev/null` to silence it.
 
-## Interpretar el SVP con un LLM
+Save output to a file:
 
-El SVP es texto puro — puedes pasarlo a cualquier modelo de lenguaje:
-
-### MiniMax M2.1 (vía mmx CLI) — 🏆 recomendado
 ```bash
-SVP=$(python3 src/samson_vision.py imagen.png --md 2>/dev/null)
-echo "$SVP" | mmx text chat --model MiniMax-M2.1 \
-  --system "Interpreta este SAMSON_VISION_PACK como si vieras la imagen." \
-  --message "$SVP" --temp 0.3
+samson-vision /tmp/sv-test.png --json > sample.svp.json
+samson-vision /tmp/sv-test.png --md > sample.svp.md
 ```
 
-### OpenCode Go (minimax-m2.5)
-```bash
-SVP=$(python3 src/samson_vision.py imagen.png --md 2>/dev/null)
-curl -s https://opencode.ai/zen/go/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $OPENCCODE_API_KEY" \
-  -d "{\"model\":\"minimax-m2.5\", \"messages\":[{\"role\":\"system\",\"content\":\"Interpreta este SAMSON_VISION_PACK.\"},{\"role\":\"user\",\"content\":\"$SVP\"}]}"
-```
+---
 
-### Codex CLI (ChatGPT Plus)
-```bash
-SVP=$(python3 src/samson_vision.py imagen.png --md 2>/dev/null)
-codex -z "Eres Samson Vision. Interpreta este SAMSON_VISION_PACK: $SVP"
-```
-
-## Harness de fallback
-
-El orden recomendado para interpretar SVP:
-
-```
-PASO 1: MiniMax-M2.1 (mmx CLI)       → 5s   → $0.0008/query → 6/6 binary signals
-PASO 2: minimax-m2.5 (OpenCode Go)    → 11s  → $0.0009/query → 5/6 binary signals
-PASO 3: kimi-k2.7-code (OpenCode Go)  → 8s   → $0.003/query  → 6/6 binary signals
-PASO 4: gpt-5.4-mini (Codex CLI)      → 8s   → ~$0.0005/q ($0.15/$0.60 per 1M in/out est.) → 6/6 binary signals
-```
-
-**Modelos que NO funcionan con SVP:** deepseek flash v4, GLM-5.x, qwen3.7-max, kimi-k2.6/k2.5
-
-## Arquitectura del proyecto
+## Project layout
 
 ```
 samson-vision/
 ├── src/
-│   ├── samson_core.py           → 8 estilos ASCII + metadatos
-│   ├── samson_vision.py         → SAMSON_VISION_PACK (13 campos)
-│   ├── versiculos.py            → Versículos decorativos (stderr)
-│   ├── device_db.py             → 13 perfiles de dispositivo
-│   ├── synesthesia.py           → Audio → ASCII
-│   ├── harnesses.py             → Arneses Hermes/M3/Codex
-│   ├── runtime_integration.py   → Conexión runtime RAG
+│   ├── samson_vision.py         → SVP generator + generate_svp() API
+│   ├── samson_core.py           → 8 ASCII styles
 │   └── vmk/                     → Vision Multimodal Kernel
 ├── test/run_tests.py            → 29 tests
-├── runtime/                     → RAG + validación + subagentes
-├── assets/                      → 20 imágenes de ejemplo
-├── input/                       → Tus imágenes para analizar
-├── output/                      → SVP generados
-├── setup.sh                     → Instalación automática
-├── pyproject.toml               → Paquete Python instalable
-├── requirements.txt             → Dependencias
-├── PUBLIC/                      → Documentación pública
-│   ├── README.md
-│   └── docs/                    → ARCHITECTURE, BENCHMARK, COSTS, SETUP, SAMSON_VISION_PACK
-└── README.md                    → Proyecto completo
+├── assets/                      → sample images (clone only)
+├── setup.sh                     → automated install
+├── pyproject.toml               → package metadata
+└── PUBLIC/docs/                 → public documentation
 ```
 
-## Solución de problemas
+---
 
-| Problema | Solución |
-|----------|----------|
+## Troubleshooting
+
+| Problem | Fix |
+|---------|-----|
 | `ModuleNotFoundError: PIL` | `pip install pillow` |
 | `ModuleNotFoundError: numpy` | `pip install numpy` |
-| `ModuleNotFoundError: cv2` | `pip install opencv-python-headless` (opcional) |
-| `from samson_core import __version__` falla | ¿Ejecutaste `pip install -e .`? El paquete debe estar instalado |
-| `samson-vision: command not found` | Activa el venv: `source .venv/bin/activate` |
-| OCR muestra `[text_zone]` | Sin Tesseract — instálalo o ignóralo |
-| `hermes -s samson-vision` no funciona | El skill debe estar instalado en Hermes |
-| El SVP tiene header pero campos vacíos | La imagen no tiene contenido procesable — prueba con una imagen más rica |
+| `ModuleNotFoundError: cv2` | `pip install opencv-python-headless` or `pip install -e ".[dev]"` |
+| `samson-vision: command not found` | Activate venv: `source .venv/bin/activate` |
+| OCR shows `[text_zone]` | Install Tesseract (see above) |
+| Empty SVP fields | Image has little processable content — try a richer screenshot |
 
-## Notas importantes
+---
 
-- Los versículos se imprimen a **stderr** — nunca contaminan stdout. Usa `2>/dev/null` para silenciarlos
-- Sin Tesseract: el OCR salta gracefulmente, el pipeline sigue funcionando al 100%
-- Sin OpenCV: la detección de objetos usa PIL básico, menos preciso
-- El banner `[SAMSON_VISION_PACK v1]` con versículo confirma que el pipeline está operativo
-- **No hay servidor HTTP.** Samson Vision se usa por CLI o integrado via Hermes skill
+## Notes
+
+- Verses print to **stderr** only — never contaminate stdout
+- Without Tesseract: OCR skips gracefully; pipeline stays functional
+- Without OpenCV: region detection uses basic PIL (less precise)
+- **No HTTP server** — CLI and Python API only

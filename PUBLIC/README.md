@@ -21,6 +21,39 @@
   <a href="docs/SAMSON_VISION_PACK.md"><strong>SVP Spec</strong></a>
 </p>
 
+## Install
+
+```bash
+# Option A — pip one-liner
+pip install "samson-vision[dev] @ git+https://github.com/TonyRiera/samson-vision.git@v0.3.3"
+
+# Option B — clone
+git clone https://github.com/TonyRiera/samson-vision.git && cd samson-vision && bash setup.sh --dev
+```
+
+| Profile | Packages | System |
+|---------|----------|--------|
+| Minimum | pillow + numpy | — |
+| Recommended | `[dev]` + OpenCV + pytesseract | Tesseract 5+ |
+
+```bash
+# Ubuntu: sudo apt install tesseract-ocr tesseract-ocr-spa tesseract-ocr-eng
+# macOS:  brew install tesseract
+# Windows: https://github.com/tesseract-ocr/tesseract
+```
+
+Quick test (pip-only, no clone):
+
+```bash
+curl -sL -o /tmp/sv-test.png \
+  "https://raw.githubusercontent.com/TonyRiera/samson-vision/v0.3.3/assets/samson_pillars_crumbling.png"
+samson-vision /tmp/sv-test.png --md | head -20
+```
+
+Details: [SETUP.md](docs/SETUP.md) · Optional integrations: [INTEGRATIONS.md](docs/INTEGRATIONS.md)
+
+---
+
 ## When to use
 
 | ✅ Use SVP | ❌ Do not rely on SVP alone |

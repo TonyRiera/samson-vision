@@ -40,7 +40,7 @@ def _package_version() -> str:
         from importlib.metadata import version as pkg_version
         return pkg_version("samson-vision")
     except Exception:
-        return "0.3.2"
+        return "0.3.3"
 
 PACKAGE_VERSION = _package_version()
 

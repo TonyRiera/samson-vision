@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.3] — 2026-06-27
+
+**External user onboarding** — fully self-service from GitHub.
+
+### Added
+- MIT `LICENSE` at repo root (matches pyproject.toml)
+- `## Install` section in README and `PUBLIC/README.md` (pip one-liner, clone + `setup.sh`, Tesseract, quick test)
+- `PUBLIC/docs/INTEGRATIONS.md` — optional Hermes/MiniMax/Codex harness docs (split from SETUP)
+
+### Changed
+- `PUBLIC/docs/SETUP.md` — GitHub-only focus: venv, pip, Tesseract, verify CLI, `generate_svp` example
+- `requirements.txt` — top comment + minimum deps safe for `pip install -r`
+- Version bump to `0.3.3`
+
+### Verified
+- Test suite 29/29
+
 ## [0.3.2] — 2026-06-27
 
 **Packaging fix** — explicit `package-dir` for setuptools src layout.
