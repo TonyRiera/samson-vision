@@ -76,6 +76,38 @@ sequenceDiagram
 *The main agent receives image tasks, Samson Vision produces SVP text, and the text-only subagent works with embedded structured vision — preserving context without expensive vision models on the subagent.*
 
 
+
+## Casos de uso / Use cases
+
+Patrón común: **agente principal sin visión** (p. ej. DeepSeek Flash v4) + **Samson SVP** + **subagente con visión estructurada en texto** — sin modelos multimodales caros ni pérdida de habilidades de código.
+
+*Common pattern: **visionless main agent** (e.g. DeepSeek Flash v4) + **Samson SVP** + **subagent with text-structured sight** — no expensive multimodal models, no loss of coding depth.*
+
+- **Orquestador barato revisa screenshot de UI** · *Cheap orchestrator reviews UI screenshot*
+  - **ES:** El agente principal recibe un screenshot de regresión. Ejecuta `samson_vision.py imagen.png --md`, embebe el SVP en la delegación y el subagente (solo texto) propone el fix CSS/layout sin cambiar a API de visión.
+  - **EN:** Main agent runs SVP on the screenshot, embeds it in delegation; text-only subagent proposes CSS/layout fix — no vision API switch.
+
+- **CI/CD sin modelo de visión** · *CI/CD without a vision model*
+  - **ES:** El pipeline corre Samson CLI tras cada build/deploy. Un agente texto-only en CI compara SVPs (layout, OCR, colores) y detecta regresión visual sin GPT-4V ni modelos multimodales en el runner.
+  - **EN:** Pipeline runs Samson CLI post-build; text-only CI agent diffs SVPs (layout, OCR, colors) for visual regression — no GPT-4V on the runner.
+
+- **Subagente Cursor sin acceso a la imagen** · *Cursor subagent without image access*
+  - **ES:** El orquestador adjunta el SVP completo en el prompt de delegación (Hermes, subagente Cursor, worker remoto). El subagente no recibe bytes de imagen pero opera con jerarquía visual, OCR y mapa de layout.
+  - **EN:** Orchestrator attaches full SVP to delegation prompt; subagent gets no image bytes but works from hierarchy, OCR, and layout map.
+
+- **Auditoría de accesibilidad** · *Accessibility audit*
+  - **ES:** `OCR_TEXT`, `LAYOUT_MAP`, `COLOR_MAP` y `USER_ACTIONS` del SVP alimentan un agente texto-only que marca contraste insuficiente, targets táctiles pequeños, texto truncado o jerarquía rota — sin modelo de visión.
+  - **EN:** SVP OCR, layout, color, and action fields feed a text-only agent flagging low contrast, small tap targets, truncated text, or broken hierarchy.
+
+- **Portfolio y evidencia de producción** · *Portfolio / production evidence*
+  - **ES:** Captura de prod → SVP → case study o informe de QA en texto versionable. Evidencia reproducible para clientes o portfolio sin depender de APIs de visión ni screenshots opacos para el LLM.
+  - **EN:** Prod capture → SVP → versionable case study or QA report. Reproducible evidence for clients/portfolio without vision APIs or opaque screenshots for the LLM.
+
+- **Multimodal caro evitado** · *Expensive multimodal avoided*
+  - **ES:** Mismo modelo barato (DeepSeek Flash v4, MiniMax-M2.1) + SVP frente a cambiar a modelo con visión: contexto visual equivalente, coste por query ~100× menor, razonamiento y código del agente intactos.
+  - **EN:** Same cheap model + SVP vs switching to a vision model: equivalent visual context, ~100× lower cost per query, agent reasoning and coding skills preserved.
+
+
 ## Stack 80/20 — Modelo más rápido + fallback
 
 ```
