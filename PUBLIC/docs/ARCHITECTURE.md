@@ -233,6 +233,6 @@ Solo la **interpretación** del SVP (pasarlo a un LLM) tiene coste de API.
 >
 > No necesitaba ver el templo — necesitaba saber **cuándo y cómo derribarlo**.
 >
-> Samson Vision = revelar el plan oculto bajo los píxeles.
+> Samson Vision = tus limitaciones no son un límite imposible de superar. (Filipenses 4:13)
 > La IA no necesita "ver" imágenes —
 > necesita que alguien extraiga la verdad estructural que el ojo natural no capta.

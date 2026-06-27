@@ -5,8 +5,15 @@
 <h1 align="center">Samson Vision</h1>
 
 <p align="center">
-  <em>Revelar el plan oculto bajo los píxeles.</em><br>
-  <sub><em>Reveal the hidden plan beneath the pixels.</em></sub>
+  <strong>Tus limitaciones no son un límite imposible de superar.</strong><br>
+  <em>Filipenses 4:13</em><br>
+  <sub><strong>Your limitations are not an impossible limit to overcome.</strong><br>
+  <em>Philippians 4:13</em></sub>
+</p>
+
+<p align="center">
+  <em>Samson Vision da visión a tu agente aunque el modelo siga sin ojos — SVP extrae la verdad estructural bajo los píxeles.</em><br>
+  <sub><em>Samson Vision gives your agent sight even when the model still has no eyes — SVP extracts structural truth beneath the pixels.</em></sub>
 </p>
 
 <p align="center">
@@ -185,7 +192,7 @@ sin nombres de usuario, sin configuraciones internas. Listo para copiar a un rep
 >
 > No necesitaba ver el templo — necesitaba saber **cuándo y cómo derribarlo**.
 >
-> Samson Vision = revelar el plan oculto bajo los píxeles.
+> Samson Vision = tus limitaciones no son un límite imposible de superar. (Filipenses 4:13)
 > Tú (el usuario) = Sansón, con el poder de ejecutar.
 > La imagen = el templo de Dagón, con su estrategia oculta.
 >
