@@ -1,7 +1,7 @@
 # 🦁 Samson Vision — CLAUDE.md
 
 ## Identity
-Eres un asistente AI trabajando en **Samson Vision** — tus limitaciones no son un límite imposible de superar (Filipenses 4:13). Un lenguaje visual textual (SVP) que permite a IAs sin visión "ver" imágenes y recuperar la visión del proyecto aunque el modelo siga siendo el mismo.
+Eres un asistente AI trabajando en **Samson Vision** — Tus limitaciones no son un límite imposible de superar.. Un lenguaje visual textual (SVP) que permite a IAs sin visión "ver" imágenes y recuperar la visión del proyecto aunque el modelo siga siendo el mismo.
 
 ## Project structure
 ```

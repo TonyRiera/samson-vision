@@ -1,129 +1,225 @@
 <p align="center">
-  <img src="../assets/final_moment_pillars.png" width="560" alt="Samson Vision">
+  <img src="assets/final_moment_pillars.png" width="720" alt="Samson Vision — el momento final entre los pilares">
 </p>
 
 <h1 align="center">Samson Vision</h1>
 
 <p align="center">
-  <em>Reveal the hidden plan beneath the pixels.</em>
+  <em>Tus limitaciones no son un límite imposible de superar.</em> <sub>*Filipenses 4:13*</sub><br>
+  <sub><em>Your limitations are not an impossible limit to overcome.</em> *Philippians 4:13*</sub><br>
+  <sub>Tu agente sigue sin ojos — el mismo modelo, sin visión — pero recibe visión a través del SVP. · Your agent still has no eyes — same model, no vision — but receives sight through SVP.</sub>
 </p>
 
 <p align="center">
-  <a href="docs/SETUP.md"><strong>Install</strong></a>
+  <a href="PUBLIC/docs/SETUP.md"><strong>Instalar</strong></a>
   &nbsp;·&nbsp;
-  <a href="../index.html"><strong>Landing</strong></a>
+  <a href="#uso-rápido"><strong>Inicio rápido</strong></a>
   &nbsp;·&nbsp;
-  <a href="docs/SAMSON_VISION_PACK.md"><strong>SVP Spec</strong></a>
+  <a href="index.html"><strong>Landing</strong></a>
+  &nbsp;·&nbsp;
+  <a href="PUBLIC/docs/SAMSON_VISION_PACK.md"><strong>SVP</strong></a>
 </p>
 
+Sansón pudo ver aun sin ojos. Tu agente recuperará la **visión del proyecto** aunque su modelo siga siendo el mismo — sin modelos con visión que encarecen y pierden habilidades.
 
-Samson Vision translates images into a **SAMSON_VISION_PACK (SVP)** — a 13-field structured text format that any text-only LLM can interpret. This allows models without native vision capabilities (DeepSeek, GPT-4o-mini, Llama, etc.) to understand visual content with high fidelity.
+**El problema:** Los agentes limitados por APIs de visión pierden errores estructurales, cambiar de modelo borra el contexto, y los modelos multimodales cuestan más mientras sacrifican profundidad en código y razonamiento.
 
-Samson lost his **physical sight** but regained the **vision of God's plan** (Judges 16:28-30). He did not need to see the temple — he needed to know **when and how to act**.
+**La respuesta:** El **SAMSON_VISION_PACK (SVP)** — 13 campos de texto estructurado que reemplazan la necesidad de enviar imágenes a LLMs costosos. Mismo modelo. Mismas habilidades. Comprensión visual completa a través de texto.
 
-**Samson Vision** reveals the hidden plan beneath the pixels. Your agent **still has no eyes** — the same model, no vision — but receives **sight** through SVP: the structural truth pixels hide and a blind LLM cannot capture alone.
+*This project is shared as a personal blessing — so teams are not forced into expensive vision models when text-only agents can see just as clearly through SVP.*
 
-*Sansón perdió la vista física, pero recuperó la visión del plan de Dios. Samson Vision da visión a agentes ciegos a través del SVP — la verdad estructural que los píxeles esconden.*
 
-## How it works
+---
+
+## ¿Qué es?
+
+Samson Vision es un **lenguaje visual basado en texto** que permite a una IA sin visión "ver" imágenes. Traduce píxeles al **SAMSON_VISION_PACK (SVP)** — un formato estructurado con 13 campos — que cualquier modelo de texto puede interpretar como si estuviera viendo la imagen.
+
+Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30). No necesitaba ver el templo — necesitaba saber **cuándo y cómo actuar**.
+
+**Samson Vision** revela el plan oculto bajo los píxeles. Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
+
+*Samson lost his physical sight but regained the vision of God's plan (Judges 16:28-30). He did not need to see the temple — he needed to know when and how to act. Samson Vision gives blind agents sight through SVP: structural truth that pixels hide and a sightless LLM cannot capture alone.*
+
+## Flujo con subagentes / Subagent workflow
+
+Un **agente principal** recibe tareas con imágenes o capturas de pantalla. Antes de delegar, el pipeline (o el agente principal) genera un **SAMSON_VISION_PACK (SVP)** con Samson Vision. El **subagente** — normalmente un modelo **solo texto**, sin visión — recibe el prompt de la tarea **más el SVP embebido** en su contexto.
+
+Así se preserva la transferencia de contexto visual **sin** usar modelos de visión costosos en el subagente ni cambiar de modelo.
+
+```mermaid
+sequenceDiagram
+    participant U as Usuario / Tarea
+    participant M as Agente principal
+    participant SV as Samson Vision
+    participant S as Subagente (texto)
+
+    U->>M: Tarea + imagen/screenshot
+    M->>SV: imagen.png --md
+    SV-->>M: SVP (13 campos)
+    M->>S: prompt + SVP embebido
+    Note over S: Sin modelo de visión
+    S-->>M: Resultado (con "visión" en texto)
+    M-->>U: Respuesta integrada
+```
+
+**Pasos:**
+
+1. El **agente principal** recibe una tarea con imagen o screenshot.
+2. **Samson Vision** genera el SVP (`python3 src/samson_vision.py imagen.png --md`).
+3. El agente principal **delega al subagente**: prompt de la tarea + SVP embebido en el contexto.
+4. El **subagente** (sin visión nativa) trabaja con la "visión" estructurada en texto.
+5. El **resultado vuelve al agente principal** para síntesis, validación o entrega al usuario.
+
+*The main agent receives image tasks, Samson Vision produces SVP text, and the text-only subagent works with embedded structured vision — preserving context without expensive vision models on the subagent.*
+
+
+## Stack 80/20 — Modelo más rápido + fallback
 
 ```
-Image → [Samson Core] → SAMSON_VISION_PACK (text) → [Any LLM] → Understanding
-           ↑                    ↑                            ↑
-      0% AI, all        13 fields of                   The model "sees"
-      numpy/OpenCV      structured text                through the text
+SVP → MiniMax-M2.1 (mmx CLI)  → 5s, $0.0008/query, 100% calidad  ← 🏆 PRIMARIO
+SVP → minimax-m2.5 (OpenCode) → 11s, $0.0009/query, 83% calidad   ← 🔄 FALLBACK
+SVP → kimi-k2.7-code (OpenCode) → 8s, $0.003/query, 100% calidad   ← 🎯 PRECISIÓN
 ```
 
-## The SAMSON_VISION_PACK (SVP)
+El flujo es automático: primero intenta M2.1 (5s). Si falla, cae a M2.5. Si necesitas máxima precisión, usa Kimi K2.7.
 
-The SVP is the core of Samson Vision — a multi-layer textual representation with 13 mandatory fields:
+## Benchmark completo — 24 modelos testeados
+
+Ver [`docs/COSTS.md`](docs/COSTS.md) para costes detallados.
+
+| # | Modelo | Via | Calidad | Tiempo | Coste/query | Cobertura |
+|---|--------|-----|:-----:|:------:|:----------:|:---------:|
+| 1 | **MiniMax-M2.1** 🏆 | mmx CLI | 100% | **5s** | $0.0008 | ✅✅✅✅✅✅ |
+| 2 | **kimi-k2.7-code** | OpenCode | 100% | 8s | $0.0030 | ✅✅✅✅✅✅ |
+| 3 | gpt-5.4-mini | Codex | 100% | 8s | subscription (per-token) | ✅✅✅✅✅✅ |
+| 4 | **minimax-m2.5** 🥈 | OpenCode | 83% | 11s | **$0.0009** | ✅✅✅✅✅❌ |
+| 5 | MiniMax-M2.7-highspeed | mmx | 83% | 11s | $0.0016 | ✅✅✅✅✅❌ |
+| 6 | minimax-m3 | OpenCode | 67% | 10s | $0.0009 | ✅✅✅❌❌✅ |
+| 7 | mimo-v2-omni | OpenCode | 67% | 9s | $0.0029 | ✅✅✅❌❌✅ |
+| 8 | qwen3.5-plus | OpenCode | 67% | 43s | $0.0012 | ✅✅✅❌❌❌ |
+| ❌ | deepseek-v4-flash | OpenCode | 0% | — | $0.0003 | vacío (0%) |
+| ❌ | glm-5.2/5.1/5 | OpenCode | 0% | — | $0.0039 | vacío (0%) |
+
+## El Lenguaje: SAMSON_VISION_PACK (SVP)
+
+El SVP es un formato de 13 campos que traduce cualquier imagen a texto estructurado:
 
 ```
 [SAMSON_VISION_PACK v1]
 
-IMAGE_TYPE:           Type, domain, dimensions, aspect ratio
-GLOBAL_SUMMARY:       One-line visual summary
-VISUAL_HIERARCHY:     Elements ordered by importance with coordinates
-LAYOUT_MAP:           Spatial zones with normalized coordinates (0-100)
-OCR_TEXT:             Detected text with confidence scores
-OBJECTS_AND_COMPONENTS: Detected objects/components
-COLOR_MAP:            Color palette with human-readable names
-DENSITY_MAP:          Content density by horizontal bands
-ASCII_REPRESENTATION: Multi-style ASCII art (8 styles available)
-USER_ACTIONS:         Interactive element coordinates
-UNCERTAINTIES:        Explicit limitations of the detection
-DO_NOT_ASSUME:        Anti-hallucination guardrails
-FINAL_INTERPRETATION: Synthesis for text-only AI consumption
+IMAGE_TYPE:          tipo, dominio, dimensiones
+GLOBAL_SUMMARY:      resumen visual
+VISUAL_HIERARCHY:    importancia por coordenadas
+LAYOUT_MAP:          zonas con coordenadas %
+OCR_TEXT:            texto detectado (Tesseract real)
+OBJECTS_AND_COMPONENTS: elementos detectados
+COLOR_MAP:           paleta de colores
+DENSITY_MAP:         densidad de contenido
+ASCII_REPRESENTATION: mapa ASCII significativo
+USER_ACTIONS:        puntos de interacción
+UNCERTAINTIES:       limitaciones explícitas
+DO_NOT_ASSUME:       antialucinación
+FINAL_INTERPRETATION: síntesis para IA sin visión
 ```
 
-Each field serves a specific purpose: spatial awareness (LAYOUT_MAP, VISUAL_HIERARCHY), text extraction (OCR_TEXT), visual texture (ASCII_REPRESENTATION), color understanding (COLOR_MAP), and anti-hallucination (UNCERTAINTIES, DO_NOT_ASSUME).
+Cada campo está diseñado para que un modelo de texto pueda reconstruir mentalmente la imagen con la máxima fidelidad posible.
 
-## Quick start
-
-```bash
-# 1. Generate an SVP from any image
-python3 src/samson_vision.py image.png --md > pack.md
-
-# 2. Feed it to any text-only model
-# (examples depend on your provider — see docs/SETUP.md)
-
-# 3. The model interprets it as if it were seeing the image
-```
-
-## Key features
-
-- **8 ASCII styles**: standard, detail, block, edge, color, dither, fanart, braille
-- **Real OCR**: Tesseract with image preprocessing (2x upscale, OTSU binarization, line grouping)
-- **Scene graph**: Object detection + spatial relationships via OpenCV
-- **Device simulation**: 13 device profiles for responsive design testing
-- **Audio visualization**: Convert audio to ASCII waveforms, spectrums, and beat patterns
-- **Zero vision API calls**: The system itself uses no AI — it is purely algorithmic (numpy + OpenCV + Tesseract)
-
-## Model compatibility
-
-Samson SVP has been tested with **24+ models** across multiple providers. Most text-only LLMs can interpret the SVP effectively. See [BENCHMARK.md](docs/BENCHMARK.md) for detailed comparison.
-
-## Benchmark summary
-
-| Tier | Models | Quality | Speed |
-|------|--------|:-------:|:-----:|
-| 🥇 Best | MiniMax-M2.1, kimi-k2.7-code | 100% | 5-8s |
-| 🥈 Great value | minimax-m2.5, qwen3.5-plus | 67-83% | 11-43s |
-| 🥉 Solid | GPT-5.4-mini, MiniMax-M3 | 67-100% | 8-27s |
-| ❌ Incompatible | deepseek-v4-flash/pro, glm-5.x | 0% | — |
-
-## Architecture
+## Componentes
 
 ```
 samson-vision/
 ├── src/
-│   ├── samson_core.py          ← ASCII conversion engine (8 styles)
-│   ├── vmk/                    ← Vision Multimodal Kernel
-│   │   ├── scene_graph.py      ← Bounding boxes, spatial relations
-│   │   └── kernel.py           ← Color, edges, saliency, object detection
-│   ├── samson_vision.py        ← SAMSON_VISION_PACK generator (the language)
-│   ├── device_db.py            ← Device profiles for responsive testing
-│   ├── synesthesia.py          ← Audio → ASCII visualization
-│   └── harnesses.py            ← Model integration connectors
-├── test/run_tests.py           ← 29 tests — 100% pass rate
+│   ├── samson_core.py         ← 8 estilos ASCII + lenguaje visual
+│   ├── vmk/                   ← Vision Multimodal Kernel (OpenCV)
+│   │   ├── scene_graph.py     ← BBox, relaciones espaciales
+│   │   └── kernel.py          ← color, bordes, saliency, objetos
+│   ├── samson_vision.py       ← SAMSON_VISION_PACK v1 (el lenguaje)
+│   ├── device_db.py           ← 13 dispositivos para testing responsive
+│   ├── synesthesia.py         ← audio → visualización ASCII
+│   └── harnesses.py           ← integración con modelos externos
+├── test/run_tests.py          ← 29 tests — 100%
 └── docs/
-    ├── ARCHITECTURE.md         ← Detailed architecture
-    ├── SAMSON_VISION_PACK.md   ← Complete SVP specification
-    ├── BENCHMARK.md            ← Model comparison
-    ├── COSTS.md                ← Usage costs
-    └── SETUP.md                ← Installation guide
+    └── COSTS.md               ← costes detallados por modelo
+
+Skills: samson-vision (3 modos de uso documentados)
 ```
 
-## When to use Samson Vision vs direct vision models
+## Uso rápido
 
-| Scenario | Use | Why |
-|----------|-----|-----|
-| Target model has **no vision** | **Samson SVP** | Only way for text-only models to "see" |
-| **Cost-sensitive** at scale | **Samson SVP** | 50-100x cheaper than vision API calls |
-| Need **maximum fidelity** (photos, logos) | **Direct vision model** | Native vision sees non-textual elements |
-| **Text-heavy** content (docs, web, dashboards) | **Samson SVP** | Near-indistinguishable from direct vision |
-| **Agent continuity** — keep same model/skills | **Samson SVP** | Project vision survives model switches |
+```bash
+# Generar SVP de una imagen
+cd ~/proyectos/samson-vision/src
+python3 samson_vision.py imagen.png --md > vbp.md
 
-## License
+# 🏆 Interpretar con MiniMax-M2.1 (más rápido)
+cat vbp.md | mmx text chat --model MiniMax-M2.1 \
+  --system "Eres Samson Vision..." --message "$(cat vbp.md)"
 
-MIT
+# 🥈 Interpretar con minimax-m2.5 via OpenCode (fallback barato)
+curl -s https://opencode.ai/zen/go/v1/chat/completions \
+  -H "Authorization: Bearer $KEY" \
+  -d '{"model":"minimax-m2.5", "messages":[...]}'
+
+# 🎯 Interpretar con Kimi K2.7 (máxima precisión)
+curl -s https://opencode.ai/zen/go/v1/chat/completions \
+  -H "Authorization: Bearer $KEY" \
+  -d '{"model":"kimi-k2.7-code", "messages":[...], "max_tokens":1500}'
+
+# 🎫 Interpretar con Codex (si tienes ChatGPT Plus)
+codex -z "Eres Samson Vision. $(cat vbp.md)"
+```
+
+## Tests
+
+```bash
+python3 ~/proyectos/samson-vision/test/run_tests.py
+# → 29/29 tests — 100%
+```
+
+## Modos de uso
+
+| Modo | Cuándo | Coste |
+|------|--------|-------|
+| **Sistema puro** | Datos técnicos (color, brillo, bordes) | $0 |
+| **SVP + modelo texto** | Cuando el modelo no ve imágenes | $0.0008-$0.003/query |
+| **M3 directo (visión)** | Máxima fidelidad (ve fotos) | ~$0.003 |
+
+## Costes mensuales estimados
+
+| Uso | Modelo | Coste |
+|-----|--------|:-----:|
+| 100 queries/día | MiniMax-M2.1 (mmx) | ~$2.40/mes |
+| 100 queries/día | minimax-m2.5 (OpenCode) | ~$2.70/mes |
+| 100 queries/día | kimi-k2.7-code (OpenCode) | ~$9.00/mes |
+
+Ver [`docs/COSTS.md`](docs/COSTS.md) para desglose completo de costes, proveedores y planes.
+
+## Publicar en GitHub
+
+La documentación pública (sin datos sensibles) está en [`PUBLIC/`](PUBLIC/):
+
+```
+PUBLIC/
+├── README.md              ← Landing page (sanitized)
+├── INDEX.md               ← Navigation hub
+├── docs/
+│   ├── ARCHITECTURE.md    ← Technical architecture
+│   ├── SAMSON_VISION_PACK.md ← SVP spec (13 fields)
+│   ├── BENCHMARK.md       ← Model comparison
+│   ├── SETUP.md           ← Installation guide
+│   └── COSTS.md           ← Usage costs
+```
+
+Contenido sanitizado: sin rutas personales (~/), sin API keys, sin detalles de cuentas,
+sin nombres de usuario, sin configuraciones internas. Listo para copiar a un repo público.
+
+## La metáfora de Sansón
+
+> Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30).
+>
+> No necesitaba ver el templo — necesitaba saber **cuándo y cómo actuar**.
+>
+> **Samson Vision** revela el plan oculto bajo los píxeles. Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
+>
+> *The AI still has no eyes — no vision model — but Samson Vision gives it sight anyway through SVP text. It does not need to "see" pixels; SVP extracts structural truth the natural eye (or blind model) cannot capture.*

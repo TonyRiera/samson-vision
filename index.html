@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Samson Vision — revelar el plan oculto bajo los píxeles</title>
+  <title>Samson Vision — Tus limitaciones no son un límite imposible de superar.</title>
   <meta name="description" content="Samson Vision traduce imágenes al SAMSON_VISION_PACK (SVP) para que LLMs sin visión comprendan UI, diagramas y PDFs.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -141,8 +141,9 @@
     <img class="hero-img" src="assets/final_moment_pillars.png" alt="Samson entre los pilares — momento de revelación" width="640">
 
     <h1>Samson Vision</h1>
-    <p class="tagline">Revelar el plan oculto bajo los píxeles.</p>
-    <p class="tagline-en">Reveal the hidden plan beneath the pixels.</p>
+    <p class="tagline">Tus limitaciones no son un límite imposible de superar. <em style="font-size:0.85em">*Filipenses 4:13*</em></p>
+    <p class="tagline-en">Your limitations are not an impossible limit to overcome. <em>*Philippians 4:13*</em></p>
+    <p class="tagline-en" style="margin-bottom:1.5rem">Tu agente sigue sin ojos — el mismo modelo, sin visión — pero recibe visión a través del SVP. · Your agent still has no eyes — same model, no vision — but receives sight through SVP.</p>
 
     <p class="lead">
       Sansón pudo ver aun sin ojos. Tu agente recuperará la <strong>visión del proyecto</strong>
@@ -164,6 +165,13 @@
       <h2>La respuesta — SAMSON_VISION_PACK</h2>
       <p>13 campos de texto estructurado que reemplazan la necesidad de enviar imágenes a LLMs costosos. Mismo modelo. Mismas habilidades. Comprensión visual completa a través de texto.</p>
       <p><code>python3 src/samson_vision.py imagen.png --md &gt; pack.md</code></p>
+    </section>
+
+
+    <section>
+      <h2>Flujo con subagentes</h2>
+      <p>El <strong>agente principal</strong> recibe la tarea con imagen. <strong>Samson Vision</strong> genera el SVP (<code>--md</code>). Delega al <strong>subagente</strong> (solo texto, sin visión) con el prompt + SVP embebido. El subagente trabaja con visión estructurada; el resultado vuelve al agente principal.</p>
+      <p><em>Main agent → SVP → text-only subagent → result back. Context preserved, no vision model on subagent.</em></p>
     </section>
 
     <section>
