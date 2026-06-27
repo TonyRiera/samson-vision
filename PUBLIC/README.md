@@ -1,17 +1,21 @@
-# 🦁 Samson Vision
+<p align="center">
+  <img src="../assets/final_moment_pillars.png" width="560" alt="Samson Vision">
+</p>
 
-> **Reveal the hidden plan beneath the pixels.**  
-> *Revelar el plan oculto bajo los píxeles.*
+<h1 align="center">Samson Vision</h1>
 
-Samson could see even without eyes. Your agent can recover the **vision of your project** even when its model stays the same — no expensive vision models that cost more and strip away other skills.
+<p align="center">
+  <em>Reveal the hidden plan beneath the pixels.</em>
+</p>
 
-**The problem:** Agents locked to vision APIs miss structural errors, lose context when you switch models, and get pushed into pricier multimodal endpoints that trade coding depth for pixels.
+<p align="center">
+  <a href="docs/SETUP.md"><strong>Install</strong></a>
+  &nbsp;·&nbsp;
+  <a href="../index.html"><strong>Landing</strong></a>
+  &nbsp;·&nbsp;
+  <a href="docs/SAMSON_VISION_PACK.md"><strong>SVP Spec</strong></a>
+</p>
 
-**The answer:** The **SAMSON_VISION_PACK (SVP)** — 13 fields of structured text that replace the need to send images to costly LLMs. Same model. Same skills. Full visual understanding through text.
-
-*Shared as a personal blessing — so projects are not forced into expensive vision models when text-only agents can see just as clearly through SVP.*
-
----
 
 Samson Vision translates images into a **SAMSON_VISION_PACK (SVP)** — a 13-field structured text format that any text-only LLM can interpret. This allows models without native vision capabilities (DeepSeek, GPT-4o-mini, Llama, etc.) to understand visual content with high fidelity.
 

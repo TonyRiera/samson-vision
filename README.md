@@ -1,7 +1,23 @@
-# 🦁 Samson Vision
+<p align="center">
+  <img src="assets/final_moment_pillars.png" width="720" alt="Samson Vision — el momento final entre los pilares">
+</p>
 
-> **Revelar el plan oculto bajo los píxeles.**  
-> *Reveal the hidden plan beneath the pixels.*
+<h1 align="center">Samson Vision</h1>
+
+<p align="center">
+  <em>Revelar el plan oculto bajo los píxeles.</em><br>
+  <sub><em>Reveal the hidden plan beneath the pixels.</em></sub>
+</p>
+
+<p align="center">
+  <a href="PUBLIC/docs/SETUP.md"><strong>Instalar</strong></a>
+  &nbsp;·&nbsp;
+  <a href="#uso-rápido"><strong>Inicio rápido</strong></a>
+  &nbsp;·&nbsp;
+  <a href="index.html"><strong>Landing</strong></a>
+  &nbsp;·&nbsp;
+  <a href="PUBLIC/docs/SAMSON_VISION_PACK.md"><strong>SVP</strong></a>
+</p>
 
 Sansón pudo ver aun sin ojos. Tu agente recuperará la **visión del proyecto** aunque su modelo siga siendo el mismo — sin modelos con visión que encarecen y pierden habilidades.
 
@@ -10,6 +26,7 @@ Sansón pudo ver aun sin ojos. Tu agente recuperará la **visión del proyecto**
 **La respuesta:** El **SAMSON_VISION_PACK (SVP)** — 13 campos de texto estructurado que reemplazan la necesidad de enviar imágenes a LLMs costosos. Mismo modelo. Mismas habilidades. Comprensión visual completa a través de texto.
 
 *This project is shared as a personal blessing — so teams are not forced into expensive vision models when text-only agents can see just as clearly through SVP.*
+
 
 ---
 

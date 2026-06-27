@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samson Vision — revelar el plan oculto bajo los píxeles</title>
+  <meta name="description" content="Samson Vision traduce imágenes al SAMSON_VISION_PACK (SVP) para que LLMs sin visión comprendan UI, diagramas y PDFs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --fg: #e8e4dc;
+      --muted: #9a958a;
+      --gold: #c9a227;
+      --gold-dim: #8B6914;
+      --card: #12121a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 9999;
+    }
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .hero-img {
+      display: block;
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto 2rem;
+      border-radius: 4px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,162,39,0.12);
+    }
+    h1 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      text-align: center;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin-bottom: 0.5rem;
+    }
+    .tagline {
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      text-align: center;
+      font-size: 1.15rem;
+      color: var(--gold);
+      margin-bottom: 0.35rem;
+    }
+    .tagline-en {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .lead {
+      font-size: 0.95rem;
+      color: var(--muted);
+      text-align: center;
+      max-width: 36em;
+      margin: 0 auto 2rem;
+    }
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .cta a {
+      display: inline-block;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.8rem;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cta-primary {
+      background: var(--gold-dim);
+      color: #fff;
+      border: 1px solid var(--gold);
+    }
+    .cta-primary:hover { background: var(--gold); color: var(--bg); }
+    .cta-secondary {
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid rgba(232,228,220,0.25);
+    }
+    .cta-secondary:hover { border-color: var(--gold); color: var(--gold); }
+    section {
+      background: var(--card);
+      border: 1px solid rgba(201,162,39,0.1);
+      border-radius: 4px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+    section h2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    section p { font-size: 0.85rem; color: var(--muted); }
+    section p + p { margin-top: 0.75rem; }
+    code {
+      background: rgba(255,255,255,0.06);
+      padding: 0.1em 0.35em;
+      border-radius: 2px;
+      font-size: 0.82em;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2.5rem;
+    }
+    footer a { color: var(--gold-dim); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="hero-img" src="assets/final_moment_pillars.png" alt="Samson entre los pilares — momento de revelación" width="640">
+
+    <h1>Samson Vision</h1>
+    <p class="tagline">Revelar el plan oculto bajo los píxeles.</p>
+    <p class="tagline-en">Reveal the hidden plan beneath the pixels.</p>
+
+    <p class="lead">
+      Sansón pudo ver aun sin ojos. Tu agente recuperará la <strong>visión del proyecto</strong>
+      aunque su modelo siga siendo el mismo — sin modelos con visión que encarecen y pierden habilidades.
+    </p>
+
+    <div class="cta">
+      <a class="cta-primary" href="PUBLIC/docs/SETUP.md">Instalar</a>
+      <a class="cta-secondary" href="README.md">README</a>
+      <a class="cta-secondary" href="https://github.com/TonyRiera/samson-vision">GitHub</a>
+    </div>
+
+    <section>
+      <h2>El problema</h2>
+      <p>Los agentes limitados por APIs de visión pierden errores estructurales. Cambiar de modelo borra el contexto. Los modelos multimodales cuestan más mientras sacrifican profundidad en código y razonamiento.</p>
+    </section>
+
+    <section>
+      <h2>La respuesta — SAMSON_VISION_PACK</h2>
+      <p>13 campos de texto estructurado que reemplazan la necesidad de enviar imágenes a LLMs costosos. Mismo modelo. Mismas habilidades. Comprensión visual completa a través de texto.</p>
+      <p><code>python3 src/samson_vision.py imagen.png --md &gt; pack.md</code></p>
+    </section>
+
+    <section>
+      <h2>La metáfora</h2>
+      <p>Sansón perdió la vista física, pero ganó la visión del plan de Dios (Jueces 16:28-30). Samson Vision revela la estructura, la estrategia y la verdad oculta bajo los píxeles — el templo con su plan invisible.</p>
+    </section>
+
+    <footer>
+      <a href="PUBLIC/docs/SETUP.md">Setup</a> ·
+      <a href="PUBLIC/docs/SAMSON_VISION_PACK.md">SVP Spec</a> ·
+      <a href="PUBLIC/docs/BENCHMARK.md">Benchmark</a> ·
+      MIT
+    </footer>
+  </div>
+</body>
+</html>
