@@ -60,3 +60,4 @@ The core format: 13 fields → IMAGE_TYPE, GLOBAL_SUMMARY, VISUAL_HIERARCHY, LAY
 ## GitHub
 - Private repo. PUBLIC/ is the sanitized public subset for future public release.
 - assets/ are the canonical images (PUBLIC/assets/ was removed to avoid duplication).
+Curated SVP demo images: see assets/README.md (2026-06-27: genesis_tablet_golden, lion_of_judah_revelation, +4 epic scenes).
