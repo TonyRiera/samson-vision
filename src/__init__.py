@@ -3,4 +3,4 @@
 from samson_vision import generate_svp, cli
 
 __all__ = ["generate_svp", "cli"]
-__version__ = "0.3.0"
+__version__ = "0.3.1"

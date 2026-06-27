@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "samson-vision"
-version = "0.3.0"
-description = "Samson Vision — Tus limitaciones no son un limite imposible de superar (Filipenses 4:13). SVP: 13 campos de texto para que IAs sin vision vean imagenes sin modelos costosos."
+version = "0.3.1"
+description = "Visual-to-text bridge for AI agents: structured SVP packs for screenshots, documents, UI images and text-only LLM workflows."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
@@ -21,3 +21,6 @@ scripts = { "samson-vision" = "samson_vision:cli" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools]
+py-modules = ["samson_vision", "samson_core", "harnesses", "device_db", "runtime_integration", "synesthesia", "versiculos"]

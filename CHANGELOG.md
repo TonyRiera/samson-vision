@@ -2,6 +2,20 @@
 
 All notable changes to Samson Vision are documented here.
 
+## [0.3.1] — 2026-06-27
+
+**Packaging & clarity patch** after v0.3.0 validation.
+
+### Changed
+- `PACKAGE_VERSION` / pyproject aligned to `0.3.1`
+- SVP pack `version` field aligned to schema `1.0` (`SVP_SCHEMA_VERSION`)
+- README: CI badge, early-release disclaimer
+- Project description focused on visual-to-text agent workflows
+
+### Verified
+- Clean `pip install git+https://github.com/TonyRiera/samson-vision.git` import path
+- Test suite 29/29
+
 ## [0.3.0] — 2026-06-27
 
 **Credibility release** — public positioning, CI, and real examples without claiming full vision parity.

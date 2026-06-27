@@ -1,8 +1,12 @@
+![CI](https://github.com/TonyRiera/samson-vision/actions/workflows/ci.yml/badge.svg)
+
 <p align="center">
   <img src="assets/final_moment_pillars.png" width="720" alt="Samson Vision — el momento final entre los pilares">
 </p>
 
 # Samson Vision
+
+> **Early release:** useful for visual-to-text agent workflows; not a replacement for native vision.
 
 Samson Vision is a **visual-to-text bridge for AI agents**. It converts screenshots, documents, and UI images into a structured text pack called **SVP** (SAMSON_VISION_PACK) — 13 fields of OCR, layout, ASCII, colors, and anti-hallucination guardrails — so text-only LLMs can reason about visual content without native vision APIs.
 

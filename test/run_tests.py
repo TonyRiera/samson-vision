@@ -1,12 +1,12 @@
 """
-🦁 SAMSON VISION — Test Suite v0.3.0
+🦁 SAMSON VISION — Test Suite v0.3.1
 Tests para: Core + VMK + Device DB + Synesthesia + Harnesses
 """
 import sys, os, json, base64, io, time, unittest
 from PIL import Image, ImageDraw
 
 # Añadir src al path
-SRC = os.path.expanduser("~/proyectos/samson-vision/src")
+SRC = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "src")
 sys.path.insert(0, SRC)
 
 from samson_core import (
@@ -333,7 +333,7 @@ class TestHarnesses(unittest.TestCase):
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("  🦁 SAMSON VISION v0.3.0 — TEST SUITE COMPLETA")
+    print("  🦁 SAMSON VISION v0.3.1 — TEST SUITE COMPLETA")
     print("  Core + VMK + Device DB + Synesthesia + Harnesses")
     print("=" * 60)
 
@@ -354,7 +354,7 @@ if __name__ == "__main__":
     total = result.testsRun
     failures = len(result.failures) + len(result.errors)
     print(f"  RESULTADO: {total - failures}/{total} tests pasados")
-    print(f"  {'🦁 SAMSON VISION v0.3.0: COMPLETO' if failures == 0 else f'⚠️  {failures} fallos'}")
+    print(f"  {'🦁 SAMSON VISION v0.3.1: COMPLETO' if failures == 0 else f'⚠️  {failures} fallos'}")
     print("=" * 60)
 
     sys.exit(0 if failures == 0 else 1)

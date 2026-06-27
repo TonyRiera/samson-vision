@@ -32,6 +32,18 @@ import numpy as np
 logger = logging.getLogger("samson_vision")
 
 
+
+SVP_SCHEMA_VERSION = "1.0"
+
+def _package_version() -> str:
+    try:
+        from importlib.metadata import version as pkg_version
+        return pkg_version("samson-vision")
+    except Exception:
+        return "0.3.1"
+
+PACKAGE_VERSION = _package_version()
+
 # ═══════════════════════════════════════════════════════════════
 #  SCHEMA / DATA CLASSES
 # ═══════════════════════════════════════════════════════════════
@@ -165,8 +177,8 @@ class AIDescription:
 
 @dataclass
 class SamsonVisionPack:
-    """Paquete completo de visión textual para IA."""
-    version: str = "0.2"
+    """Paquete completo de vision textual para IA."""
+    version: str = SVP_SCHEMA_VERSION
     
     # Metadata
     metadata: dict = field(default_factory=dict)
@@ -439,6 +451,7 @@ class SamsonVisionBuilder:
         summary = self._generate_summary(vmk_report, sg, hierarchy, prompt)
 
         pack = SamsonVisionPack(
+            version=SVP_SCHEMA_VERSION,
             metadata=metadata,
             summary=summary,
             ascii_representations=ascii_repr,
@@ -957,6 +970,7 @@ class SamsonVisionBuilder:
     def _error_pack(self, msg: str) -> SamsonVisionPack:
         """Crea un pack de error."""
         return SamsonVisionPack(
+            version=SVP_SCHEMA_VERSION,
             metadata={"error": msg},
             summary={"global": f"[ERROR] {msg}"},
         )
