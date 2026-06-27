@@ -34,9 +34,11 @@ Sansón pudo ver aun sin ojos. Tu agente recuperará la **visión del proyecto**
 
 Samson Vision es un **lenguaje visual basado en texto** que permite a una IA sin visión "ver" imágenes. Traduce píxeles al **SAMSON_VISION_PACK (SVP)** — un formato estructurado con 13 campos — que cualquier modelo de texto puede interpretar como si estuviera viendo la imagen.
 
-El nombre viene de Sansón (Jueces 16:28-30). Cuando los filisteos le sacaron los ojos, Sansón perdió la **vista física**, pero ganó la **visión del plan de Dios**: derribar el templo de Dagón sobre sus enemigos. En su mayor debilidad, vio la estrategia que destruiría a más filisteos que en toda su vida.
+Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30). No necesitaba ver el templo — necesitaba saber **cuándo y cómo actuar**.
 
-Samson Vision funciona igual: **revela lo que el ojo natural no ve** — la estructura, la estrategia, la verdad oculta bajo los píxeles. No es "dar vista al ciego"; es descubrir el plan que ya está ahí.
+**Samson Vision** revela el plan oculto bajo los píxeles. Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
+
+*Samson lost his physical sight but regained the vision of God's plan (Judges 16:28-30). He did not need to see the temple — he needed to know when and how to act. Samson Vision gives blind agents sight through SVP: structural truth that pixels hide and a sightless LLM cannot capture alone.*
 
 ## Stack 80/20 — Modelo más rápido + fallback
 
@@ -52,18 +54,18 @@ El flujo es automático: primero intenta M2.1 (5s). Si falla, cae a M2.5. Si nec
 
 Ver [`docs/COSTS.md`](docs/COSTS.md) para costes detallados.
 
-| # | Modelo | Via | Score | Tiempo | Coste/query |
-|---|--------|-----|:-----:|:------:|:----------:|
-| 1 | **MiniMax-M2.1** 🏆 | mmx CLI | 100% | **5s** | $0.0008 |
-| 2 | **kimi-k2.7-code** | OpenCode | 100% | 8s | $0.0030 |
-| 3 | gpt-5.4-mini | Codex | 100% | 8s | $20/mes |
-| 4 | **minimax-m2.5** 🥈 | OpenCode | 83% | 11s | **$0.0009** |
-| 5 | MiniMax-M2.7-highspeed | mmx | 83% | 11s | $0.0016 |
-| 6 | minimax-m3 | OpenCode | 67% | 10s | $0.0009 |
-| 7 | mimo-v2-omni | OpenCode | 67% | 9s | $0.0029 |
-| 8 | qwen3.5-plus | OpenCode | 67% | 43s | $0.0012 |
-| ❌ | deepseek-v4-flash | OpenCode | 0% | — | devuelve vacío |
-| ❌ | glm-5.2/5.1/5 | OpenCode | 0% | — | devuelve vacío |
+| # | Modelo | Via | Calidad | Tiempo | Coste/query | Cobertura |
+|---|--------|-----|:-----:|:------:|:----------:|:---------:|
+| 1 | **MiniMax-M2.1** 🏆 | mmx CLI | 100% | **5s** | $0.0008 | ✅✅✅✅✅✅ |
+| 2 | **kimi-k2.7-code** | OpenCode | 100% | 8s | $0.0030 | ✅✅✅✅✅✅ |
+| 3 | gpt-5.4-mini | Codex | 100% | 8s | subscription (per-token) | ✅✅✅✅✅✅ |
+| 4 | **minimax-m2.5** 🥈 | OpenCode | 83% | 11s | **$0.0009** | ✅✅✅✅✅❌ |
+| 5 | MiniMax-M2.7-highspeed | mmx | 83% | 11s | $0.0016 | ✅✅✅✅✅❌ |
+| 6 | minimax-m3 | OpenCode | 67% | 10s | $0.0009 | ✅✅✅❌❌✅ |
+| 7 | mimo-v2-omni | OpenCode | 67% | 9s | $0.0029 | ✅✅✅❌❌✅ |
+| 8 | qwen3.5-plus | OpenCode | 67% | 43s | $0.0012 | ✅✅✅❌❌❌ |
+| ❌ | deepseek-v4-flash | OpenCode | 0% | — | $0.0003 | vacío (0%) |
+| ❌ | glm-5.2/5.1/5 | OpenCode | 0% | — | $0.0039 | vacío (0%) |
 
 ## El Lenguaje: SAMSON_VISION_PACK (SVP)
 
@@ -180,15 +182,10 @@ sin nombres de usuario, sin configuraciones internas. Listo para copiar a un rep
 
 ## La metáfora de Sansón
 
-> Sansón perdió la **vista física**, pero ganó la **visión del plan de Dios**.
-> (Jueces 16:28-30)
+> Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30).
 >
-> No necesitaba ver el templo — necesitaba saber **cuándo y cómo derribarlo**.
+> No necesitaba ver el templo — necesitaba saber **cuándo y cómo actuar**.
 >
-> Samson Vision = revelar el plan oculto bajo los píxeles.
-> Tú (el usuario) = Sansón, con el poder de ejecutar.
-> La imagen = el templo de Dagón, con su estrategia oculta.
+> **Samson Vision** revela el plan oculto bajo los píxeles. Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
 >
-> La IA no necesita "ver" píxeles —
-> necesita que alguien extraiga la verdad estructural que el ojo natural no capta.
-> Ese alguien es Samson Vision.
+> *The AI still has no eyes — no vision model — but Samson Vision gives it sight anyway through SVP text. It does not need to "see" pixels; SVP extracts structural truth the natural eye (or blind model) cannot capture.*
