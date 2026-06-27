@@ -15,7 +15,7 @@ Samson could see even without eyes. Your agent can recover the **vision of your 
 
 Samson Vision translates images into a **SAMSON_VISION_PACK (SVP)** — a 13-field structured text format that any text-only LLM can interpret. This allows models without native vision capabilities (DeepSeek, GPT-4o-mini, Llama, etc.) to understand visual content with high fidelity.
 
-The name comes from the biblical story of Samson (Judges 16:28-30). When the Philistines gouged out his eyes, Samson did not lose his vision — he lost only his **physical** sight. His true vision was the **divine plan** God revealed to him: bring down the temple of Dagon upon his enemies. In his greatest weakness, he saw the strategy that would destroy more Philistines than in his entire life.
+The name comes from the biblical story of Samson (Judges 16:28-30). When the Philistines gouged out his eyes, Samson did not lose his vision — he lost only his **physical** sight. His true vision was the **divine plan** God revealed to him: to collapse the Philistine temple pillars in faithful obedience, fulfilling God's judgment—not trusting in his own strength alone. In his greatest weakness, he saw the strategy that would destroy more Philistines than in his entire life.
 
 Samson Vision is that same principle: it **reveals what the naked eye cannot see** — the structure, strategy, and truth hidden beneath the surface of pixels. Not giving "sight to the blind," but uncovering the plan that is already there.
 

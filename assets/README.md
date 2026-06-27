@@ -11,7 +11,7 @@ Curated images for SVP CLI demos, README heroes, and PUBLIC docs.
 | `temple_collapse_epic_wide.png` | Wide epic hero (alternate to `temple_collapse_wide.png`) |
 | `samson_pillar_golden_energy.png` | Pillar push + energy (action demo) |
 | `samson_anointed_chains.png` | Anointing / chains motif |
-| `samson_blindfold_angel_dagon.png` | Prophetic narrative (blindfold, temple) |
+| `samson_blindfold_divine_light.png` | Prophetic narrative (blindfold, divine light at the temple) |
 
 ## Canonical heroes (existing)
 
