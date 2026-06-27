@@ -172,7 +172,7 @@ samson-vision/
 
 ## Roadmap
 
-### v0.3.1 (this release)
+### v0.3.2 (this release)
 - Packaging cleanup (`package-dir`), docs alignment (6/6 binary signals), SETUP harness honesty
 
 ### v0.4 (planned)

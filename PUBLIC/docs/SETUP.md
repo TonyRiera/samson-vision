@@ -1,6 +1,6 @@
 # 📖 SETUP — Instalación de Samson Vision
 
-> Actualizado: 24-Jun-2026 | Verificado: 29/29 tests + SVP funcional
+> Actualizado: 27-Jun-2026 | Verificado: 29/29 tests + SVP funcional
 
 ## Requisitos
 
