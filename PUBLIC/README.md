@@ -5,8 +5,15 @@
 <h1 align="center">Samson Vision</h1>
 
 <p align="center">
-  <em>Your limitations are not an impossible limit to overcome.</em> <sub>*Philippians 4:13*</sub><br>
-  <sub>Your agent still has no eyes — same model, no vision — but receives sight through SVP. · Tu agente sigue sin ojos — el mismo modelo, sin visión — pero recibe visión a través del SVP.</sub>
+  <strong>Tus limitaciones no son un límite imposible de superar.</strong><br>
+  <em>Filipenses 4:13</em><br>
+  <sub><strong>Your limitations are not an impossible limit to overcome.</strong><br>
+  <em>Philippians 4:13</em></sub>
+</p>
+
+<p align="center">
+  <em>Samson Vision da visión a tu agente aunque el modelo siga sin ojos — SVP extrae la verdad estructural bajo los píxeles.</em><br>
+  <sub><em>Samson Vision gives your agent sight even when the model still has no eyes — SVP extracts structural truth beneath the pixels.</em></sub>
 </p>
 
 <p align="center">
@@ -22,7 +29,7 @@ Samson Vision translates images into a **SAMSON_VISION_PACK (SVP)** — a 13-fie
 
 Samson lost his **physical sight** but regained the **vision of God's plan** (Judges 16:28-30). He did not need to see the temple — he needed to know **when and how to act**.
 
-**Samson Vision** reveals the hidden plan beneath the pixels. Your agent **still has no eyes** — the same model, no vision — but receives **sight** through SVP: the structural truth pixels hide and a blind LLM cannot capture alone.
+**Samson Vision** — *your limitations are not an impossible limit to overcome* (Philippians 4:13). Your agent **still has no eyes** — the same model, no vision — but receives **sight** through SVP: the structural truth pixels hide and a blind LLM cannot capture alone.
 
 *Sansón perdió la vista física, pero recuperó la visión del plan de Dios. Samson Vision da visión a agentes ciegos a través del SVP — la verdad estructural que los píxeles esconden.*
 

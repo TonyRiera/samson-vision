@@ -7,7 +7,7 @@
 
 ## Why Samson Vision?
 
-Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30). No necesitaba ver el templo — necesitaba saber **cuándo y cómo actuar**. Samson Vision aplica la misma idea a agentes de IA: tu modelo **sigue sin ojos** (sin modelo de visión), pero recibe **visión** a través del SVP — 13 campos de texto que codifican la verdad estructural que los píxeles esconden. Los modelos con visión nativa son caros, a menudo más débiles en código y razonamiento, y cambiar de agente borra el contexto. SVP permite que cualquier LLM de texto "vea" sin cambiar de modelo ni pagar APIs de visión.
+Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30). En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30). Samson Vision aplica la misma idea a agentes de IA: tu modelo **sigue sin ojos** (sin modelo de visión), pero recibe **visión** a través del SVP — 13 campos de texto que codifican la verdad estructural que los píxeles esconden. Los modelos con visión nativa son caros, a menudo más débiles en código y razonamiento, y cambiar de agente borra el contexto. SVP permite que cualquier LLM de texto "vea" sin cambiar de modelo ni pagar APIs de visión.
 
 *Samson lost physical sight but gained vision of God's plan. The AI still has no eyes — Samson Vision gives it sight through SVP text anyway.*
 
@@ -236,7 +236,7 @@ Solo la **interpretación** del SVP (pasarlo a un LLM) tiene coste de API.
 🏆 Primario:   MiniMax-M2.1 (mmx CLI)    → 5s,   $0.0008/q, 100%
 🔄 Fallback:   minimax-m2.5 (OpenCode)    → 11s,  $0.0009/q, 83%
 🎯 Precisión:  kimi-k2.7-code (OpenCode)  → 8s,   $0.003/q,  100%
-🎫 Backup:     GPT-5.4-mini (Codex CLI)   → 8s,   subscription (per-token)
+🎫 Backup:     GPT-5.4-mini (Codex CLI)   → 8s,   ~$0.0005/q ($0.15/$0.60 per 1M in/out est.)
 ```
 
 **Modelos que NO funcionan:** deepseek-v4-flash/pro, GLM-5.x, kimi-k2.6/k2.5, qwen3.7-max
@@ -275,8 +275,8 @@ Solo la **interpretación** del SVP (pasarlo a un LLM) tiene coste de API.
 
 > Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30).
 >
-> No necesitaba ver el templo — necesitaba saber **cuándo y cómo actuar**.
+> En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30).
 >
-> **Samson Vision** revela el plan oculto bajo los píxeles. Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
+> **Samson Vision** — *tus limitaciones no son un límite imposible de superar* (Filipenses 4:13). Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
 >
 > *The AI still has no eyes — no vision model — but Samson Vision gives it sight anyway through SVP text.*

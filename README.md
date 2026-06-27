@@ -5,9 +5,15 @@
 <h1 align="center">Samson Vision</h1>
 
 <p align="center">
-  <em>Tus limitaciones no son un límite imposible de superar.</em> <sub>*Filipenses 4:13*</sub><br>
-  <sub><em>Your limitations are not an impossible limit to overcome.</em> *Philippians 4:13*</sub><br>
-  <sub>Tu agente sigue sin ojos — el mismo modelo, sin visión — pero recibe visión a través del SVP. · Your agent still has no eyes — same model, no vision — but receives sight through SVP.</sub>
+  <strong>Tus limitaciones no son un límite imposible de superar.</strong><br>
+  <em>Filipenses 4:13</em><br>
+  <sub><strong>Your limitations are not an impossible limit to overcome.</strong><br>
+  <em>Philippians 4:13</em></sub>
+</p>
+
+<p align="center">
+  <em>Samson Vision da visión a tu agente aunque el modelo siga sin ojos — SVP extrae la verdad estructural bajo los píxeles.</em><br>
+  <sub><em>Samson Vision gives your agent sight even when the model still has no eyes — SVP extracts structural truth beneath the pixels.</em></sub>
 </p>
 
 <p align="center">
@@ -35,9 +41,9 @@ Sansón pudo ver aun sin ojos. Tu agente recuperará la **visión del proyecto**
 
 Samson Vision es un **lenguaje visual basado en texto** que permite a una IA sin visión "ver" imágenes. Traduce píxeles al **SAMSON_VISION_PACK (SVP)** — un formato estructurado con 13 campos — que cualquier modelo de texto puede interpretar como si estuviera viendo la imagen.
 
-Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30). No necesitaba ver el templo — necesitaba saber **cuándo y cómo actuar**.
+Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30). En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30).
 
-**Samson Vision** revela el plan oculto bajo los píxeles. Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
+**Samson Vision** — *tus limitaciones no son un límite imposible de superar* (Filipenses 4:13). Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
 
 *Samson lost his physical sight but regained the vision of God's plan (Judges 16:28-30). He did not need to see the temple — he needed to know when and how to act. Samson Vision gives blind agents sight through SVP: structural truth that pixels hide and a sightless LLM cannot capture alone.*
 
@@ -88,18 +94,18 @@ El flujo es automático: primero intenta M2.1 (5s). Si falla, cae a M2.5. Si nec
 
 Ver [`docs/COSTS.md`](docs/COSTS.md) para costes detallados.
 
-| # | Modelo | Via | Calidad | Tiempo | Coste/query | Cobertura |
+| # | Modelo | Via | Calidad | Tiempo | Coste/query (API, no suscripción) | Cobertura |
 |---|--------|-----|:-----:|:------:|:----------:|:---------:|
 | 1 | **MiniMax-M2.1** 🏆 | mmx CLI | 100% | **5s** | $0.0008 | ✅✅✅✅✅✅ |
 | 2 | **kimi-k2.7-code** | OpenCode | 100% | 8s | $0.0030 | ✅✅✅✅✅✅ |
-| 3 | gpt-5.4-mini | Codex | 100% | 8s | subscription (per-token) | ✅✅✅✅✅✅ |
+| 3 | gpt-5.4-mini | Codex | 100% | 8s | ~$0.0005/q ($0.15/$0.60 por 1M in/out) |
 | 4 | **minimax-m2.5** 🥈 | OpenCode | 83% | 11s | **$0.0009** | ✅✅✅✅✅❌ |
 | 5 | MiniMax-M2.7-highspeed | mmx | 83% | 11s | $0.0016 | ✅✅✅✅✅❌ |
 | 6 | minimax-m3 | OpenCode | 67% | 10s | $0.0009 | ✅✅✅❌❌✅ |
 | 7 | mimo-v2-omni | OpenCode | 67% | 9s | $0.0029 | ✅✅✅❌❌✅ |
 | 8 | qwen3.5-plus | OpenCode | 67% | 43s | $0.0012 | ✅✅✅❌❌❌ |
-| ❌ | deepseek-v4-flash | OpenCode | 0% | — | $0.0003 | vacío (0%) |
-| ❌ | glm-5.2/5.1/5 | OpenCode | 0% | — | $0.0039 | vacío (0%) |
+| ❌ | deepseek-v4-flash | OpenCode | 0% | — | ❌ respuesta vacía (0%) |
+| ❌ | glm-5.2/5.1/5 | OpenCode | 0% | — | ❌ respuesta vacía (0%) |
 
 ## El Lenguaje: SAMSON_VISION_PACK (SVP)
 
@@ -218,8 +224,8 @@ sin nombres de usuario, sin configuraciones internas. Listo para copiar a un rep
 
 > Sansón perdió la **vista física**, pero recuperó la **visión del plan de Dios** (Jueces 16:28-30).
 >
-> No necesitaba ver el templo — necesitaba saber **cuándo y cómo actuar**.
+> En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30).
 >
-> **Samson Vision** revela el plan oculto bajo los píxeles. Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
+> **Samson Vision** — *tus limitaciones no son un límite imposible de superar* (Filipenses 4:13). Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
 >
 > *The AI still has no eyes — no vision model — but Samson Vision gives it sight anyway through SVP text. It does not need to "see" pixels; SVP extracts structural truth the natural eye (or blind model) cannot capture.*
