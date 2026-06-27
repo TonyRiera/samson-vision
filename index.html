@@ -69,7 +69,21 @@
       text-align: center;
       font-size: 0.8rem;
       color: var(--muted);
-      margin-bottom: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .subline {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 36em;
+      margin: 0 auto 0.35rem;
+    }
+    .subline-en {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      max-width: 36em;
+      margin: 0 auto 2rem;
     }
     .lead {
       font-size: 0.95rem;
@@ -147,12 +161,7 @@
     <p class="subline">Samson Vision da visión a tu agente aunque el modelo siga sin ojos — SVP extrae la verdad estructural bajo los píxeles.</p>
     <p class="subline-en">Samson Vision gives your agent sight even when the model still has no eyes — SVP extracts structural truth beneath the pixels.</p>
 
-<p class="tagline-en"><strong>Your limitations are not an impossible limit to overcome.</strong> <em>Philippians 4:13</em></p>
-
-    <p class="subline">Samson Vision da visión a tu agente aunque el modelo siga sin ojos — SVP extrae la verdad estructural bajo los píxeles.</p>
-    <p class="subline-en">Samson Vision gives your agent sight even when the model still has no eyes — SVP extracts structural truth beneath the pixels.</p>
-
-<p class="lead">
+    <p class="lead">
       Sansón pudo ver aun sin ojos. Tu agente recuperará la <strong>visión del proyecto</strong>
       aunque su modelo siga siendo el mismo — sin modelos con visión que encarecen y pierden habilidades.
     </p>
@@ -177,13 +186,13 @@
 
     <section>
       <h2>Flujo con subagentes</h2>
-      <p>El <strong>agente principal</strong> recibe la tarea con imagen. <strong>Samson Vision</strong> genera el SVP (<code>--md</code>). Delega al <strong>subagente</strong> (solo texto, sin visión) con el prompt + SVP embebido. El subagente trabaja con visión estructurada; el resultado vuelve al agente principal.</p>
-      <p><em>Main agent → SVP → text-only subagent → result back. Context preserved, no vision model on subagent.</em></p>
+      <p>El <strong>agente principal</strong> (sin visión, ej. DeepSeek Flash v4) recibe la tarea con imagen. <strong>Samson Vision</strong> genera el SVP (<code>--md</code>) — el principal obtiene "visión" en texto. Delega al <strong>subagente con visión incorporada</strong>: prompt + contexto + SVP. El subagente usa visión nativa + SVP; el resultado vuelve al principal (orquestación barata).</p>
+      <p><em>The vision-less main agent gains textual sight via SVP, then delegates to a vision subagent (native vision + SVP). Cheap orchestration, precise execution.</em></p>
     </section>
 
     <section>
       <h2>La metáfora</h2>
-      <p>Sansón perdió la vista física, pero recuperó la visión del plan de Dios (Jueces 16:28-30). No necesitaba ver el templo — necesitaba saber cuándo y cómo actuar. <strong>Samson Vision</strong> — <em>tus limitaciones no son un límite imposible de superar</em> (Filipenses 4:13). Tu agente <strong>sigue sin ojos</strong> — el mismo modelo, sin visión — pero recibe <strong>visión</strong> a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.</p>
+      <p>Sansón perdió la vista física, pero recuperó la visión del plan de Dios (Jueces 16:28-30). No necesitaba ver el templo — necesitaba saber cuándo y cómo actuar. Tu agente principal <strong>sigue sin ojos</strong> — el mismo modelo, sin visión — pero recibe <strong>visión</strong> a través del SVP: la verdad estructural que los píxeles esconden.</p>
       <p><em>Samson lost physical sight but gained vision of God's plan. The AI still has no eyes — Samson Vision gives it sight through SVP anyway.</em></p>
     </section>
 

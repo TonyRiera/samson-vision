@@ -35,35 +35,44 @@ Samson lost his **physical sight** but regained the **vision of God's plan** (Ju
 
 ## Subagent workflow
 
-A **main agent** receives tasks that include images or screenshots. Before delegating, the pipeline (or main agent) generates a **SAMSON_VISION_PACK (SVP)** with Samson Vision. The **subagent** — typically a **text-only** model with no native vision — receives the task prompt **plus the embedded SVP** in its context.
+A **vision-less main agent** (e.g. **DeepSeek Flash v4 Pro** — text-only, cheap) orchestrates the task. **Samson Vision** complements the main agent: it converts the image into a **SAMSON_VISION_PACK (SVP)** (`--md`) so the main agent gains textual "sight" without being multimodal. Then it delegates to a **subagent with built-in vision** (native vision model) with prompt + context + embedded SVP.
 
-This preserves visual context transfer **without** expensive vision models on the subagent or switching models.
+**Steps:**
+
+1. The **main agent** (no vision, e.g. DeepSeek Flash v4) receives a task with an image or screenshot.
+2. **Samson Vision** generates the SVP (`python3 src/samson_vision.py image.png --md`) — the main agent gains textual "sight".
+3. The main agent **delegates to the subagent** (WITH built-in vision): prompt + context + SVP.
+4. The **subagent** uses its native vision **plus** the SVP for precise execution.
+5. The **result returns to the main agent** — cheap orchestration, no expensive vision model in the main loop.
 
 ```mermaid
 sequenceDiagram
     participant U as User / Task
-    participant M as Main agent
+    participant M as Main agent (text)
     participant SV as Samson Vision
-    participant S as Subagent (text-only)
+    participant S as Subagent (vision)
 
     U->>M: Task + image/screenshot
     M->>SV: image.png --md
     SV-->>M: SVP (13 fields)
-    M->>S: prompt + embedded SVP
-    Note over S: No vision model
-    S-->>M: Result (with text "sight")
+    Note over M: "Sees" via SVP, no multimodal model
+    M->>S: prompt + context + SVP + image
+    Note over S: Native vision + SVP
+    S-->>M: Precise result
     M-->>U: Integrated response
 ```
 
-**Steps:**
+---
 
-1. The **main agent** receives a task with an image or screenshot.
-2. **Samson Vision** generates the SVP (`python3 src/samson_vision.py image.png --md`).
-3. The main agent **delegates to the subagent**: task prompt + SVP embedded in context.
-4. The **subagent** (no native vision) works with structured text "sight".
-5. The **result returns to the main agent** for synthesis, validation, or delivery.
+Un **agente principal sin visión** (p. ej. **DeepSeek Flash v4 Pro** — modelo texto-only, barato) orquesta la tarea. **Samson Vision** complementa al principal: convierte la imagen en **SAMSON_VISION_PACK (SVP)** (`--md`) para que el principal obtenga "visión" en texto sin ser multimodal. Luego delega al **subagente con visión incorporada** (modelo vision nativo) con prompt + contexto + SVP embebido.
 
-*El agente principal genera SVP y delega al subagente solo-texto — visión estructurada sin modelos de visión costosos.*
+**Pasos:**
+
+1. El **agente principal** (sin visión, ej. DeepSeek Flash v4) recibe una tarea con imagen o screenshot.
+2. **Samson Vision** genera el SVP (`python3 src/samson_vision.py imagen.png --md`) — el principal obtiene "visión" en texto.
+3. El agente principal **delega al subagente** (CON visión incorporada): prompt + contexto + SVP.
+4. El **subagente** usa su visión nativa **más** el SVP para ejecutar con precisión.
+5. El **resultado vuelve al agente principal** — orquestación barata, sin modelo vision caro en el loop principal.
 
 
 ## How it works

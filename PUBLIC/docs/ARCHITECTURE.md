@@ -45,45 +45,54 @@ Imagen (PNG/JPG/WEBP)
 
 ## Flujo con subagentes (orquestación multi-agente)
 
-Samson Vision encaja en arquitecturas donde un **agente principal** delega trabajo a **subagentes** especializados. Los subagentes suelen ser modelos **solo texto** (más baratos, más capaces en código) pero **sin visión nativa**.
+Samson Vision encaja en arquitecturas donde un **agente principal sin visión** (p. ej. DeepSeek Flash v4 Pro — texto-only, barato) orquesta y delega a **subagentes con visión incorporada**. El SVP da al principal "visión" en texto; el subagente combina visión nativa + SVP para ejecución precisa.
 
 ```
-┌─────────────────┐     imagen/screenshot
-│  Agente         │──────────────────────────────┐
-│  principal      │                              │
-└────────┬────────┘                              ▼
-         │                          ┌────────────────────────┐
-         │                          │  samson_vision.py      │
-         │                          │  --md → SVP (13 campos)│
-         │                          └───────────┬────────────┘
-         │                                      │ texto estructurado
-         │  prompt + SVP embebido               │
-         ▼                                      ▼
-┌─────────────────┐                    ┌─────────────────┐
-│  Subagente      │◄───────────────────│  Contexto:      │
-│  (texto, sin    │   "visión" en SVP  │  tarea + SVP    │
-│   visión)       │                    └─────────────────┘
-└────────┬────────┘
-         │ resultado
-         ▼
-┌─────────────────┐
-│  Agente         │ → síntesis / entrega al usuario
-│  principal      │
-└─────────────────┘
+┌─────────────────────────┐     imagen/screenshot
+│  Agente principal       │──────────────────────────────┐
+│  (texto, SIN visión)    │                              │
+└───────────┬─────────────┘                              ▼
+            │                              ┌────────────────────────┐
+            │                              │  samson_vision.py      │
+            │                              │  --md → SVP (13 campos)│
+            │                              └───────────┬────────────┘
+            │◄─────────────────────────────────────┘ SVP → principal "ve" en texto
+            │
+            │  prompt + contexto + SVP + imagen
+            ▼
+┌─────────────────────────┐
+│  Subagente              │
+│  (CON visión nativa)    │ → visión nativa + SVP
+└───────────┬─────────────┘
+            │ resultado
+            ▼
+┌─────────────────────────┐
+│  Agente principal       │ → síntesis / entrega (sin modelo vision caro)
+└─────────────────────────┘
 ```
+
+**Pasos:**
+
+1. Agente principal (sin visión, ej. DeepSeek Flash v4) recibe tarea con imagen.
+2. Samson Vision genera SVP (`--md`) — el principal obtiene "visión" en texto.
+3. Agente principal delega al subagente (CON visión incorporada): prompt + contexto + SVP.
+4. Subagente usa su visión nativa + SVP para ejecutar con precisión.
+5. Resultado vuelve al agente principal (barato, sin modelo vision caro en orquestación).
 
 **Ventajas del patrón:**
 
-| Aspecto | Sin SVP | Con SVP + subagente |
-|---------|---------|---------------------|
-| Modelo del subagente | Requiere visión nativa (caro) | Solo texto (barato) |
-| Contexto visual | Se pierde al cambiar modelo | SVP portable en texto |
-| Coste por delegación | API de visión por imagen | ~$0 generación + interpretación texto |
-| Habilidades del subagente | Se degradan con modelos multimodales | Se mantienen intactas |
+| Aspecto | Sin SVP | Con SVP + subagente con visión |
+|---------|---------|--------------------------------|
+| Agente principal | Necesita modelo multimodal (caro) | Texto-only barato; "ve" vía SVP |
+| Subagente | Solo imagen, sin contexto estructurado | Visión nativa + SVP = mayor precisión |
+| Contexto visual | Se pierde entre modelos | SVP portable en texto |
+| Coste de orquestación | API de visión en cada turno | ~$0 generación SVP + principal texto-only |
 
 Los contratos de subagente en `runtime/subagents/` pueden incluir el SVP como bloque obligatorio cuando la tarea incluye input visual.
 
-*Main agent generates SVP; text-only subagent receives embedded structured vision — no vision API on the subagent.*
+---
+
+A **vision-less main agent** (e.g. DeepSeek Flash v4 Pro) orchestrates; **Samson Vision** produces SVP so the main agent gains textual sight. The **vision subagent** receives prompt + context + SVP + image and executes with native vision plus structured SVP. Results return to the cheap text-only main agent.
 
 
 ## Componentes
@@ -277,6 +286,6 @@ Solo la **interpretación** del SVP (pasarlo a un LLM) tiene coste de API.
 >
 > En su debilidad, Dios le dio visión para actuar en el momento justo (Jueces 16:28-30).
 >
-> **Samson Vision** — *tus limitaciones no son un límite imposible de superar* (Filipenses 4:13). Tu agente **sigue sin ojos** — el mismo modelo, sin visión — pero recibe **visión** a través del SVP: la verdad estructural que los píxeles esconden y que un LLM ciego no puede captar solo.
+> **Samson Vision** — el agente principal **sigue sin ojos** (sin modelo de visión), pero recibe **visión** a través del SVP; el subagente con visión nativa ejecuta con precisión usando SVP + imagen.
 >
 > *The AI still has no eyes — no vision model — but Samson Vision gives it sight anyway through SVP text.*

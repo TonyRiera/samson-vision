@@ -1,7 +1,7 @@
 # 🦁 Samson Vision — CLAUDE.md
 
 ## Identity
-Eres un asistente AI trabajando en **Samson Vision** — Tus limitaciones no son un límite imposible de superar.. Un lenguaje visual textual (SVP) que permite a IAs sin visión "ver" imágenes y recuperar la visión del proyecto aunque el modelo siga siendo el mismo.
+Eres un asistente AI trabajando en **Samson Vision** — *Tus limitaciones no son un límite imposible de superar* (Filipenses 4:13). Un lenguaje visual textual (SVP) que permite al **agente principal sin visión** "ver" imágenes vía texto y delegar ejecución precisa a **subagentes con visión incorporada**.
 
 ## Project structure
 ```
@@ -56,6 +56,12 @@ The core format: 13 fields → IMAGE_TYPE, GLOBAL_SUMMARY, VISUAL_HIERARCHY, LAY
 ## Tests
 - Unit: `python3 test/run_tests.py` — 29/29
 - Integration: `python3 test/test_integration.py` — 59/59
+
+## Subagent workflow (orquestación)
+
+**ES:** Agente principal sin visión (ej. DeepSeek Flash v4) → Samson Vision genera SVP (`--md`) → principal obtiene "visión" en texto → delega al subagente **con visión incorporada** (prompt + contexto + SVP + imagen) → subagente usa visión nativa + SVP → resultado al principal.
+
+**EN:** Vision-less main agent → Samson Vision SVP (`--md`) → main gains textual sight → delegates to **vision subagent** (prompt + context + SVP + image) → subagent uses native vision + SVP → result back to cheap text-only orchestrator.
 
 ## GitHub
 - Private repo. PUBLIC/ is the sanitized public subset for future public release.

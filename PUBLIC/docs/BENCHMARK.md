@@ -6,12 +6,12 @@
 
 ## Results
 
-| # | Model | Provider | Quality | Time | Cost/query | Coverage (6 dims) |
+| # | Model | Provider | Quality | Time | Cost/query (API tokens, not subscription) | Coverage (6 dims) |
 |---|-------|----------|:-------:|:----:|:----------:|:--------:|
 | 1 | **MiniMax-M2.1** 🏆 | MiniMax API | **100%** | **5s** | $0.0008 | ✅✅✅✅✅✅ |
 | 2 | **kimi-k2.7-code** | OpenCode | **100%** | 8s | $0.0030 | ✅✅✅✅✅✅ |
 | 3 | GPT-5.5 | Codex | 100% | 27s | subscription | ✅✅✅✅✅✅ |
-| 4 | GPT-5.4-mini | Codex | 100% | 8s | subscription (per-token) | ✅✅✅✅✅✅ |
+| 4 | GPT-5.4-mini | Codex | 100% | 8s | ~$0.0005/q ($0.15/$0.60 per 1M in/out est.) | ✅✅✅✅✅✅ |
 | 5 | MiMo V2.5 Pro | OpenCode | 100% | 18s | $0.0040 | ✅✅✅✅✅✅ |
 | 6 | **minimax-m2.5** 🥈 | OpenCode | **83%** | **11s** | **$0.0009** | ✅✅✅✅✅❌ |
 | 7 | MiniMax-M2.7-highspeed | MiniMax API | 83% | 11s | $0.0016 | ✅✅✅✅✅❌ |
@@ -51,7 +51,7 @@
 Primary:   MiniMax-M2.1  → 5s,  $0.0008/q, 100%  ← fastest
 Fallback:  minimax-m2.5  → 11s, $0.0009/q, 83%   ← cheapest viable
 Precision: kimi-k2.7-code → 8s,  $0.003/q,  100%  ← best quality
-Backup:    GPT-5.4-mini  → 8s,  subscription (per-token), 100% ← always available
+Backup:    GPT-5.4-mini  → 8s,  ~$0.0005/q ($0.15/$0.60 per 1M in/out est.), 100% ← always available
 ```
 
 ## Test methodology
