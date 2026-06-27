@@ -1,0 +1,31 @@
+# Changelog
+
+All notable changes to Samson Vision are documented here.
+
+## [0.3.0] — 2026-06-27
+
+**Credibility release** — public positioning, CI, and real examples without claiming full vision parity.
+
+### Added
+- README ideal: EN lead + ES, comparison table, niche positioning, separate metaphor vs technical sections
+- `generate_svp()` public API documented and verified
+- `SAMSON_VISION_HOME` env override in `harnesses.py`
+- GitHub Actions CI (Python 3.10 / 3.11 / 3.12, `pip install -e .`, `test/run_tests.py`)
+- `examples/` with 5 categories: `web_ui_screenshot`, `dashboard`, `terminal_error`, `document_ocr`, `mobile_ui`
+- Real `output.svp.md` files generated from `assets/` via CLI
+- `BENCHMARK_v0.4.md` — stub plan for 20-image benchmark (not executed in this release)
+- Roadmap v0.4 in README (monorepo split core/agent/bench deferred)
+
+### Fixed / clarified
+- Benchmark claims: **6/6 binary signals**, not "100% visual quality"
+- `OBJECTS_AND_COMPONENTS`: **visual region detection** (OpenCV), not ML object detection
+- Version aligned to semver `0.3.0` (was `2.0` internally)
+
+### Unchanged (roadmap v0.4)
+- Full monorepo split (`core/`, `agent/`, `bench/`)
+- 20-image benchmark suite execution
+- Production Hermes/Jordan harness hardening on claw
+
+## [0.2.x] — prior internal releases
+
+- SVP 13-field schema, VMK pipeline, 29 unit tests, MiniMax/kimi benchmark on El Mundo screenshot

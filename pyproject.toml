@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "samson-vision"
-version = "2.0"
+version = "0.3.0"
 description = "Samson Vision — Tus limitaciones no son un limite imposible de superar (Filipenses 4:13). SVP: 13 campos de texto para que IAs sin vision vean imagenes sin modelos costosos."
 readme = "README.md"
 license = { text = "MIT" }
